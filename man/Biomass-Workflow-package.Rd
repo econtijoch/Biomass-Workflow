@@ -3,8 +3,7 @@
 \alias{Biomass-Workflow}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+Biomass Workflow Package
 }
 \description{
 More about what it does (maybe more than one line)
