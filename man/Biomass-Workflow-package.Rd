@@ -1,6 +1,6 @@
-\name{Biomass Workflow-package}
-\alias{Biomass Workflow-package}
-\alias{Biomass Workflow}
+\name{Biomass-Workflow-package}
+\alias{Biomass-Workflow-package}
+\alias{Biomass-Workflow}
 \docType{package}
 \title{
 What the package does (short line)
