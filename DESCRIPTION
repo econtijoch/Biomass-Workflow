@@ -1,9 +1,14 @@
 Package: BiomassWorkflow
-Type: Package
-Title: Helps streamline biomass data workflow
-Version: 1.0
-Date: 2014-12-19
+Version: 1
+Date: 2044-12-20
+Title: Biomass Workflow
+Authors@R: person(“Eduardo”, “Contijoch”, role = “aut”,
+		     email = “eduardo.contijoch@gmail.com”)
 Author: Eduardo Contijoch
-Maintainer: Eduardo <eduardo.contijoch@gmail.com>
+Maintainer: Eduardo Contijoch <eduardo.contijoch@gmail.com>
+Depends: R (>= 1.8.0), nlme
+Suggests: MASS
 Description: Functions for standard analysis, data analysis and plot making
-License: Open
+License: GPL (>= 2)
+URL: http://www.github.com/econtijoch/Biomass-Workflow
+BugReports: http://www.github.com/econtijoch/Biomass-Workflow
