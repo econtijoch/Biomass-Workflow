@@ -2,8 +2,8 @@ Package: BiomassWorkflow
 Version: 1
 Date: 2044-12-20
 Title: Biomass Workflow
-Authors@R: person(“Eduardo”, “Contijoch”, role = “aut”,
-		     email = “eduardo.contijoch@gmail.com”)
+Authors@R: person(‘’Eduardo’’, ‘’Contijoch’’, role = ‘’aut’’,
+		     email = ‘’eduardo.contijoch@gmail.com’’)
 Author: Eduardo Contijoch
 Maintainer: Eduardo Contijoch <eduardo.contijoch@gmail.com>
 Depends: R (>= 1.8.0), nlme
