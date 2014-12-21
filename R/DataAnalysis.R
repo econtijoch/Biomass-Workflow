@@ -43,6 +43,8 @@ intercept <- standard_curve$coefficients[1]
 exp_data$dna_concentration <- (exp_data[, "fluor_av"]*scale_x + intercept)/2
 exp_data$total_dna <- exp_data[, "dna_concentration"]*0.1
 exp_data$biomass_ratio <- exp_data$total_dna/exp_data$PelletMass
+exp_data$vol_needed_for_PCR <- 20/exp_data[, "dna_concentration"]
+exp_data$water_volume_up_PCR <- 10 - exp_data$vol_needed_for_PCR
 
 return(exp_data)
 
