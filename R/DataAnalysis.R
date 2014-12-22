@@ -21,7 +21,7 @@ data$fluor_av <- apply(data[2:11], 1, mean)
 exp_data <- split(data, data$Type)$Experiment
 
 # Create the standards and the standard curve
-if(BR_or_HS = "HS") {
+if(BR_or_HS == "HS") {
 	s_y <- c(0,5,10,20,40,60,80,100)
 	} else { 
 		s_y <- c(0,50,100,200,400,600,800,1000)
