@@ -1,4 +1,4 @@
-DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id) {
+DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id, BR_or_HS) {
 
 standard_table <- StandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, standards_mapping_csv_file = standards_mapping_csv_file, exp_id = exp_id)
   
@@ -21,12 +21,16 @@ data$fluor_av <- apply(data[2:11], 1, mean)
 exp_data <- split(data, data$Type)$Experiment
 
 # Create the standards and the standard curve
-s_y <- c(0,50,100,200,400,600,800,1000)
+if(BR_or_HS = "HS") {
+	s_y <- c(0,5,10,20,40,60,80,100)
+	} else { 
+		s_y <- c(0,50,100,200,400,600,800,1000)
+	}
+
 s_x <- standard_table$fluor_av
 
 standards <- data.frame(s_x,s_y)
 
-# standards<- standards[!standards$s_y == 600, ]
 
 colnames(standards) <- c("x", "y")
 standard_curve <- lm(standards$y~standards$x)
