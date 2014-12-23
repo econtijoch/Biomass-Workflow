@@ -47,7 +47,7 @@ name <- paste(exp_id, "Standard Curve.png")
 png(name)
 plot(standards, xlab = "Measurement", ylab = "Standard", main = "Standard Curve")
 abline(standard_curve)
-text(usr[ 1 ], usr[ 4 ], paste("Y =", round(scale_x, 5), "* X ", round(intercept, 5), "\nR^2 = ", round(rsquared, 5)), adj = c( 0, 1 ), pos = 4)
+text(usr[ 1 ], usr[ 3 ], paste("Y =", round(scale_x, 5), "* X ", round(intercept, 5), "\nR^2 = ", round(rsquared, 5)), adj = c( 0, 1 ), pos = 4)
 dev.off()
 
 return(standard_table)
