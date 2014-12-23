@@ -42,6 +42,7 @@ rsquared <- summary(standard_curve)$r.squared
 # Make Plot of Standard Curve
 
 usr <- par("usr")
+
 name <- paste(exp_id, "Standard Curve.png")
 png(name)
 plot(standards, xlab = "Measurement", ylab = "Standard", main = "Standard Curve")
