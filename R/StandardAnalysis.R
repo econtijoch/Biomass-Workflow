@@ -32,8 +32,6 @@ s_x <- standard_table$fluor_av
 
 standards <- data.frame(s_x,s_y)
 
-# standards<- standards[!standards$s_y == 600, ]
-
 colnames(standards) <- c("x", "y")
 standard_curve <- lm(standards$y~standards$x)
 
@@ -41,12 +39,13 @@ scale_x <- standard_curve$coefficients[2]
 intercept <- standard_curve$coefficients[1]
 rsquared <- summary(standard_curve)$r.squared
 
-name <- paste(exp_id, "Standard Curve.png")
+# Make Plot of Standard Curve
 
+name <- paste(exp_id, "Standard Curve.png")
 png(name)
 plot(standards, xlab = "Measurement", ylab = "Standard", main = "Standard Curve")
 abline(standard_curve)
-text(1, 950, paste("Y =", round(scale_x, 5), "* X ", round(intercept, 5), "\nR^2 = ", round(rsquared, 5)), pos = 4)
+text(usr[ 1 ], usr[ 4 ], "left top", adj = c( 0, 1 ), paste("Y =", round(scale_x, 5), "* X ", round(intercept, 5), "\nR^2 = ", round(rsquared, 5)))
 dev.off()
 
 return(standard_table)

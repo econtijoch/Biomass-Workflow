@@ -30,25 +30,22 @@ if(BR_or_HS == "HS") {
 s_x <- standard_table$fluor_av
 
 standards <- data.frame(s_x,s_y)
-
-
 colnames(standards) <- c("x", "y")
 standard_curve <- lm(standards$y~standards$x)
 
 scale_x <- standard_curve$coefficients[2]
 intercept <- standard_curve$coefficients[1]
-# rsquared <- summary(standard_curve)$r.squared
 
-# plot(standards, xlab = "Measurement", ylab = "Standard", main = "Standard Curve")
-# abline(standard_curve)
-# text(1, 950, paste("Y =", round(scale_x, 5), "* X ", round(intercept, 5), "\nR^2 = ", round(rsquared, 5)), pos = 4)
 
 # Begin working with the data
 exp_data$dna_concentration <- (exp_data[, "fluor_av"]*scale_x + intercept)/2
+
+# Biomass Analysis
 exp_data$total_dna <- exp_data[, "dna_concentration"]*0.1
 exp_data$biomass_ratio <- exp_data$total_dna/exp_data$PelletMass
 exp_data$vol_needed_for_PCR <- 400/exp_data[, "dna_concentration"]
 exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR
+
 
 return(exp_data)
 
