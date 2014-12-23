@@ -5,31 +5,37 @@
 Data Analysis
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+This function will analyze biomass data given mapping files and raw .csv files from the Promega Fluorometer. This helps in streamlining data analysis for biomass workflows.
 }
 \usage{
-DataAnalysis(plate_reader_csv_file, mapping_csv_file, standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id)
+DataAnalysis(plate_reader_csv_file, mapping_csv_file, standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id, BR_or_HS, std600)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{plate_reader_csv_file}{
-%%     ~~Describe \code{plate_reader_csv_file} here~~
+The location of the raw .csv file from the Promega plate reader. Must have 10 reads per sample.
 }
   \item{mapping_csv_file}{
-%%     ~~Describe \code{mapping_csv_file} here~~
+The location of your mapping file for your data. Experimental data should have 'Type' = 'Experiment'
 }
   \item{standards_plate_reader_csv_file}{
-%%     ~~Describe \code{standards_plate_reader_csv_file} here~~
+The location of your raw .csv file from the Promega plate reader that includes your standards. Must have 10 reads per sample.
 }
   \item{standards_mapping_csv_file}{
-%%     ~~Describe \code{standards_mapping_csv_file} here~~
+The location of your mapping file for your standards. Standards data should have 'Type' = 'Standard'
 }
   \item{exp_id}{
-%%     ~~Describe \code{exp_id} here~~
+A string for your experiment's ID to be used to create plots
 }
+  \item{BR_or_HS}{
+  A string of "HS" or "BR" to indicate which standards and QuBit dye used.
+  }
+  \item{std600}{
+  A string "y" or "n" to indicate if the BR 600 ng standard was included or not.
+  }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This function will analyze data and produce a table of your analysis as well as a standard curve.
 }
 \value{
 %%  ~Describe the value returned
@@ -42,7 +48,7 @@ DataAnalysis(plate_reader_csv_file, mapping_csv_file, standards_plate_reader_csv
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Eduardo Contijoch
 }
 \note{
 %%  ~~further notes~~
@@ -54,42 +60,12 @@ DataAnalysis(plate_reader_csv_file, mapping_csv_file, standards_plate_reader_csv
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (plate_reader_csv_file, mapping_csv_file, standards_plate_reader_csv_file, 
-    standards_mapping_csv_file, exp_id) 
-{
-    standard_table <- StandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, 
-        standards_mapping_csv_file = standards_mapping_csv_file, 
-        exp_id = exp_id)
-    rawdata <- na.omit(read.csv(file = plate_reader_csv_file, 
-        sep = ",", header = TRUE, skip = 9, nrows = 96, skipNul = FALSE, 
-        colClasses = c("NULL", "character", rep("numeric", 10))))
-    mapping <- na.omit(read.csv(file = mapping_csv_file, sep = ",", 
-        fill = TRUE, header = TRUE, na.strings = "", colClasses = c(rep("character", 
-            8), "numeric")))
-    data <- merge(rawdata, mapping, by = "Well")
-    rownames(data) <- data$BarcodeID
-    data$fluor_av <- apply(data[2:11], 1, mean)
-    exp_data <- split(data, data$Type)$Experiment
-    s_y <- c(0, 50, 100, 200, 400, 600, 800, 1000)
-    s_x <- standard_table$fluor_av
-    standards <- data.frame(s_x, s_y)
-    colnames(standards) <- c("x", "y")
-    standard_curve <- lm(standards$y ~ standards$x)
-    scale_x <- standard_curve$coefficients[2]
-    intercept <- standard_curve$coefficients[1]
-    exp_data$dna_concentration <- (exp_data[, "fluor_av"] * scale_x + 
-        intercept)/2
-    exp_data$total_dna <- exp_data[, "dna_concentration"] * 0.1
-    exp_data$biomass_ratio <- exp_data$total_dna/exp_data$PelletMass
-    return(exp_data)
-  }
-}
+data <- DataAnalysis(plate_reader_csv_file = "RawData.csv", mapping_csv_file = "DataMapping.csv", standards_plate_reader_csv_file = "RawStandards.csv", standards_mapping_csv_file  = "StandardsMapping.csv", exp_id = "TST", BR_or_HS = "BR", std600 = "n")
+
+data2 <- DataAnalysis(plate_reader_csv_file = "RawData.csv", mapping_csv_file = "DataMapping.csv", standards_plate_reader_csv_file = "RawStandards.csv", standards_mapping_csv_file  = "StandardsMapping.csv", exp_id = "TST2", BR_or_HS = "HS", std600 = "y")
+
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ Biomass }
+
