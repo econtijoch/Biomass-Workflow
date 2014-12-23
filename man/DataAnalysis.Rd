@@ -64,6 +64,7 @@ Eduardo Contijoch
 data <- DataAnalysis(plate_reader_csv_file = "RawData.csv", mapping_csv_file = "DataMapping.csv", standards_plate_reader_csv_file = "RawStandards.csv", standards_mapping_csv_file  = "StandardsMapping.csv", exp_id = "TST", BR_or_HS = "BR", std600 = "n")
 
 data2 <- DataAnalysis(plate_reader_csv_file = "RawData.csv", mapping_csv_file = "DataMapping.csv", standards_plate_reader_csv_file = "RawStandards.csv", standards_mapping_csv_file  = "StandardsMapping.csv", exp_id = "TST2", BR_or_HS = "HS", std600 = "y")
+}
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
