@@ -1,6 +1,6 @@
-DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id, BR_or_HS) {
+DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id, BR_or_HS, std600) {
 
-standard_table <- StandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, standards_mapping_csv_file = standards_mapping_csv_file, exp_id = exp_id, BR_or_HS = BR_or_HS)
+standard_table <- StandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, standards_mapping_csv_file = standards_mapping_csv_file, exp_id = exp_id, BR_or_HS = BR_or_HS, std600 = std600)
   
 # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read information for the plate.
 rawdata <- na.omit(read.csv(file = plate_reader_csv_file , sep = ",", header = TRUE, skip = 9, nrows = 96, skipNul = FALSE, colClasses = c("NULL", "character", rep("numeric", 10))))
@@ -30,6 +30,12 @@ if(BR_or_HS == "HS") {
 s_x <- standard_table$fluor_av
 
 standards <- data.frame(s_x,s_y)
+
+# Toggle for case of bad standard at 600 ng
+if(std600 == "n") {
+	standards<- standards[!standards$s_y == 600, ]
+}
+
 colnames(standards) <- c("x", "y")
 standard_curve <- lm(standards$y~standards$x)
 
