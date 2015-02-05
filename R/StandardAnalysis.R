@@ -1,7 +1,7 @@
 StandardAnalysis <- function(standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id, BR_or_HS, std600) {
   
   # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read information for the plate.
-rawdata <- na.omit(read.csv(file = standards_plate_reader_csv_file , sep = ",", header = TRUE, skip = 9, nrows = 96, skipNul = FALSE, colClasses = c("NULL", "character", rep("numeric", 10))))
+rawdata <- ParsePlateReaderFile(standards_plate_reader_csv_file)
 
 # Read barcode ID's from a file containing the label information
 
