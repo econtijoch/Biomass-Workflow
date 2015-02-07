@@ -1,5 +1,5 @@
 Package: BiomassWorkflow
-Version: 1.0
+Version: 2.0
 Date: 2044-12-20
 Title: Biomass Workflow
 Authors@R: person('Eduardo', 'Contijoch', role = 'aut', email = 'eduardo.contijoch@gmail.com')
