@@ -5,16 +5,19 @@ rawdata <- ParsePlateReaderFile(standards_plate_reader_csv_file)
 
 # Read barcode ID's from a file containing the label information
 
-mapping <- na.omit(read.csv(file = standards_mapping_csv_file, sep = ",", fill = TRUE, header = TRUE, na.strings = "", colClasses = c(rep("character", 8), "numeric")))
+mapping <- ParseMappingFile(standards_mapping_csv_file)
 
 
 # Merge data with mapping file, label data appropriately
-data <- merge(rawdata, mapping, by = "Well")
+data <- merge(rawdata$table, mapping, by = "Well")
 
 rownames(data) <- data$BarcodeID
 
 # Add average fluorescence column to data
-data$fluor_av <- apply(data[2:11], 1, mean)
+read_start = 2
+read_end = rawdata$num_reads +1
+
+data$fluor_av <- apply(data[read_start:read_end], 1, mean)
 
 standard_table <- split(data, data$Type)$Standard
 standard_table <- standard_table[order(standard_table$BarcodeID),]
@@ -56,6 +59,8 @@ abline(standard_curve)
 text(usr[ 1 ], usr[ 3 ], paste("Y =", round(scale_x, 5), "* X ", round(intercept, 5), "\nR^2 = ", round(rsquared, 5)), adj = c( 0, 1 ), pos = 4)
 dev.off()
 
-return(standard_table)
+output_list <- list("table" = standard_table, "scale_x" = scale_x, "intercept" = intercept)
+
+return(output_list)
 
 }

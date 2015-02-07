@@ -1,54 +1,36 @@
 DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id, BR_or_HS, std600) {
 
-standard_table <- StandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, standards_mapping_csv_file = standards_mapping_csv_file, exp_id = exp_id, BR_or_HS = BR_or_HS, std600 = std600)
-  
+standard_analysis <- StandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, standards_mapping_csv_file = standards_mapping_csv_file, exp_id = exp_id, BR_or_HS = BR_or_HS, std600 = std600) 
+
 # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read information for the plate.
-rawdata <- na.omit(read.csv(file = plate_reader_csv_file , sep = ",", header = TRUE, skip = 9, nrows = 96, skipNul = FALSE, colClasses = c("NULL", "character", rep("numeric", 10))))
+rawdata <- ParsePlateReaderFile(plate_reader_csv_file)
 
-# Read barcode ID's from a file containing the label information
-
-mapping <- na.omit(read.csv(file = mapping_csv_file, sep = ",", fill = TRUE, header = TRUE, na.strings = "", colClasses = c(rep("character", 8), "numeric")))
+# Parse Metadata from mapping file
+mapping <- ParseMappingFile(mapping_csv_file)
 
 
 # Merge data with mapping file, label data appropriately
-data <- merge(rawdata, mapping, by = "Well")
+data <- merge(rawdata$table, mapping, by = "Well")
 
 rownames(data) <- data$BarcodeID
 
 # Add average fluorescence column to data
-data$fluor_av <- apply(data[2:11], 1, mean)
+read_start = 2
+read_end = rawdata$num_reads +1
+
+data$fluor_av <- apply(data[read_start:read_end], 1, mean)
 
 exp_data <- split(data, data$Type)$Experiment
 
-# Create the standards and the standard curve
-if(BR_or_HS == "HS") {
-	s_y <- c(0,5,10,20,40,60,80,100)
-	} else { 
-		s_y <- c(0,50,100,200,400,600,800,1000)
-	}
-
-s_x <- standard_table$fluor_av
-
-standards <- data.frame(s_x,s_y)
-
-# Toggle for case of bad standard at 600 ng
-if(std600 == "n") {
-	standards<- standards[!standards$s_y == 600, ]
-}
-
-colnames(standards) <- c("x", "y")
-standard_curve <- lm(standards$y~standards$x)
-
-scale_x <- standard_curve$coefficients[2]
-intercept <- standard_curve$coefficients[1]
-
+scale_x <- standard_analysis$scale_x
+intercept <- standard_analysis$intercept
 
 # Begin working with the data
 exp_data$dna_concentration <- (exp_data[, "fluor_av"]*scale_x + intercept)/2
 
 # Biomass Analysis
 exp_data$total_dna <- exp_data[, "dna_concentration"]*0.1
-exp_data$biomass_ratio <- exp_data$total_dna/exp_data$PelletMass
+exp_data$biomass_ratio <- exp_data$total_dna/exp_data$SampleMass
 exp_data$vol_needed_for_PCR <- 400/exp_data[, "dna_concentration"]
 exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR
 

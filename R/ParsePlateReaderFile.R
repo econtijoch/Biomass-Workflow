@@ -12,7 +12,8 @@ ParsePlateReaderFile <- function(plate_reader_file) {
     }
   }
   start_row = title_row + 1;
-
+  num_reads = ncol(file) - start_column
+  
   # Parse table
   parsed_table <- file[start_row:end_row,start_column:ncol(file)]
    
@@ -31,6 +32,8 @@ ParsePlateReaderFile <- function(plate_reader_file) {
   #Remove NAs
   final_table <- subset(parsed_table, !is.na(parsed_table$Read.1))
   
-  return(final_table)
+  output_list <- list("table" = final_table, "num_reads" = num_reads)
+  
+  return(output_list)
   
 }

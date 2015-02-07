@@ -42,8 +42,8 @@ Package: devtools
 Source: CRAN
 Version: 1.6.1
 Hash: e3096b832604a7a36ff0a6455e5cdddc
-Requires: RCurl, digest, evaluate, httr, jsonlite, memoise, rstudioapi,
-    whisker
+Requires: digest, jsonlite, rstudioapi, whisker, RCurl, memoise,
+    evaluate, httr
 
 Package: dichromat
 Source: CRAN
@@ -65,7 +65,7 @@ Package: ggplot2
 Source: CRAN
 Version: 1.0.0
 Hash: c8bff66238347472f08b6a35608539ff
-Requires: digest, gtable, plyr, proto, reshape2, scales
+Requires: digest, gtable, proto, plyr, reshape2, scales
 
 Package: gtable
 Source: CRAN
@@ -76,7 +76,7 @@ Package: httr
 Source: CRAN
 Version: 0.5
 Hash: 68a70bdd16fb949a12e4fda7f31def00
-Requires: RCurl, digest, jsonlite, stringr
+Requires: R6, digest, jsonlite, mime, stringr, RCurl
 
 Package: jsonlite
 Source: CRAN
@@ -129,7 +129,7 @@ Package: reshape2
 Source: CRAN
 Version: 1.4
 Hash: e50809918ebb73dff47de17d36d12975
-Requires: Rcpp, plyr, stringr
+Requires: Rcpp, stringr, plyr
 
 Package: rstudioapi
 Source: CRAN
@@ -140,7 +140,7 @@ Package: scales
 Source: CRAN
 Version: 0.2.4
 Hash: b8b1af97bd07818605223060386b00dd
-Requires: RColorBrewer, dichromat, labeling, munsell, plyr
+Requires: RColorBrewer, dichromat, labeling, plyr, munsell
 
 Package: stringr
 Source: CRAN

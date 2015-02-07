@@ -7,7 +7,7 @@ Author: Eduardo Contijoch
 Maintainer: Eduardo Contijoch <eduardo.contijoch@gmail.com>
 Depends: R (>= 1.8.0), nlme, ggplot2, devtools
 Suggests: MASS
-Description: Functions for standard analysis, data analysis and plot making
+Description: Functions for standards analysis, data analysis, and plot making
 License: GPL (>= 2)
 URL: http://www.github.com/econtijoch/Biomass-Workflow
 BugReports: http://www.github.com/econtijoch/Biomass-Workflow
