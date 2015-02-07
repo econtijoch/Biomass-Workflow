@@ -1,4 +1,4 @@
-StandardAnalysis <- function(standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id, BR_or_HS, std600) {
+StandardAnalysis <- function(standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id) {
   
   # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read information for the plate.
 rawdata <- ParsePlateReaderFile(standards_plate_reader_csv_file)
@@ -22,24 +22,10 @@ data$fluor_av <- apply(data[read_start:read_end], 1, mean)
 standard_table <- split(data, data$Type)$Standard
 standard_table <- standard_table[order(standard_table$BarcodeID),]
 
-exp_data <- split(data, data$Type)$Experiment
-
-# Create the standards and the standard curve
-if(BR_or_HS == "HS") {
-	s_y <- c(0,5,10,20,40,60,80,100)
-	} else { 
-		s_y <- c(0,50,100,200,400,600,800,1000)
-}
-
+s_y <- standard_table$SampleMass
 s_x <- standard_table$fluor_av
 
-standards <- data.frame(s_x,s_y)
-
-# Toggle for case of bad standard at 600 ng
-if(std600 == "n") {
-	standards<- standards[!standards$s_y == 600, ]
-}
-
+standards <- data.frame(s_x, s_y)
 
 colnames(standards) <- c("x", "y")
 standard_curve <- lm(standards$y~standards$x)
@@ -54,10 +40,13 @@ usr <- par("usr")
 
 name <- paste(exp_id, "Standard Curve.png")
 png(name)
-plot(standards, xlab = "Measurement", ylab = "Standard", main = "Standard Curve")
+plot(standards, xlab = "Fluorescence Measurement", ylab = "ug DNA in Standard", main = "Standard Curve")
 abline(standard_curve)
-text(usr[ 1 ], usr[ 3 ], paste("Y =", round(scale_x, 5), "* X ", round(intercept, 5), "\nR^2 = ", round(rsquared, 5)), adj = c( 0, 1 ), pos = 4)
 dev.off()
+
+print("Standards Information:")
+print(paste("Line of best fit: Y = ", round(scale_x,5), "* X ", round(intercept, 5)))
+print(paste("R^2 = ", round (rsquared,5)))
 
 output_list <- list("table" = standard_table, "scale_x" = scale_x, "intercept" = intercept)
 
