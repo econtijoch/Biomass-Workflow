@@ -1,4 +1,18 @@
-DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id) {
+DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, exp_id, ...) {
+	
+	# Parse inputs and override default values if given
+	args <- list(...)
+	standards_plate_reader_csv_file = plate_reader_csv_file
+	standards_mapping_csv_file = mapping_csv_file
+	
+	if (!is.null(args$standards_plate)) {
+		standards_plate_reader_csv_file = args$standards_plate
+	}
+	
+	if(!is.null(args$standards_mapping)) {
+		standards_mapping_csv_file = args$standards_mapping
+	}
+
 
 standard_analysis <- StandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, standards_mapping_csv_file = standards_mapping_csv_file, exp_id = exp_id) 
 
