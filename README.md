@@ -16,7 +16,7 @@ If you need to install devtools first, you'll need to do the following first to 
 	devtools::install_github("hadley/devtools")
 </pre>
 
-Each of the functions has its own documentation that can further explain their usage. Here in the github, I have posted a sample mapping file that can be used as a basis for your own mapping files (SampleMapping.csv)
+<p>Each of the functions has its own documentation that can further explain their usage. Here in the github, I have posted a sample mapping file that can be used as a basis for your own mapping files (SampleMapping.csv).</p>
 
 <h3> Known Issues </h3>
 <ul>
