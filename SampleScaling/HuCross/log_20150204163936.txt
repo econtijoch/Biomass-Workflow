@@ -1,0 +1,52 @@
+Logging started at 16:39:36 on 04 Feb 2015
+QIIME version: 1.8.0
+
+qiime_config values:
+sc_queue	all.q
+torque_queue	friendlyq
+jobs_to_start	1
+cloud_environment	False
+denoiser_min_per_core	50
+python_exe_fp	python
+temp_dir	/tmp/
+blastall_fp	blastall
+seconds_to_sleep	2
+
+parameter file values:
+
+Input file md5 sums:
+otu_tables/final_filtered.biom: a9db1df2b5c020f6af269953dcc158ba
+mapping_validation/mapping_HuCross.txt: 7869a968819d2dab1b40aa02da11347d
+
+Executing commands.
+
+# Summarize OTU table by Category command 
+python /hpc/packages/minerva-mothra/qiime/1.8.0/lib/python2.7/site-packages/scripts/summarize_otu_by_cat.py -m mapping_validation/mapping_HuCross.txt -i otu_tables/final_filtered.biom -o by_condition/Condition_otu_table.biom -c 'Condition' 
+
+Stdout:
+
+Stderr:
+
+# Sort OTU Table command 
+python /hpc/packages/minerva-mothra/qiime/1.8.0/lib/python2.7/site-packages/scripts/sort_otu_table.py -i by_condition/Condition_otu_table.biom -o by_condition/Condition_otu_table_sorted.biom
+
+Stdout:
+
+Stderr:
+
+# Summarize Taxonomy command 
+python /hpc/packages/minerva-mothra/qiime/1.8.0/lib/python2.7/site-packages/scripts/summarize_taxa.py -i by_condition/Condition_otu_table_sorted.biom -o by_condition 
+
+Stdout:
+
+Stderr:
+
+# Plot Taxonomy Summary command 
+python /hpc/packages/minerva-mothra/qiime/1.8.0/lib/python2.7/site-packages/scripts/plot_taxa_summary.py -i by_condition/Condition_otu_table_sorted_L2.txt,by_condition/Condition_otu_table_sorted_L3.txt,by_condition/Condition_otu_table_sorted_L4.txt,by_condition/Condition_otu_table_sorted_L5.txt,by_condition/Condition_otu_table_sorted_L6.txt -o by_condition/taxa_summary_plots/ 
+
+Stdout:
+
+Stderr:
+
+
+Logging stopped at 16:39:41 on 04 Feb 2015
