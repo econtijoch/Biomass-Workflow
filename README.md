@@ -1,7 +1,7 @@
 <h2>Biomass Data Analysis Helper Tools</h2>
-An R package that is helpful in streamlining data analysis and removing the potential for errors in the process. The package is most useful for generating biomass data and comparing biomass between various groups.
-The package consists of four functions that help parse through the output files of the Promega plate reader for data, use a mapping file to help bridge what the information from the plate reader tells us about our specific samples samples, and then computes information regarding the DNA content, concentration, and biomass ratio for our samples.
-There is also a function to help scale taxonomic data with biomass data. Sample data for this function can be found in 'SampleScaling/', and the usage of the function is included in its documentation.
+<p>An R package that is helpful in streamlining data analysis and removing the potential for errors in the process. The package is most useful for generating biomass data and comparing biomass between various groups.</p>
+<p>The package consists of four functions that help parse through the output files of the Promega plate reader for data, use a mapping file to help bridge what the information from the plate reader tells us about our specific samples samples, and then computes information regarding the DNA content, concentration, and biomass ratio for our samples.</p>
+<p>There is also a function to help scale taxonomic data with biomass data. Sample data for this function can be found in 'SampleScaling/', and the usage of the function is included in its documentation.</p>
 
 The package can be downloaded from within R using the devtools function:
 
