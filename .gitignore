@@ -1,7 +1,0 @@
-packrat/lib*/
-packrat/*
-.R*
-proj.user
-.Rproj.user
-Biomass Workflow.Rproj
-.gitignore
