@@ -35,7 +35,7 @@ This file contains biomass information for your particular variables. Generally,
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-The function returns a list with two items, as well as a folder within which you may find .csv files containing the scaled taxonomic tables.
+The function returns a list with two items, as well as a folder within which you may find .csv files containing the scaled taxonomic tables and .pdf figures of your data.
 %%  If it is a LIST, use
 \item{master_taxonomy_scaled}{This is a data frame with all of the scaled data combined. There is a column to indicate the taxonomic level for the data. This can be useful if you want to look at the raw data in R for further analysis}
 \item{figures}{This is a list (yes, a list within a list) containing all of the figures produced by the function (that is, one figure per taxonomic level, scaled).}

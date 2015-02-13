@@ -112,7 +112,24 @@ BatchScale <- function(biomass_file, taxonomy_directory, ...) {
     
     # Create stacked bar graph for each taxon, combine into the figure list
     melted_output <- melt(solo_table, id = "Taxon")
-    figures[[level]] <- ggplot2.barplot(data=melted_output, xName="variable", yName = "value", groupName = "Taxon", xtitle= XAxisLabel, ytitle = YAxisLabel)
+    figures[[level]] <- ggplot2.barplot(data=melted_output, xName="variable", yName = "value", groupName = "Taxon", xtitle= XAxisLabel, ytitle = YAxisLabel) + theme(legend.key.size = unit(0.25, "cm"), legend.text = element_text(size = 7)) + labs(title = paste(level, "Level Absolute Abundance", sep = " ")) + geom_bar(stat = "identity", colour = "black", weight = "0.25")
+    
+    # Extract Figure Legend
+    get_legend <- function(a.gplot){
+      tmp <- ggplot_gtable(ggplot_build(a.gplot))
+      leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+      legend <- tmp$grobs[[leg]]
+      return(legend)}
+    
+    legend <- get_legend(figures[[level]])
+    
+    #Create PDF for figure, with legend on a seperate page
+    output_figure_filename <- paste(OutputPrefix, batchName, level, "Level_Figure.pdf", sep = "_")
+    
+    pdf(file = paste(OutputDirectory, output_figure_filename, sep = "/"))
+    plot(figures[[level]] + theme(legend.position = "none"))
+    plot(legend)
+    dev.off()
     
   } # Close iteration over taxonomy levels
 
