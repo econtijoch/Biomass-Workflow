@@ -18,12 +18,16 @@ This file contains biomass information for your particular variables. Generally,
   \item{taxonomy_directory}{
   This should be the path to the directory in which the taxonomy files are located (this will generally just be the output of the QIIME script). For examples on what these may look like, please see the SampleScaling folder on the github page (www.github.com/econtijoch/Biomass-Workflow).
   }
+  \item{batchName}{
+  This OPTIONAL argument can be used to label your experiment. Default = "Sample"}
   \item{OutputPrefix}{
   This OPTIONAL argument can be used to label your output files with a particular name. DEFAULT = "Scaled"
   }
-  \item{XAxisLabel}{
+  \item{XAxisValues}{
   This OPTIONAL arguemnt can be used to force the labeling of the x-axis of your new plots. By default, this uses the information from the taxonomy tables from QIIME and the information from your biomass file, but they MUST agree exactly. By calling this argument, you override the default, but may end up with mis-labeled categories if not careful
   }
+  \item{XAxisLabel}{
+  This OPTIONAL argument will relabel the X axis. DEFAULT = 'Timepoint'}
   \item{YAxisLabel}{
   This OPTIONAL argument can be used to change the y-axis label. DEFAULT = "ug DNA per mg Fecal Pellet"
   }

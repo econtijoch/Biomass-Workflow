@@ -6,6 +6,7 @@ BatchScale <- function(biomass_file, taxonomy_directory, ...) {
   XAxisLabel = "Timepoint"
   YAxisLabel = 'ug DNA per mg Fecal Pellet'
   OutputDirectory = "."
+  batchName = "Sample"
   
   if (!is.null(args$OutputPrefix)) {
   OutputPrefix = args$OutputPrefix
