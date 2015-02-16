@@ -9,6 +9,12 @@
 devtools::install_github("econtijoch/Biomass-Workflow")
 </pre>
 
+The package relies upon the easyGgplot2 package (www.github.com/kassambara/easyGgplot2). To install, similarly call:
+
+<pre>
+devtools::install_github("kassambara/easyggplot2")
+</pre>
+
 If you need to install devtools first, you'll need to do the following first to download and update devtools to the most current version:
 
 <pre>
