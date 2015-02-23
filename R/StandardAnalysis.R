@@ -11,6 +11,8 @@ mapping <- ParseMappingFile(standards_mapping_csv_file)
 # Merge data with mapping file, label data appropriately
 data <- merge(rawdata$table, mapping, by = "Well")
 
+data <- subset(data, !is.na(data$BarcodeID))
+
 rownames(data) <- data$BarcodeID
 
 # Add average fluorescence column to data
