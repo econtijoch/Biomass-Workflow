@@ -1,4 +1,4 @@
-NewParsePlateReaderFile <- function(plate_reader_file) {
+NewPlateParser <- function(plate_reader_file) {
   
   #Import file
   file <- read.csv(plate_reader_file)

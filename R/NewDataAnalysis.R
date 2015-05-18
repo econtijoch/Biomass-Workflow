@@ -1,4 +1,4 @@
-DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, exp_id, ...) {
+NewDataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, exp_id, ...) {
 	
 	# Parse inputs and override default values if given
 	args <- list(...)
