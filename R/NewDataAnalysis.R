@@ -14,7 +14,7 @@ NewDataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, num_reads, 
 	}
 
 
-standard_analysis <- NewStandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, standards_mapping_csv_file = standards_mapping_csv_file, num_reads = num_reads exp_id = exp_id) 
+standard_analysis <- NewStandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, standards_mapping_csv_file = standards_mapping_csv_file, num_reads = num_reads, exp_id = exp_id) 
 
 # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read information for the plate.
 rawdata <- NewPlateParser(plate_reader_csv_file, num_reads)
