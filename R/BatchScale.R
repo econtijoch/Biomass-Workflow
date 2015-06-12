@@ -75,7 +75,7 @@ BatchScale <- function(biomass_file, taxonomy_directory, ...) {
     }
     
     # Read in abundance information
-    input_taxonomy_data <- read.table(paste(taxonomy_directory, file, sep = ""), header = TRUE)
+    input_taxonomy_data <- read.table(paste(taxonomy_directory, file, sep = ""),sep = "\t", header = TRUE)
     
     # Apply new x axis values, if given
     if (!is.null(args$XAxisValues)){
