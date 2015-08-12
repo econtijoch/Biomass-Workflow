@@ -19,7 +19,7 @@ NewPlateParser <- function(plate_reader_file, num_reads) {
   newtable <- data.frame(matrix(0, nrow = 96, ncol = num_reads))
   
   rows <- c('A', 'B','C','D','E','F','G','H')
-  cols <- c('1','2','3','4','5','6','7','8','9','10','11','12')
+  cols <- c('01','02','03','04','05','06','07','08','09','10','11','12')
   
   rows_length <- length(rows)
   cols_length <- length(cols)
