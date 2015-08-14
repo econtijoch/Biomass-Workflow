@@ -1,6 +1,6 @@
 Package: BiomassWorkflow
-Version: 3.1
-Date: 2015-02-11
+Version: 4.0
+Date: 2015-08-14
 Title: Biomass Workflow
 Authors@R: person('Eduardo', 'Contijoch', role = 'aut', email = 'eduardo.contijoch@gmail.com')
 Author: Eduardo Contijoch
