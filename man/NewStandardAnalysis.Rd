@@ -8,7 +8,7 @@ New Standard Analysis
 This function analyzes the standards from a fluorometer file (from the new machine in the Faith Lab) given a mapping file. It will create a plot of your standard curve, and print to the console information regarding the line of best fit. The main difference between THIS script (NewStandardAnalysis) and the old script (StandardAnalysis) is that this one calls upon the NewPlateParser function that can handle the data files from the new fluorometer and not the shared Promega plate reader.
 }
 \usage{
-StandardAnalysis(standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id, num_reads)
+NewStandardAnalysis(standards_plate_reader_csv_file, standards_mapping_csv_file, exp_id, num_reads)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -51,7 +51,7 @@ Eduardo Contijoch
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-standard_table <- StandardAnalysis(standards_plate_reader_csv_file = "RawStandards.csv", standards_mapping_csv_file = "StandardsMapping.csv", exp_id = "TST", num_reads = 1)
+standard_table <- NewStandardAnalysis(standards_plate_reader_csv_file = "RawStandards.csv", standards_mapping_csv_file = "StandardsMapping.csv", exp_id = "TST", num_reads = 1)
 
 
 }

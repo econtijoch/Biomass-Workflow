@@ -8,7 +8,7 @@ Parse Plate Reader File (New)
 This is a helper function that will parse a .csv file from the plate reader and return only the fluorescence data in a data frame, and the number of fluorescence reads that were acquired.
 }
 \usage{
-ParsePlateReaderFile(plate_reader_file)
+NewPlateParser(plate_reader_file)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -45,7 +45,7 @@ Eduardo Contijoch
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-ParsePlateReaderFile('~/Path/To/plate_reader_file.csv', num_reads = 1)
+NewPlateParser('~/Path/To/plate_reader_file.csv', num_reads = 1)
   }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

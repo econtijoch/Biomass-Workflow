@@ -8,7 +8,7 @@ New Data Analysis
 This function will analyze biomass data given mapping files and raw .csv files from the Faith Lab (new) Fluorometer. This helps in streamlining data analysis for biomass workflows. The main difference between THIS script (NewDataAnalysis) and the old script (DataAnalysis) is that this one calls upon the NewPlateParser and NewStandardAnalysis functions that can handle the data files from the new fluorometer.
 }
 \usage{
-DataAnalysis(plate_reader_csv_file, mapping_csv_file, num_reads ...)
+NewDataAnalysis(plate_reader_csv_file, mapping_csv_file, num_reads ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -58,8 +58,8 @@ Eduardo Contijoch
 }
 \examples{
 
-data <- DataAnalysis(plate_reader_csv_file = "RawData.csv", mapping_csv_file = "DataMapping.csv", standards_plate_reader_csv_file = "RawStandards.csv", standards_mapping_csv_file  = "StandardsMapping.csv", exp_id = "TST", num_reads = 1)
-data2 <- DataAnalysis(plate_reader_csv_file = "RawData.csv", mapping_csv_file = "DataMapping.csv", exp_id = "Test2", num_reads = 3)
+data <- NewDataAnalysis(plate_reader_csv_file = "RawData.csv", mapping_csv_file = "DataMapping.csv", standards_plate_reader_csv_file = "RawStandards.csv", standards_mapping_csv_file  = "StandardsMapping.csv", exp_id = "TST", num_reads = 1)
+data2 <- NewDataAnalysis(plate_reader_csv_file = "RawData.csv", mapping_csv_file = "DataMapping.csv", exp_id = "Test2", num_reads = 3)
 
 }
 
