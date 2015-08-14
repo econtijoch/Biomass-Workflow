@@ -46,7 +46,6 @@ Eduardo Contijoch
 }
 \examples{
 NewPlateParser('~/Path/To/plate_reader_file.csv', num_reads = 1)
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -43,7 +43,6 @@ Eduardo Contijoch
 }
 \examples{
 ParsePlateReaderFile('~/Path/To/plate_reader_file.csv')
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
