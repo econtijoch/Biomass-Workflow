@@ -9,7 +9,7 @@ mapping <- ParseMappingFile(standards_mapping_csv_file)
 
 
 # Merge data with mapping file, label data appropriately
-data <- merge(rawdata$table, mapping, by = "Well")
+data <- merge(rawdata$table, mapping, by = "ReaderWell")
 
 data <- subset(data, !is.na(data$BarcodeID))
 

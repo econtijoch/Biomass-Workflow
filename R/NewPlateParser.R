@@ -38,18 +38,18 @@ NewPlateParser <- function(plate_reader_file, num_reads) {
       
     }
   }
-  newtable_data <- data.frame(Well = wells[-1], newtable)
+  newtable_data <- data.frame(ReaderWell = wells[-1], newtable)
   
   
   #Add column names
-  column_titles <- "Well"
+  column_titles <- "ReaderWell"
   for (i in 1:num_reads) {
     column_titles <- c(column_titles, paste("Read.",i, sep = ""))
   }
   colnames(newtable_data) <- column_titles
   
   # Cast well names as characters
-  newtable_data$Well <- as.character(newtable_data$Well)
+  newtable_data$ReaderWell <- as.character(newtable_data$ReaderWell)
   
   
   # Cast as numeric
