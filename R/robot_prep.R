@@ -14,39 +14,48 @@ well_parser <- function(well) {
 
 robot_prep <- function(dataset, output_name) {
   
-  robot_table <- dataset %>% select(BarcodeID, Plate, Well, vol_needed_for_PCR, water_volume_up_PCR)
-  robot_table$Warning <- "N"
-  robot_table$DNASource <- paste("Unnormalized", substring(robot_table$Plate, nchar(robot_table$Plate), nchar(robot_table$Plate)), sep = "")
+  robot_table <- dataset %>% select(BarcodeID, PlateID, SampleWell, vol_needed_for_PCR, water_volume_up_PCR)
+  robot_table$BarcodeID <- as.character(robot_table$BarcodeID)
+  robot_table$PlateID <- as.character(robot_table$PlateID)
+  robot_table$Warning <- ""
+  robot_table$DNASource <- paste("Unnormalized", robot_table$PlateID, sep = "_")
   
   for (i in 1:nrow(robot_table)) {
     if (robot_table[i, "vol_needed_for_PCR"] < 1) {
       robot_table[i, "vol_needed_for_PCR"] =1
-      robot_table[i, "Warning"] = "Y"
+	    robot_table[i, "water_volume_up_PCR"] = 199
+      robot_table[i, "Warning"] = "[WARNING] DNAvol < 1: Transferred 1 uL + 199 uL Water/EB"
     }
-    else if (robot_table[i, "vol_needed_for_PCR"] > 40) {
-      robot_table[i, "vol_needed_for_PCR"] = 40
-      robot_table[i, "Warning"] = "Y"
+	else if (robot_table[i, 'vol_needed_for_PCR'] > 150) {
+		robot_table[i, "vol_needed_for_PCR"] = 40
+		robot_table[i, 'water_volume_up_PCR'] = 0
+		robot_table[i, 'Warning'] = '[WARNING] DNAvol > 150: Transferred 40 uL + 0 uL Water/EB'
+	}
+	else if (robot_table[i, 'vol_needed_for_PCR'] > 50) {
+		robot_table[i, "vol_needed_for_PCR"] = robot_table[i, "vol_needed_for_PCR"]/4
+		robot_table[i, 'water_volume_up_PCR'] = robot_table[i, "water_volume_up_PCR"]/4
+		robot_table[i, 'Warning'] = '[WARNING] 150 > DNAvol > 50: Transferred [DNAvol + Water/EB]= 50 uL'
+	}
+    else if (robot_table[i, "vol_needed_for_PCR"] > 20) {
+	  robot_table[i, "vol_needed_for_PCR"] = robot_table[i, "vol_needed_for_PCR"]/2
+	  robot_table[i, 'water_volume_up_PCR'] = robot_table[i, "water_volume_up_PCR"]/2
+	  robot_table[i, 'Warning'] = '[WARNING] 50 > DNAvol > 20: Transferred [DNAvol + Water/EB]= 100 uL'
     }
-    
-    if (robot_table[i, "water_volume_up_PCR"] < 160) {
-      robot_table[i, "water_volume_up_PCR"] = 160
-      robot_table[i, "Warning"] = "Y"
-    }
-    else if (robot_table[i, "water_volume_up_PCR"] > 199) {
-      robot_table[i, "water_volume_up_PCR"] = 199
-      robot_table[i, "Warning"] = "Y"
-    }
-    
-    robot_table$DNASourceWell <- unlist(lapply(robot_table$Well, well_parser))
+	else {
+		robot_table[i, 'Warning'] = '20 > DNAvol > 1: Transferred [DNAvol + Water/EB]= 200 uL (Default)'
+	}
+	 
+    robot_table$DNASourceWell <- unlist(lapply(robot_table$SampleWell, well_parser))
     
     robot_table$DNA_Vol <- round_any(robot_table$vol_needed_for_PCR, 0.5)
     robot_table$Water_Vol <- round_any(robot_table$water_volume_up_PCR, 0.5)
-    robot_table$Destination <- paste("Normalized", substring(robot_table$DNASource, nchar(robot_table$DNASource), nchar(robot_table$DNASource)), sep = "")
+    robot_table$Destination <- paste("Normalized", robot_table$PlateID, sep = "_")
     robot_table$DestinationWell <- robot_table$DNASourceWell
     robot_table$WaterSource <- 'WaterSource'
     robot_table$WaterWell <- 1
+    robot_table$NormalizedVolume <- robot_table$DNA_Vol + robot_table$Water_Vol
     
-    output <- as.data.frame(select(robot_table, WaterSource, WaterWell, DNASource, DNASourceWell, Destination, DestinationWell, DNA_Vol, Water_Vol, Warning, BarcodeID, Plate, Well))
+    output <- as.data.frame(select(robot_table, WaterSource, WaterWell, DNASource, DNASourceWell, Destination, DestinationWell, DNA_Vol, Water_Vol, Warning, BarcodeID, PlateID, SampleWell, NormalizedVolume))
     
     
   }
