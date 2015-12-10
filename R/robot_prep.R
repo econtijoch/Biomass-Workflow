@@ -63,7 +63,7 @@ robot_prep <- function(dataset, output_name) {
     robot_table$DNA_Vol <- round_any(robot_table$vol_needed_for_PCR, 0.5)
     robot_table$Water_Vol <- round_any(robot_table$water_volume_up_PCR, 0.5)
     robot_table$Destination <- paste("Normalized", robot_table$BarcodePlate, sep = "_")
-    robot_table$DestinationWell <- robot_table$BarcodeWell
+    robot_table$DestinationWell <- unlist(lapply(robot_table$BarcodeWell, well_parser))
     robot_table$WaterSource <- 'WaterSource'
     robot_table$WaterWell <- 1
     robot_table$NormalizedVolume <- robot_table$DNA_Vol + robot_table$Water_Vol
