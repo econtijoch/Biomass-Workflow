@@ -14,7 +14,7 @@ well_parser <- function(well) {
 
 robot_prep <- function(dataset, output_name) {
   
-  robot_table <- dataset %>% select(BarcodeID, PlateID, SampleWell, vol_needed_for_PCR, water_volume_up_PCR, dna_concentration)
+  robot_table <- dataset %>% select(BarcodeID, PlateID, SampleWell, vol_needed_for_PCR, water_volume_up_PCR, dna_concentration, BarcodePlate, BarcodeWell)
   robot_table$BarcodeID <- as.character(robot_table$BarcodeID)
   robot_table$PlateID <- as.character(robot_table$PlateID)
   robot_table$Warning <- ""
@@ -62,8 +62,8 @@ robot_prep <- function(dataset, output_name) {
     
     robot_table$DNA_Vol <- round_any(robot_table$vol_needed_for_PCR, 0.5)
     robot_table$Water_Vol <- round_any(robot_table$water_volume_up_PCR, 0.5)
-    robot_table$Destination <- paste("Normalized", robot_table$PlateID, sep = "_")
-    robot_table$DestinationWell <- robot_table$DNASourceWell
+    robot_table$Destination <- paste("Normalized", robot_table$BarcodePlate, sep = "_")
+    robot_table$DestinationWell <- robot_table$BarcodeWell
     robot_table$WaterSource <- 'WaterSource'
     robot_table$WaterWell <- 1
     robot_table$NormalizedVolume <- robot_table$DNA_Vol + robot_table$Water_Vol
