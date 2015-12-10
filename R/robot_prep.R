@@ -72,7 +72,7 @@ robot_prep <- function(dataset, output_name) {
     
     
   }
-  output <- output %>% arrange(PlateID)
+  output <- output %>% arrange(Destination)
   
   write.csv(output, output_name, row.names = FALSE)
   
