@@ -4,6 +4,8 @@ NewDataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, num_reads, 
 	args <- list(...)
 	standards_plate_reader_csv_file = plate_reader_csv_file
 	standards_mapping_csv_file = mapping_csv_file
+	volume = 2
+	scale = 14
 	
 	if (!is.null(args$standards_plate)) {
 		standards_plate_reader_csv_file = args$standards_plate
@@ -11,6 +13,13 @@ NewDataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, num_reads, 
 	
 	if(!is.null(args$standards_mapping)) {
 		standards_mapping_csv_file = args$standards_mapping
+	}
+	if(!is.null(args$volume)) {
+		volume = args$volume
+	}
+	
+	if(!is.null(args$scale)) {
+		scale = args$scale
 	}
 
 
@@ -42,11 +51,13 @@ scale_x <- standard_analysis$scale_x
 intercept <- standard_analysis$intercept
 
 # Begin working with the data
-exp_data$dna_concentration <- (exp_data[, "fluor_av"]*scale_x + intercept)/2
+exp_data$qubit_volume <- volume
+exp_data$dna_concentration <- (exp_data[, "fluor_av"]*scale_x + intercept)/volume
 
 # Biomass Analysis
 exp_data$total_dna <- exp_data[, "dna_concentration"]*0.1
-exp_data$biomass_ratio <- exp_data$total_dna/exp_data$SampleMass
+exp_data$scale_factor <- scale
+exp_data$biomass_ratio <- exp_data$total_dna*scale/exp_data$SampleMass
 exp_data$vol_needed_for_PCR <- 400/exp_data[, "dna_concentration"]
 exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR
 
