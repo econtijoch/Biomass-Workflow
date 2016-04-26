@@ -1,3 +1,5 @@
+require(ggplot2)
+
 NewStandardAnalysis <- function(standards_plate_reader_csv_file, standards_mapping_csv_file, num_reads, exp_id) {
   
   # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read information for the plate.
@@ -39,12 +41,14 @@ rsquared <- summary(standard_curve)$r.squared
 # Make Plot of Standard Curve
 
 usr <- par("usr")
+standards_info <- paste(paste("Line of best fit: Y = ", round(scale_x,5), "* X ", round(intercept, 5)), paste("R^2 = ", round (rsquared,5)), sep = "\n")
 
-name <- paste(exp_id, "Standard Curve.png")
-png(name)
-plot(standards, xlab = "Fluorescence Measurement", ylab = "ug DNA in Standard", main = "Standard Curve")
-abline(standard_curve)
+name <- paste(exp_id, "Standard Curve.pdf")
+pdf(name, width = 6, height = 6)
+ggplot(standards, aes_string(x = 's_x', y = 's_y')) + geom_point(size = 4) + labs(x = "Fluorescence Measurement", y = "ug DNA in Standard", main = "Standard Curve") + geom_smooth(method = "lm", se = FALSE) + annotate("text", x = 0, y = 1000, hjust = 0, label = standards_info) + EJC_theme() + theme(axis.text.x = element_text(size = 18, angle = 0, hjust = 0.5, color = 'black')) 
 dev.off()
+
+
 
 print("Standards Information:")
 print(paste("Line of best fit: Y = ", round(scale_x,5), "* X ", round(intercept, 5)))
