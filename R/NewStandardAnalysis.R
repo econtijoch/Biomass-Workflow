@@ -44,10 +44,9 @@ usr <- par("usr")
 standards_info <- paste(paste("Line of best fit: Y = ", round(scale_x,5), "* X ", round(intercept, 5)), paste("R^2 = ", round (rsquared,5)), sep = "\n")
 
 name <- paste(exp_id, "Standard Curve.png")
-png(name)
-ggplot(standards, aes_string(x = 's_x', y = 's_y')) + geom_point(size = 4) + labs(x = "Fluorescence Measurement", y = "ug DNA in Standard", main = "Standard Curve") + geom_smooth(method = "lm", se = FALSE) + annotate("text", x = 0, y = 1000, hjust = 0, label = standards_info) + EJC_theme() + theme(axis.text.x = element_text(size = 18, angle = 0, hjust = 0.5, color = 'black')) 
-dev.off()
+standards_plot <- ggplot(standards, aes_string(x = 's_x', y = 's_y')) + geom_point(size = 4) + labs(x = "Fluorescence Measurement", y = "ug DNA in Standard", main = "Standard Curve") + geom_smooth(method = "lm", se = FALSE) + annotate("text", x = 0, y = 1000, hjust = 0, label = standards_info) + EJC_theme() + theme(axis.text.x = element_text(size = 18, angle = 0, hjust = 0.5, color = 'black')) 
 
+save_plot(name, standards_plot)
 
 
 print("Standards Information:")
