@@ -1,4 +1,5 @@
 require(ggplot2)
+require(cowplot)
 
 NewStandardAnalysis <- function(standards_plate_reader_csv_file, standards_mapping_csv_file, num_reads, exp_id) {
   
