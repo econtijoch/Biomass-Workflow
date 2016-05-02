@@ -5,7 +5,7 @@ Title: Biomass Workflow
 Authors@R: person('Eduardo', 'Contijoch', role = 'aut', email = 'eduardo.contijoch@gmail.com')
 Author: Eduardo Contijoch
 Maintainer: Eduardo Contijoch <eduardo.contijoch@gmail.com>
-Depends: R (>= 1.8.0), nlme, ggplot2, devtools, easyGgplot2, reshape, plyr, dplyr
+Depends: R (>= 1.8.0), nlme, ggplot2, devtools, reshape, plyr, dplyr, cowplot
 Suggests: MASS
 Description: Functions for standards analysis, data analysis, plot making, and taxonomic scaling.
 License: GPL (>= 2)
