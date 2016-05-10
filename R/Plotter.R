@@ -26,10 +26,10 @@ plotter <- function(data) {
 			),
 		server = function(input, output) {
 			output$x_axis <- renderUI({
-				selectInput("x_axis", "Select x-axis variable", names(data()))
+				selectInput("x_axis", "Select x-axis variable", names(data))
 			})
 			output$y_axis <- renderUI({
-				selectInput("y_axis", "Select y-axis variable", names(data()))
+				selectInput("y_axis", "Select y-axis variable", names(data))
 			})
 			
 			plot_item <- reactive({
@@ -37,7 +37,7 @@ plotter <- function(data) {
 					need(input$x_axis,  'Select an x-axis variable.'), 
 					need(input$y_axis, 'Select a y-axis  variable.')
 					) 
-					plot <- ggplot(data(),aes_string(x = input$x_axis, y = input$y_axis))
+					plot <- ggplot(data,aes_string(x = input$x_axis, y = input$y_axis))
 					return(
 						plot) 
 				}) 
