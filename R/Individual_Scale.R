@@ -56,6 +56,9 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
 		max_otu_fraction <- apply(pre_normalized, 2, max)
 		normalized <- pre_normalized[, max_otu_fraction > filter]
 	}
+	if (ncol(normalized) == 0 ) {
+		stop("Filter is too strict, all OTUs filtered out!")
+	}
 	scaled <- normalized*metadata$biomass_ratio
 	relative <- normalized*100
 	scaled$X.SampleID <- as.character(metadata$X.SampleID)
@@ -64,9 +67,7 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
 	fraction_filtered <- 1 - (ncol(normalized)/ncol(pre_normalized))
 	cat(paste('OTU table successfully filtered (', round(fraction_filtered, 3)*100, '% of OTUs removed)...\n', sep = ""))
 	
-	if (ncol(normalized) == 0 ) {
-		stop("Filter is too strict, all OTUs filtered out!")
-	}
+	
 
 	# Re-join metadata (may not be necessary to have added previously, but am concerned about not applying correct biomass scaling to samples)
 	otus_scaled <- dplyr::left_join(metadata, scaled, by = "X.SampleID")
