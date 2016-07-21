@@ -1,11 +1,9 @@
-NewDataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, num_reads, exp_id, ...) {
+Deprecated_DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, exp_id, ...) {
 	
 	# Parse inputs and override default values if given
 	args <- list(...)
 	standards_plate_reader_csv_file = plate_reader_csv_file
 	standards_mapping_csv_file = mapping_csv_file
-	volume = 2
-	scale = 14
 	
 	if (!is.null(args$standards_plate)) {
 		standards_plate_reader_csv_file = args$standards_plate
@@ -14,26 +12,19 @@ NewDataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, num_reads, 
 	if(!is.null(args$standards_mapping)) {
 		standards_mapping_csv_file = args$standards_mapping
 	}
-	if(!is.null(args$volume)) {
-		volume = args$volume
-	}
-	
-	if(!is.null(args$scale)) {
-		scale = args$scale
-	}
 
 
-standard_analysis <- NewStandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, standards_mapping_csv_file = standards_mapping_csv_file, num_reads = num_reads, exp_id = exp_id) 
+standard_analysis <- StandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, standards_mapping_csv_file = standards_mapping_csv_file, exp_id = exp_id) 
 
 # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read information for the plate.
-rawdata <- NewPlateParser(plate_reader_csv_file, num_reads)
+rawdata <- ParsePlateReaderFile(plate_reader_csv_file)
 
 # Parse Metadata from mapping file
 mapping <- ParseMappingFile(mapping_csv_file)
 
 
 # Merge data with mapping file, label data appropriately
-data <- merge(rawdata$table, mapping, by = "ReaderWell")
+data <- merge(rawdata$table, mapping, by = "Well")
 
 data <- subset(data, !is.na(data$BarcodeID))
 
@@ -51,13 +42,11 @@ scale_x <- standard_analysis$scale_x
 intercept <- standard_analysis$intercept
 
 # Begin working with the data
-exp_data$qubit_volume <- volume
-exp_data$dna_concentration <- (exp_data[, "fluor_av"]*scale_x + intercept)/volume
+exp_data$dna_concentration <- (exp_data[, "fluor_av"]*scale_x + intercept)/2
 
 # Biomass Analysis
 exp_data$total_dna <- exp_data[, "dna_concentration"]*0.1
-exp_data$scale_factor <- scale
-exp_data$biomass_ratio <- exp_data$total_dna*scale/exp_data$SampleMass
+exp_data$biomass_ratio <- exp_data$total_dna/exp_data$SampleMass
 exp_data$vol_needed_for_PCR <- 400/exp_data[, "dna_concentration"]
 exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR
 

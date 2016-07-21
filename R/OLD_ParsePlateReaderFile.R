@@ -1,4 +1,4 @@
-ParsePlateReaderFile <- function(plate_reader_file) {
+Deprecated_ParsePlateReaderFile <- function(plate_reader_file) {
     
   #Import file
   file <- read.csv(plate_reader_file)

@@ -3,7 +3,6 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
 	require(lazyeval)
 	require(biom)
 	require(reshape2)
-	require(BiomassWorkflow)
 	require(dplyr)
 	
 	cat('Reading Biom Table...\n')
@@ -18,8 +17,13 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
 	cat('Reading Metadata...\n')
 	# Read in metadata, QC for NA values of biomass
 	metadata <- read.delim(metadata_file)
+	if ('biomass_ratio' %in% colnames(metadata)) {
 	metadata$X.SampleID <- as.character(metadata$X.SampleID)
 	metadata <- metadata[!is.na(metadata$biomass_ratio), ]
+	} else {
+	  stop("Biomass data not in metadata file")
+	}
+
 	
 	cat('Making sure OTU data and metadata are properly aligned...\n')
 	# Make sure we are working with the right data, sort in same order:
