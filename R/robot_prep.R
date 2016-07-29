@@ -76,6 +76,8 @@ robot_prep <- function(dataset, output_name) {
   
   write.csv(output, output_name, row.names = FALSE)
   
+  cat("Names of plates needed: \n", paste(levels(as.factor(output$DNASource)), collapse = "\n"))
+  
   return(output)
   
   
