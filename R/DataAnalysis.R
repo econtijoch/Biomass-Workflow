@@ -36,6 +36,7 @@ mapping <- ParseMappingFile(mapping_csv_file)
 data <- merge(rawdata$table, mapping, by = "ReaderWell")
 
 data <- subset(data, !is.na(data$BarcodeID))
+data <- subset(data, data$BarcodeID != "")
 
 rownames(data) <- data$BarcodeID
 
