@@ -1,7 +1,12 @@
 PlateParser <- function(plate_reader_file, num_reads) {
   
-  #Import file
-  file <- read.csv(plate_reader_file)
+  #Import file, handle xls(x) vs csv files
+  if (tail(unlist(strsplit(plate_reader_csv_file, "\\.")), n = 1) == 'csv') {
+  	file <- read.csv(plate_reader_file)
+  } else if (tail(unlist(strsplit(plate_reader_csv_file, "\\.")), n = 1) == 'xls' | tail(unlist(strsplit(plate_reader_csv_file, "\\.")), n = 1) == 'xlsx'){
+  	file <- XLConnect::readWorksheet(object = XLConnect::loadWorkbook(plate_reader_file), sheet = 1)
+  }
+   
   
   #Find start point
   for (i in 0:ncol(file)) {

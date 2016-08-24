@@ -11,11 +11,7 @@ StandardAnalysis <- function(standards_plate_reader_csv_file, standards_mapping_
 	}
   
   # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read information for the plate.
-  if (tail(unlist(strsplit(standards_plate_reader_csv_file, "\\.")), n = 1) == 'csv') {
   	rawdata <- PlateParser(standards_plate_reader_csv_file, num_reads)
-  } else if (tail(unlist(strsplit(standards_plate_reader_csv_file, "\\.")), n = 1) == 'xls' | tail(unlist(strsplit(standards_plate_reader_csv_file, "\\.")), n = 1) == 'xlsx'){
-  	rawdata <- XLSPlateParser(standards_plate_reader_csv_file, num_reads)
-  }
 
 # Read barcode ID's from a file containing the label information
 

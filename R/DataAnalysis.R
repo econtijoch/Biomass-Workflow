@@ -31,11 +31,8 @@ standard_analysis <- StandardAnalysis(standards_plate_reader_csv_file = standard
 
 # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read information for the plate.
 
-if (tail(unlist(strsplit(plate_reader_csv_file, "\\.")), n = 1) == 'csv') {
-	rawdata <- PlateParser(plate_reader_csv_file, num_reads)
-} else if (tail(unlist(strsplit(plate_reader_csv_file, "\\.")), n = 1) == 'xls' | tail(unlist(strsplit(plate_reader_csv_file, "\\.")), n = 1) == 'xlsx'){
-	rawdata <- XLSPlateParser(plate_reader_csv_file, num_reads)
-}
+
+rawdata <- PlateParser(plate_reader_csv_file, num_reads)
 
 
 # Parse Metadata from mapping file
