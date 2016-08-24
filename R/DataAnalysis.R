@@ -1,9 +1,10 @@
-DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, num_reads, exp_id, ...) {
+DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, exp_id, ...) {
 	
 	# Parse inputs and override default values if given
 	args <- list(...)
 	standards_plate_reader_csv_file = plate_reader_csv_file
 	standards_mapping_csv_file = mapping_csv_file
+	num_reads = 1
 	volume = 2
 	scale = 7
 	
@@ -21,12 +22,21 @@ DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, num_reads, exp
 	if(!is.null(args$scale)) {
 		scale = args$scale
 	}
+	if (!is.null(args$num_reads)) {
+		num_reads = args$num_reads
+	}
 
 
 standard_analysis <- StandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, standards_mapping_csv_file = standards_mapping_csv_file, num_reads = num_reads, exp_id = exp_id) 
 
 # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read information for the plate.
-rawdata <- PlateParser(plate_reader_csv_file, num_reads)
+
+if (tail(unlist(strsplit(plate_reader_csv_file, "\\.")), n = 1) == 'csv') {
+	rawdata <- PlateParser(plate_reader_csv_file, num_reads)
+} else if (tail(unlist(strsplit(plate_reader_csv_file, "\\.")), n = 1) == 'xls' | tail(unlist(strsplit(plate_reader_csv_file, "\\.")), n = 1) == 'xlsx'){
+	rawdata <- XLSPlateParser(plate_reader_csv_file, num_reads)
+}
+
 
 # Parse Metadata from mapping file
 mapping <- ParseMappingFile(mapping_csv_file)
