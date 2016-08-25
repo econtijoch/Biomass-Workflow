@@ -14,9 +14,9 @@ If you need to install devtools first, you'll need to do the following first to 
 	devtools::install_github("hadley/devtools")
 </pre>
 
-<p>Each of the functions has its own documentation that can further explain their usage. Here in the github, I have posted a sample mapping file that can be used as a basis for your own mapping files (SampleMapping.csv).</p>
+<p>Each of the functions has its own documentation that can further explain their usage (**working on updating this**). Here in the github, I have posted a sample mapping file that can be used as a basis for your own mapping files (SampleMapping.csv).</p>
 
 <h3> Known Issues </h3>
 <ul>
-	<li>The excel file that the PlateReader produces must be saved as a .csv file (one per sheet, if using multiple plates).</li>
+	<li>When reading in Excel files, only the first sheet will be read into the input. Plan accordingly and save each sheet as its own file.</li>
 </ul>
