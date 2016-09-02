@@ -96,12 +96,12 @@ robot_prep_metagenomics <- function(dataset, output_name) {
 		for (i in 1:number_of_plates_needed) {
 		  for (j in 1:96) {
 		    entry <- ((i-1)*96)+j 
-		    if (entry <= samples) {
-		    dataset[entry, "BarcodePlate"] <- paste("Sequencing_Plate_", i, sep = "")
-		    row <- (j-1) %/% 12
-		    column <- j - (12*(row))
-		    row_id <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
-		    dataset[entry, "BarcodeWell"] <- paste(row_id[row+1], sprintf("%02d", column), sep = "")
+		    if (entry <= sample_number) {
+		    	dataset[entry, "BarcodePlate"] <- paste("Sequencing_Plate_", i, sep = "")
+		    	row <- (j-1) %/% 12
+		   	 	column <- j - (12*(row))
+		    	row_id <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
+		    	dataset[entry, "BarcodeWell"] <- paste(row_id[row+1], sprintf("%02d", column), sep = "")
 		    }
 		  }
   
