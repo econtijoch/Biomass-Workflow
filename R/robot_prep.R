@@ -95,11 +95,11 @@ robot_prep_metagenomics <- function(dataset, output_name) {
 		dataset$BarcodeWell <- ""
 		for (i in 1:number_of_plates_needed) {
 			for(j in 1:96) {
-				dataset[i, "BarcodePlate"] <- paste("Sequencing_Plate_", i, sep = "")
+				dataset[j, "BarcodePlate"] <- paste("Sequencing_Plate_", i, sep = "")
 			    row <- j %/% 12 + 1
 			    column <- j - (12*(row-1)) + 1
 			    row_id <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
-			    dataset[i, "BarcodeWell"] <- paste(row_id[row], sprintf("%02d", column), sep = "")
+			    dataset[j, "BarcodeWell"] <- paste(row_id[row], sprintf("%02d", column), sep = "")
 			}
 			
 		}
