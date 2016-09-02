@@ -85,7 +85,7 @@ robot_prep_16S <- function(dataset, output_name) {
 
 robot_prep_metagenomics <- function(dataset, output_name) {
 	
-	if (!("BarcodePlate" %in% colnames(dataset) | !("BarcodeWell" %in% colnames(dataset))) {
+	if (!("BarcodePlate" %in% colnames(dataset) | !("BarcodeWell" %in% colnames(dataset)))) {
 		sample_number <- nrow(dataset)
 		number_of_plates_needed <- ceiling(sample_number/96)
 		for (i in 1:number_of_plates_needed) {
