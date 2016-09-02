@@ -68,9 +68,10 @@ exp_data$scale_factor <- scale
 exp_data$biomass_ratio <- exp_data$total_dna*scale/exp_data$SampleMass
 exp_data$vol_needed_for_PCR <- 400/exp_data[, "dna_concentration"]
 exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR
-exp_data$metagenomics_possible <- 500/exp_data[, "dna_concentration"] < 30
-exp_data$vol_needed_for_metagenomics <- 500/exp_data[, "dna_concentration"]
-exp_data$water_volume_up_metagenomics <- 20 - exp_data$vol_needed_for_metagenomics
+exp_data$metagenomics_possible <- 625/exp_data[, "dna_concentration"] < 30
+exp_data$vol_needed_for_metagenomics <- 625/exp_data[, "dna_concentration"]
+exp_data$water_volume_up_metagenomics <- 25 - exp_data$vol_needed_for_metagenomics
+exp_data$dna_total_in_20ul <- exp_data$vol_needed_for_metagenomics*exp_data$dna_concentration*20/25
 
 
 
