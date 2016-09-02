@@ -125,7 +125,7 @@ robot_prep_metagenomics <- function(dataset, output_name) {
     robot_table$WaterWell <- 1
     robot_table$NormalizedVolume <- robot_table$DNA_Vol + robot_table$Water_Vol
     
-    output <- as.data.frame(select(robot_table, WaterSource, WaterWell, DNASource, DNASourceWell, Destination, DestinationWell, DNA_Vol, Water_Vol, Warning, BarcodeID, PlateID, SampleWell, NormalizedVolume, StartingConc, FinalConc))
+    output <- as.data.frame(select(robot_table, WaterSource, WaterWell, DNASource, DNASourceWell, Destination, DestinationWell, DNA_Vol, Water_Vol, Warning, BarcodeID, PlateID, SampleWell, NormalizedVolume, StartingConc, FinalConc, TotalDNAin20uL))
     
     
   }
