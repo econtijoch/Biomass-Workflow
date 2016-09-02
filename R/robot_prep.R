@@ -91,6 +91,8 @@ robot_prep_metagenomics <- function(dataset, output_name) {
 	if ("BarcodePlate" %ni% colnames(dataset)) {
 		sample_number <- nrow(dataset)
 		number_of_plates_needed <- ceiling(sample_number/96)
+		dataset$BarcodePlate <- ""
+		dataset$BarcodeWell <- ""
 		for (i in 1:number_of_plates_needed) {
 			for(j in 1:96) {
 				dataset[i, "BarcodePlate"] <- paste("Sequencing_Plate_", i, sep = "")
