@@ -71,7 +71,6 @@ exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR
 exp_data$metagenomics_possible <- 625/exp_data[, "dna_concentration"] < 28
 exp_data$vol_needed_for_metagenomics <- 625/exp_data[, "dna_concentration"]
 exp_data$water_volume_up_metagenomics <- 25 - exp_data$vol_needed_for_metagenomics
-#exp_data$dna_total_in_20ul <- exp_data$vol_needed_for_metagenomics*exp_data$dna_concentration*20/25
 
 
 

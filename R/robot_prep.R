@@ -12,7 +12,7 @@ well_parser <- function(well) {
 }
 
 
-robot_prep_16S <- function(dataset, output_name) {
+robot_prep_16S <- function(dataset) {
   
   robot_table <- dataset %>% select(BarcodeID, PlateID, SampleWell, vol_needed_for_PCR, water_volume_up_PCR, dna_concentration, BarcodePlate, BarcodeWell)
   robot_table$BarcodeID <- as.character(robot_table$BarcodeID)
@@ -74,8 +74,6 @@ robot_prep_16S <- function(dataset, output_name) {
   }
   output <- output %>% arrange(Destination)
   
-  write.csv(output, output_name, row.names = FALSE)
-  
   cat("Names of plates needed: \n", paste(levels(as.factor(output$DNASource)), collapse = "\n"))
   
   return(output)
@@ -83,7 +81,7 @@ robot_prep_16S <- function(dataset, output_name) {
   
 }
 
-robot_prep_metagenomics <- function(dataset, output_name) {
+robot_prep_metagenomics <- function(dataset) {
 	
 	"%ni%" <- Negate("%in%")
 	
@@ -153,8 +151,6 @@ robot_prep_metagenomics <- function(dataset, output_name) {
     
   }
   output <- output %>% arrange(Destination)
-  
-  write.csv(output, output_name, row.names = FALSE)
   
   cat("Names of plates needed: \n", paste(levels(as.factor(output$DNASource)), collapse = "\n"))
   
