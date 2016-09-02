@@ -84,6 +84,21 @@ robot_prep_16S <- function(dataset, output_name) {
 }
 
 robot_prep_metagenomics <- function(dataset, output_name) {
+	
+	if (!(BarcodePlate %in% colnames(dataset) | !(BarcodeWell %in% colnames(dataset))) {
+		sample_number <- nrow(dataset)
+		number_of_plates_needed <- ceiling(sample_number/96)
+		for (i in 1:number_of_plates_needed) {
+			for(j in 1:96) {
+				robot_table[i, "BarcodePlate"] <- paste("Sequencing_Plate_", i, sep = "")
+			    row <- j %/% 12 + 1
+			    column <- j - (12*(row-1)) + 1
+			    row_id <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
+			    robot_table[i, "BarcodeWell"] <- paste(row_id[row], sprintf("%02d", column), sep = "")
+			}
+			
+		}
+	}
   
   robot_table <- dataset %>% select(BarcodeID, PlateID, SampleWell, vol_needed_for_metagenomics, water_volume_up_metagenomics, dna_concentration, BarcodePlate, BarcodeWell)
   robot_table$BarcodeID <- as.character(robot_table$BarcodeID)
