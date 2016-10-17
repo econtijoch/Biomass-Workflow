@@ -77,6 +77,7 @@ if (exp_data$SampleMass < 10) {
 } else {
 	exp_data$Other <- NA
 }
+exp_data$Experiment <- exp_id
 
 
 
