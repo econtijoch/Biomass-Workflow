@@ -55,7 +55,7 @@ data$fluor_av <- apply(data[read_start:read_end], 1, mean)
 
 exp_data <- split(data, data$Type)$Experiment
 
-exp_data %>% mutate(Other = ifelse(SampleMass < 10, "No_Pellet", NA))
+exp_data <- exp_data %>% mutate(Other = ifelse(SampleMass < 10, "No_Pellet", NA))
 
 exp_data$Experiment <- exp_id
 
