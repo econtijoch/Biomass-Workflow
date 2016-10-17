@@ -81,6 +81,9 @@ robot_prep_16S <- function(dataset) {
   
 }
 
+
+"%ni%" <- Negate("%in%")
+
 robot_prep_metagenomics <- function(dataset) {
 	
 	"%ni%" <- Negate("%in%")
