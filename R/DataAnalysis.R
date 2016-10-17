@@ -55,6 +55,11 @@ data$fluor_av <- apply(data[read_start:read_end], 1, mean)
 
 exp_data <- split(data, data$Type)$Experiment
 
+exp_data %>% mutate(Other = ifelse(SampleMass < 10, "No_Pellet", NA))
+
+exp_data$Experiment <- exp_id
+
+
 scale_x <- standard_analysis$scale_x
 intercept <- standard_analysis$intercept
 
@@ -71,14 +76,6 @@ exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR
 exp_data$metagenomics_possible <- 625/exp_data[, "dna_concentration"] < 28
 exp_data$vol_needed_for_metagenomics <- 625/exp_data[, "dna_concentration"]
 exp_data$water_volume_up_metagenomics <- 25 - exp_data$vol_needed_for_metagenomics
-
-if (exp_data$SampleMass < 10) {
-	exp_data$Other <- "No_Pellet"
-} else {
-	exp_data$Other <- NA
-}
-exp_data$Experiment <- exp_id
-
 
 
 return(exp_data)
