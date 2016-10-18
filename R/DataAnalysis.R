@@ -57,7 +57,7 @@ exp_data <- split(data, data$Type)$Experiment
 
 exp_data <- exp_data %>% mutate(Other = ifelse(SampleMass < 10, "No_Pellet", NA))
 
-'%ni%' <- Negate(%in%)
+"%ni%" <- Negate("%in%")
 
 if ("Experiment" %ni% colnames(exp_data)) {
 	exp_data$Experiment <- exp_id	
