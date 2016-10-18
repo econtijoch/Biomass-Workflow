@@ -14,6 +14,26 @@ well_parser <- function(well) {
 
 robot_prep_16S <- function(dataset) {
   
+	if ("BarcodePlate" %ni% colnames(dataset)) {
+		sample_number <- nrow(dataset)
+		number_of_plates_needed <- ceiling(sample_number/96)
+		dataset$BarcodePlate <- ""
+		dataset$BarcodeWell <- ""
+		for (i in 1:number_of_plates_needed) {
+		  for (j in 1:96) {
+		    entry <- ((i-1)*96)+j 
+		    if (entry <= sample_number) {
+		    	dataset[entry, "BarcodePlate"] <- paste("Sequencing_Plate_", i, sep = "")
+		    	row <- (j-1) %/% 12
+		   	 	column <- j - (12*(row))
+		    	row_id <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
+		    	dataset[entry, "BarcodeWell"] <- paste(row_id[row+1], sprintf("%02d", column), sep = "")
+		    }
+		  }
+  
+		}
+	}
+  
   robot_table <- dataset %>% select(BarcodeID, PlateID, SampleWell, vol_needed_for_PCR, water_volume_up_PCR, dna_concentration, BarcodePlate, BarcodeWell)
   robot_table$BarcodeID <- as.character(robot_table$BarcodeID)
   robot_table$PlateID <- as.character(robot_table$PlateID)
