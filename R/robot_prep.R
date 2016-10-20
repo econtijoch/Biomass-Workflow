@@ -12,7 +12,7 @@ well_parser <- function(well) {
 }
 
 
-robot_prep_16Sb <- function(dataset, n_barcode_plates) {
+robot_prep_16S <- function(dataset, n_barcode_plates) {
   
 	if ("BarcodePlate" %ni% colnames(dataset)) {
 		sample_number <- nrow(dataset)
