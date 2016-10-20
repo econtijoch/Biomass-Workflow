@@ -31,7 +31,7 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
 			  }			
 			for (i in 1:plates_in_run) {
 			  for (j in 1:96) {
-			    entry <- ((i-1)*96)+j 
+			    entry <- ((i-1)*96)+j + (k-1)*n_barcode_plates*96
 			    if (entry <= sample_number) {
 			    	dataset[entry, "BarcodePlate"] <- paste("Plate", i, sep = "")
 			    	row <- (j-1) %/% 12
