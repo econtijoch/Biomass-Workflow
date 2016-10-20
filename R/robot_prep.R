@@ -24,7 +24,7 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
 		dataset$SequencingRun <- ""
 		
 		for (k in 1:number_of_runs_needed) {
-			if (length(unique(robot_dilution$BarcodePlate)) > n_barcode_plates & i < 2) {
+			if (total_number_of_plates_needed > n_barcode_plates & k < 2) {
 			    plates_in_run <- n_barcode_plates
 			  } else {
 			    plates_in_run <-  total_number_of_plates_needed - (k-1)*n_barcode_plates
