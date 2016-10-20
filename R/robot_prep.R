@@ -14,7 +14,6 @@ well_parser <- function(well) {
 
 robot_prep_16S <- function(dataset, n_barcode_plates) {
   
-	if ("BarcodePlate" %ni% colnames(dataset)) {
 		sample_number <- nrow(dataset)
 		total_number_of_plates_needed <- ceiling(sample_number/96)
 		number_of_runs_needed <- ceiling(sample_number/(96*n_barcode_plates))
@@ -46,7 +45,6 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
 			}
 			
 		}
-	}
   
 	if ("X16S_possible" %in% colnames(dataset)) {
 		if (sum(dataset[,"X16S_possible"]) < nrow(dataset)) {
@@ -124,9 +122,7 @@ robot_prep_metagenomics <- function(dataset, n_barcode_plates) {
 	
 	"%ni%" <- Negate("%in%")
 	
-	
-	if ("BarcodePlate" %ni% colnames(dataset)) {
-		sample_number <- nrow(dataset)
+	sample_number <- nrow(dataset)
 		total_number_of_plates_needed <- ceiling(sample_number/96)
 		number_of_runs_needed <- ceiling(sample_number/(96*n_barcode_plates))
 		
@@ -157,7 +153,6 @@ robot_prep_metagenomics <- function(dataset, n_barcode_plates) {
 			}
 			
 		}
-	}
 	
 	if ("metagenomics_possible" %in% colnames(dataset)) {
 		if (sum(dataset$metagenomics_possible) < nrow(dataset)) {

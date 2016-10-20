@@ -35,7 +35,7 @@ sequencing_prep_16S <- function(experiment_data_list, n_barcode_plates, barcode_
 
 	cat(paste("\n---------------\nNumber of Samples :", nrow(robot_dilution), "\n---------------"))
 	cat(paste("\nNumber of Sequencing Runs Needed: ", n_sequencing_runs, "\n---------------", sep = ""))
-	cat(paste("\nNumber of Barcodes Available: ", (96*n_barcode_plates*n_sequencing_runs) - nrow(robot_dilution), "\n---------------", sep = ""))
+	cat(paste("\nNumber of Unused Barcodes Available: ", (96*n_barcode_plates*n_sequencing_runs) - nrow(robot_dilution), "\n---------------", sep = ""))
 
 	sequencing_runs <- list()
 
@@ -108,7 +108,7 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
 
 	cat(paste("\n---------------\nNumber of Samples :", nrow(robot_dilution), "\n---------------"))
 	cat(paste("\nNumber of Sequencing Runs Needed: ", n_sequencing_runs, "\n---------------", sep = ""))
-	cat(paste("\nNumber of Barcodes Available: ", (96*n_barcode_plates*n_sequencing_runs) - nrow(robot_dilution), "\n---------------", sep = ""))
+	cat(paste("\nNumber of Unused Barcodes Available: ", (96*n_barcode_plates*n_sequencing_runs) - nrow(robot_dilution), "\n---------------", sep = ""))
 
 	sequencing_runs <- list()
 
