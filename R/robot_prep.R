@@ -62,10 +62,10 @@ robot_prep_16S <- function(dataset) {
 	  robot_table[i, "FinalConc"] = (robot_table[i, "StartingConc"]*1)/(200)
     }
 	else if (robot_table[i, 'vol_needed_for_PCR'] > 150) {
-		robot_table[i, "vol_needed_for_PCR"] = 40
-		robot_table[i, 'water_volume_up_PCR'] = 0
-		robot_table[i, 'Warning'] = '[WARNING] DNAvol > 150: Transferred 40 uL + 0 uL Water/EB'
-		robot_table[i, "FinalConc"] = (robot_table[i, "StartingConc"]*40)/(40)
+		robot_table[i, "vol_needed_for_PCR"] = robot_table[i, "vol_needed_for_PCR"]/5
+		robot_table[i, 'water_volume_up_PCR'] = robot_table[i, "water_volume_up_PCR"]/5
+		robot_table[i, 'Warning'] = '[WARNING] DNAvol > 150: Transferred [DNAvol + Water/EB]= 40 uL'
+		robot_table[i, "FinalConc"] = (robot_table[i, "StartingConc"]*robot_table[i, "vol_needed_for_PCR"])/(40)
 	}
 	else if (robot_table[i, 'vol_needed_for_PCR'] > 50) {
 		robot_table[i, "vol_needed_for_PCR"] = robot_table[i, "vol_needed_for_PCR"]/4
