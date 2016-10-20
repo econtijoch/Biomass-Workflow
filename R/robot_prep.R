@@ -48,7 +48,7 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
 			}
   
 	if ("X16S_possible" %in% colnames(dataset)) {
-		if (sum(dataset$X16S_possible) < nrow(dataset)) {
+		if (sum(dataset[,"X16S_possible"]) < nrow(dataset)) {
 			cat("WARNING: Running robot prep on samples that have not passed the '16S possible' check. Re-check data and filter if necessary.")
 		}
 	}
