@@ -160,7 +160,7 @@ robot_prep_metagenomics <- function(dataset, n_barcode_plates) {
 		}
 	}
   
-  robot_table <- dataset %>% select(BarcodeID, PlateID, SampleWell, vol_needed_for_PCR, water_volume_up_PCR, dna_concentration, BarcodePlate, BarcodeWell, SequencingRun)
+  robot_table <- dataset %>% select(BarcodeID, PlateID, SampleWell, vol_needed_for_metagenomics, water_volume_up_metagenomics, dna_concentration, BarcodePlate, BarcodeWell, SequencingRun)
   robot_table$BarcodeID <- as.character(robot_table$BarcodeID)
   robot_table$PlateID <- as.character(robot_table$PlateID)
   robot_table$Warning <- ""
