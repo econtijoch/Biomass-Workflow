@@ -107,9 +107,8 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
     
     output <- as.data.frame(select(robot_table, WaterSource, WaterWell, DNASource, DNASourceWell, Destination, DestinationWell, DNA_Vol, Water_Vol, Warning, BarcodeID, PlateID, SampleWell, SequencingRun, BarcodePlate, BarcodeWell, NormalizedVolume, StartingConc, FinalConc))
     
-    
   }
-  output <- output %>% arrange(Destination)
+  output <- output  %>% dplyr::arrange(SequencingRun, BarcodePlate, DestinationWell)
   
   cat("Names of plates needed: \n", paste(levels(as.factor(output$DNASource)), collapse = "\n"))
   
