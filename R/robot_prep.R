@@ -34,6 +34,12 @@ robot_prep_16S <- function(dataset) {
 		}
 	}
   
+	if ("X16S_possible" %in% colnames(dataset)) {
+		if (sum(dataset$X16S_possible) < nrow(dataset)) {
+			warning("Running robot prep on samples that have not passed the '16S possible' check. Re-check data and filter if necessary.")
+		}
+	}
+  
   robot_table <- dataset %>% select(BarcodeID, PlateID, SampleWell, vol_needed_for_PCR, water_volume_up_PCR, dna_concentration, BarcodePlate, BarcodeWell)
   robot_table$BarcodeID <- as.character(robot_table$BarcodeID)
   robot_table$PlateID <- as.character(robot_table$PlateID)
@@ -80,8 +86,8 @@ robot_prep_16S <- function(dataset) {
 	 
     robot_table$DNASourceWell <- unlist(lapply(robot_table$SampleWell, well_parser))
     
-    robot_table$DNA_Vol <- round_any(robot_table$vol_needed_for_PCR, 0.5)
-    robot_table$Water_Vol <- round_any(robot_table$water_volume_up_PCR, 0.5)
+    robot_table$DNA_Vol <- round_any(robot_table$vol_needed_for_PCR, 0.05)
+    robot_table$Water_Vol <- round_any(robot_table$water_volume_up_PCR, 0.05)
     robot_table$Destination <- paste("Normalized", robot_table$BarcodePlate, sep = "_")
     robot_table$DestinationWell <- unlist(lapply(robot_table$BarcodeWell, well_parser))
     robot_table$WaterSource <- 'WaterSource'
@@ -128,6 +134,12 @@ robot_prep_metagenomics <- function(dataset) {
   
 		}
 	}
+	
+	if ("metagenomics_possible" %in% colnames(dataset)) {
+		if (sum(dataset$metagenomics_possible) < nrow(dataset)) {
+			warning("Running robot prep on samples that have not passed the 'metagenomics possible' check. Re-check data and filter if necessary.")
+		}
+	}
   
   robot_table <- dataset %>% select(BarcodeID, PlateID, SampleWell, vol_needed_for_metagenomics, water_volume_up_metagenomics, dna_concentration, BarcodePlate, BarcodeWell)
   robot_table$BarcodeID <- as.character(robot_table$BarcodeID)
@@ -161,8 +173,8 @@ robot_prep_metagenomics <- function(dataset) {
 	 
     robot_table$DNASourceWell <- unlist(lapply(robot_table$SampleWell, well_parser))
     
-    robot_table$DNA_Vol <- round_any(robot_table$vol_needed_for_metagenomics, 0.5)
-    robot_table$Water_Vol <- round_any(robot_table$water_volume_up_metagenomics, 0.5)
+    robot_table$DNA_Vol <- round_any(robot_table$vol_needed_for_metagenomics, 0.05)
+    robot_table$Water_Vol <- round_any(robot_table$water_volume_up_metagenomics, 0.05)
     robot_table$Destination <- paste("Normalized", robot_table$BarcodePlate, sep = "_")
     robot_table$DestinationWell <- unlist(lapply(robot_table$BarcodeWell, well_parser))
     robot_table$WaterSource <- 'WaterSource'

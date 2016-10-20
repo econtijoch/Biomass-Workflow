@@ -74,6 +74,7 @@ exp_data$dna_concentration <- (exp_data[, "fluor_av"]*scale_x + intercept)/volum
 exp_data$total_dna <- exp_data[, "dna_concentration"]*0.1
 exp_data$scale_factor <- scale
 exp_data$biomass_ratio <- exp_data$total_dna*scale/exp_data$SampleMass
+exp_data$X16S_possible <- exp_data[, "dna_concentration"] > 1.5
 exp_data$vol_needed_for_PCR <- 400/exp_data[, "dna_concentration"]
 exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR
 exp_data$metagenomics_possible <- 625/exp_data[, "dna_concentration"] < 28
