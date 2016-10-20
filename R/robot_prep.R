@@ -36,7 +36,7 @@ robot_prep_16S <- function(dataset) {
   
 	if ("X16S_possible" %in% colnames(dataset)) {
 		if (sum(dataset$X16S_possible) < nrow(dataset)) {
-			warning("Running robot prep on samples that have not passed the '16S possible' check. Re-check data and filter if necessary.")
+			cat("WARNING: Running robot prep on samples that have not passed the '16S possible' check. Re-check data and filter if necessary.")
 		}
 	}
   
@@ -137,7 +137,7 @@ robot_prep_metagenomics <- function(dataset) {
 	
 	if ("metagenomics_possible" %in% colnames(dataset)) {
 		if (sum(dataset$metagenomics_possible) < nrow(dataset)) {
-			warning("Running robot prep on samples that have not passed the 'metagenomics possible' check. Re-check data and filter if necessary.")
+			cat("WARNING: Running robot prep on samples that have not passed the 'metagenomics possible' check. Re-check data and filter if necessary.")
 		}
 	}
   
