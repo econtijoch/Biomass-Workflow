@@ -124,7 +124,7 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
 	  }
 	  sequencing_runs[[sequencing_id]][["Plates"]] <- list()
   
-	  if (ceiling(nrow(sequencing_combined)/96) > n_barcode_plates & i < 2) {
+	  if (ceiling(nrow(sequencing_combined)/96) > n_barcode_plates & i < (n_sequencing_runs-1)) {
 	    plates_in_run <- n_barcode_plates
 	  } else {
 	    plates_in_run <- ceiling(nrow(sequencing_combined)/96) - (i-1)*n_barcode_plates
