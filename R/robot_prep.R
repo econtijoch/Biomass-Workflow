@@ -12,7 +12,7 @@ well_parser <- function(well) {
 }
 
 
-robot_prep_16S <- function(dataset, n_barcode_plates) {
+robot_prep_16Sb <- function(dataset, n_barcode_plates) {
   
 	if ("BarcodePlate" %ni% colnames(dataset)) {
 		sample_number <- nrow(dataset)
@@ -38,14 +38,15 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
 			   	 	column <- j - (12*(row))
 			    	row_id <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
 			    	dataset[entry, "BarcodeWell"] <- paste(row_id[row+1], sprintf("%02d", column), sep = "")
+					dataset[entry, "SequencingRun"] <- paste('16S_Run', k, sep = "")
 			    }
-				dataset[entry, "SequencingRun"] <- paste('16S_Run', k, sep = "")
+				
 			  }
   
 			}
 			
 		}
-			}
+	}
   
 	if ("X16S_possible" %in% colnames(dataset)) {
 		if (sum(dataset[,"X16S_possible"]) < nrow(dataset)) {
