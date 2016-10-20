@@ -51,10 +51,10 @@ sequencing_prep_16S <- function(experiment_data_list, n_barcode_plates, barcode_
 	  }
 	  sequencing_runs[[sequencing_id]][["Plates"]] <- list()
   
-	  if (ceiling(nrow(sequencing_combined)/96) > n_barcode_plates & i < 2) {
+	  if (i < n_sequencing_runs) {
 	    plates_in_run <- n_barcode_plates
 	  } else {
-	    plates_in_run <- ceiling(nrow(sequencing_combined)/96) - (i-1)*n_barcode_plates
+	    plates_in_run <- n_barcode_plates*i - ceiling(nrow(robot_dilution)/96)
 	  }
   
 	  for (j in 1:plates_in_run) {
@@ -124,10 +124,10 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
 	  }
 	  sequencing_runs[[sequencing_id]][["Plates"]] <- list()
   
-	  if (ceiling(nrow(sequencing_combined)/96) > n_barcode_plates & i < (n_sequencing_runs-1)) {
+	  if (i < n_sequencing_runs) {
 	    plates_in_run <- n_barcode_plates
 	  } else {
-	    plates_in_run <- ceiling(nrow(sequencing_combined)/96) - (i-1)*n_barcode_plates
+	    plates_in_run <- n_barcode_plates*i - ceiling(nrow(robot_dilution)/96)
 	  }
   
 	  for (j in 1:plates_in_run) {
