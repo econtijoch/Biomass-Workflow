@@ -50,7 +50,7 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
   
 	if ("X16S_possible" %in% colnames(dataset)) {
 		if (sum(dataset[,"X16S_possible"]) < nrow(dataset)) {
-			cat("WARNING: Running robot prep on samples that have not passed the '16S possible' check. Re-check data and filter if necessary.")
+			cat("WARNING: Running robot prep on samples that have not passed the '16S possible' check. Re-check data and filter if necessary.\n")
 		}
 	}
   
@@ -110,7 +110,8 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
   }
   output <- output  %>% dplyr::arrange(SequencingRun, BarcodePlate, DestinationWell)
   
-  cat("Names of plates needed: \n", paste(levels(as.factor(output$DNASource)), collapse = "\n"))
+  cat("Names of plates needed for robot dilution: \n")
+  cat(paste(unique(output$PlateID), collapse = "\n"))
   
   return(output)
   
@@ -118,7 +119,6 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
 }
 
 
-"%ni%" <- Negate("%in%")
 
 robot_prep_metagenomics <- function(dataset, n_barcode_plates) {
 	
@@ -127,27 +127,41 @@ robot_prep_metagenomics <- function(dataset, n_barcode_plates) {
 	
 	if ("BarcodePlate" %ni% colnames(dataset)) {
 		sample_number <- nrow(dataset)
-		number_of_plates_needed <- ceiling(sample_number/96)
+		total_number_of_plates_needed <- ceiling(sample_number/96)
+		number_of_runs_needed <- ceiling(sample_number/(96*n_barcode_plates))
+		
 		dataset$BarcodePlate <- ""
 		dataset$BarcodeWell <- ""
-		for (i in 1:number_of_plates_needed) {
-		  for (j in 1:96) {
-		    entry <- ((i-1)*96)+j 
-		    if (entry <= sample_number) {
-		    	dataset[entry, "BarcodePlate"] <- paste("Plate", i, sep = "")
-		    	row <- (j-1) %/% 12
-		   	 	column <- j - (12*(row))
-		    	row_id <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
-		    	dataset[entry, "BarcodeWell"] <- paste(row_id[row+1], sprintf("%02d", column), sep = "")
-		    }
-		  }
+		dataset$SequencingRun <- ""
+		
+		for (k in 1:number_of_runs_needed) {
+			if (total_number_of_plates_needed > n_barcode_plates & k < 2) {
+			    plates_in_run <- n_barcode_plates
+			  } else {
+			    plates_in_run <-  total_number_of_plates_needed - (k-1)*n_barcode_plates
+			  }			
+			for (i in 1:plates_in_run) {
+			  for (j in 1:96) {
+			    entry <- ((i-1)*96)+j + (k-1)*n_barcode_plates*96
+			    if (entry <= sample_number) {
+			    	dataset[entry, "BarcodePlate"] <- paste("Plate", i, sep = "")
+			    	row <- (j-1) %/% 12
+			   	 	column <- j - (12*(row))
+			    	row_id <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
+			    	dataset[entry, "BarcodeWell"] <- paste(row_id[row+1], sprintf("%02d", column), sep = "")
+					dataset[entry, "SequencingRun"] <- paste('Metagenomics_Run', k, sep = "")
+			    }
+				
+			  }
   
+			}
+			
 		}
 	}
 	
 	if ("metagenomics_possible" %in% colnames(dataset)) {
 		if (sum(dataset$metagenomics_possible) < nrow(dataset)) {
-			cat("WARNING: Running robot prep on samples that have not passed the 'metagenomics possible' check. Re-check data and filter if necessary.")
+			cat("WARNING: Running robot prep on samples that have not passed the 'metagenomics possible' check. Re-check data and filter if necessary.\n")
 		}
 	}
   
@@ -191,13 +205,14 @@ robot_prep_metagenomics <- function(dataset, n_barcode_plates) {
     robot_table$WaterWell <- 1
     robot_table$NormalizedVolume <- robot_table$DNA_Vol + robot_table$Water_Vol
     
-    output <- as.data.frame(select(robot_table, WaterSource, WaterWell, DNASource, DNASourceWell, Destination, DestinationWell, DNA_Vol, Water_Vol, Warning, BarcodeID, PlateID, SampleWell, BarcodePlate, BarcodeWell, NormalizedVolume, StartingConc, FinalConc, TotalDNAin20uL))
-    
+    output <- as.data.frame(select(robot_table, WaterSource, WaterWell, DNASource, DNASourceWell, Destination, DestinationWell, DNA_Vol, Water_Vol, Warning, BarcodeID, PlateID, SampleWell, SequencingRun, BarcodePlate, BarcodeWell, NormalizedVolume, StartingConc, FinalConc))
     
   }
-  output <- output %>% arrange(Destination)
+  output <- output  %>% dplyr::arrange(SequencingRun, BarcodePlate, DestinationWell)
   
-  cat("Names of plates needed: \n", paste(levels(as.factor(output$DNASource)), collapse = "\n"))
+  cat("Names of plates needed for robot dilution: \n")
+  cat(paste(unique(output$PlateID), collapse = "\n"))
+  
   
   return(output)
   
