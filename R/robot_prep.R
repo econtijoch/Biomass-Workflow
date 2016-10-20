@@ -23,7 +23,7 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
 		dataset$SequencingRun <- ""
 		
 		for (k in 1:number_of_runs_needed) {
-			if (total_number_of_plates_needed > n_barcode_plates & k < 2) {
+			if (k < number_of_runs_needed) {
 			    plates_in_run <- n_barcode_plates
 			  } else {
 			    plates_in_run <-  total_number_of_plates_needed - (k-1)*n_barcode_plates
@@ -131,11 +131,12 @@ robot_prep_metagenomics <- function(dataset, n_barcode_plates) {
 		dataset$SequencingRun <- ""
 		
 		for (k in 1:number_of_runs_needed) {
-			if (total_number_of_plates_needed > n_barcode_plates & k < 2) {
+			if (k < number_of_runs_needed) {
 			    plates_in_run <- n_barcode_plates
 			  } else {
 			    plates_in_run <-  total_number_of_plates_needed - (k-1)*n_barcode_plates
-			  }			
+			  }		
+			  	
 			for (i in 1:plates_in_run) {
 			  for (j in 1:96) {
 			    entry <- ((i-1)*96)+j + (k-1)*n_barcode_plates*96
