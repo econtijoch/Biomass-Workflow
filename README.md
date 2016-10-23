@@ -27,4 +27,4 @@ Examples
 
 Here are links to some walkthroughs for common features:
 
-[Raw Data Processing](www.eduardocontijoch.com/Projects/Biomass-Workflow/Vignettes/raw-data-processing.html)
+[Raw Data Processing](http://www.eduardocontijoch.com/Projects/Biomass-Workflow/Vignettes/raw-data-processing.html)
