@@ -8,12 +8,16 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{r Dependencies, include=FALSE}
+library(pander)
+```
 ## Getting Set Up
 
 This document is meant to serve as an introductory primer for using R to streamline and standardize the generation and analysis of microbial biomass data. 
 
 To follow along, you will need to download and load the package:
-```{r Setup, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide'}
+```{r Setup, eval=T, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide', include = FALSE}
 # Install and load the devtools package to help download the BiomassWorkflow package
 install.packages('devtools', repos='http://cran.us.r-project.org')
 library(devtools)
@@ -28,7 +32,7 @@ Now you should be able to get working. If those instructions cause any errors or
 ### Sample Data
 If you don't have data ready to work with, you can use the example data that comes with the package to get started or to model your work. This can be done with the `sample_file_maker()` function. Briefly, it will download example raw files for use with this (and other) tutorials. You can specify a directory to write the output into.
 
-```{r SampleData, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide'}
+```{r SampleData, eval = T, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide', include = FALSE}
 # Get and store path to working directory
 working_directory <- getwd()
 # Generate sample files to this directory
@@ -37,12 +41,28 @@ BiomassWorkflow::sample_file_maker(directory = working_directory)
 
 
 
-This should help guide you through processing raw biomass data, with a reproducible example.
+This will create the following files in your directory:
 
-```{r, eval=FALSE, fig.path='figure/', warning=FALSE, include=FALSE}
-library(BiomassWorkflow)
+* ***SamplePlateReader_Plate1.xlsx*** - An excel file containing raw fluorescence data that you would obtain from the plate reader (*include information on plate reader here*)
+* ***SampleMapping_Plate1.csv*** - A mapping file corresponding to the samples in Plate 1 of this set. This mapping file corresponds to the data in the *SamplePlateReader_Plate1.xlsx* file. 
+* ***SamplePlateReader_Plate2.csv*** - A .csv file containing raw fluorescence data as obtained from the plate reader, and subsequently saved as a .csv file.
+* ***SampleMapping_Plate2.csv*** - A mapping file corresponding to the samples in Plate 2 of this set. This mapping file corresponds to the data in the *SamplePlateReader_plate2.csv* file.
 
-BiomassWorkflow::sample_file_maker()
+For this example, lets assume we performed an experiment where we collected 135 samples, and performed a DNA extraction into 2 plates. We quantified these two plates using a fluorescent dye, and included a standard curve alongside our samples in the second plate (since it was not full). The data we just downloaded has the raw fluorescence data for each of our two plates, as well as a mapping file that helps us identify which wells have which samples, for each plate.
+
+## Crunching the Raw Data
+Now that we have data to work with, we can put this package to work.
+
+The main function to perform analyses will be `DataAnalysis()`. It reads in your raw data and mapping file and produes a table that will contain a host of useful data for downstream applications. These include:
+
+* DNA concentration - we construct a standard curve based on the given standard samples and values, and use this to compute DNA concnetrations for each sample
+* Biomass - using the DNA concentration, our scaling factors and sample mass, we compute the sample biomass (ug DNA per mg sample). 
+* 16S PCR prep - Identifies if there is enough DNA for performing 16S sequencing, and computes the DNA and water volumes necessary to acheive a dilution to 2 ng/uL (the working conentration of template for the PCR reaction).
+* Metagenomics prep - Identifies if there is enough DNA for performing metagenomic shotgun sequencing, and computes the DNA and water volumes necessary to acheive a dilution to 25 ng/uL (into 25 uL -- 20 uL is needed for the metagenomics library prep protocol).
+
+For this data, I used 5 uL of DNA for quantification, and took 50 uL of 700uL of the supernatants in the extraction. Therefore volume = 5 and scale_factor = 14. 
+
+```{r DataAnalysis, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F}
 
 ## Plate 1 does not contain standards, it contains 96 samples (see mapping file)
 plate1 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_Plate1.xlsx" , mapping_csv_file = "SampleMapping_Plate1.csv", exp_id = "Sample_Experiment", volume = 5, scale_factor = 14, standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv")
@@ -50,7 +70,39 @@ plate1 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_P
 ## Plate 2 contains the standards
 plate2 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_Plate2.csv" , mapping_csv_file = "SampleMapping_Plate2.csv", exp_id = "Sample_Experiment",  volume = 5, scale_factor = 14)
 
+```
+
+You will note, that when you run these functions, you will receive information about the standard curve that will look like:
+
+
+```{r StandardsOutput, echo=FALSE}
+plate1 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_Plate1.xlsx" , mapping_csv_file = "SampleMapping_Plate1.csv", exp_id = "Sample_Experiment", volume = 5, scale_factor = 14, standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv")
+```
+
+To access more of the Standards data, you can call the `StandardAnalysis()` function, which will return a data table of the standards, and the information generated from a linear fit to the standard curve.
+
+```{r Standards, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F}
+standards <- BiomassWorkflow::StandardAnalysis(standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv", exp_id = "Sample_Experiment")
+```
+
+
+
+We can then combine these data frames to create one data frame for our experiment:
+
+```{r CombineData, eval=T, warning=FALSE, include=T}
+sample_experiment <- rbind(plate1, plate2)
+```
+
+We can take a peek at the resulting table by calling `head(sample_experiment)`. We can see that this data contains all of our raw data and the helpful calculated values described above.
+
+```{r PrintTable, echo=FALSE, results="asis"}
+pander::pandoc.table(head(sample_experiment))
+```
+
+
+
+
 sample_experiment_data <- suppressWarnings(dplyr::full_join(plate1, plate2)) %>% dropcolumns(.)
 
 sequencing_runs <- BiomassWorkflow::sequencing_prep_16S(experiment_data_list = list(sample_experiment_data), n_barcode_plates = 2)
-```
+
