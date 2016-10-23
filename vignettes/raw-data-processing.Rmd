@@ -1,0 +1,56 @@
+---
+title: "Raw Data Processing"
+author: "Eduardo Contijoch"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Raw Data Processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+## Getting Set Up
+
+This document is meant to serve as an introductory primer for using R to streamline and standardize the generation and analysis of microbial biomass data. 
+
+To follow along, you will need to download and load the package:
+```{r Setup, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide'}
+# Install and load the devtools package to help download the BiomassWorkflow package
+install.packages('devtools', repos='http://cran.us.r-project.org')
+library(devtools)
+
+# Install and load the BiomassWorkflow package
+devtools::install_github('econtijoch/Biomass-Workflow')
+library(BiomassWorkflow)
+```
+
+Now you should be able to get working. If those instructions cause any errors or warnings, the best way to overcome them is to use google to search for answers - links to stackoverflow.com are always a good place to start.
+
+### Sample Data
+If you don't have data ready to work with, you can use the example data that comes with the package to get started or to model your work. This can be done with the `sample_file_maker()` function. Briefly, it will download example raw files for use with this (and other) tutorials. You can specify a directory to write the output into.
+
+```{r SampleData, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide'}
+# Get and store path to working directory
+working_directory <- getwd()
+# Generate sample files to this directory
+BiomassWorkflow::sample_file_maker(directory = working_directory)
+```
+
+
+
+This should help guide you through processing raw biomass data, with a reproducible example.
+
+```{r, eval=FALSE, fig.path='figure/', warning=FALSE, include=FALSE}
+library(BiomassWorkflow)
+
+BiomassWorkflow::sample_file_maker()
+
+## Plate 1 does not contain standards, it contains 96 samples (see mapping file)
+plate1 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_Plate1.xlsx" , mapping_csv_file = "SampleMapping_Plate1.csv", exp_id = "Sample_Experiment", volume = 5, scale_factor = 14, standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv")
+
+## Plate 2 contains the standards
+plate2 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_Plate2.csv" , mapping_csv_file = "SampleMapping_Plate2.csv", exp_id = "Sample_Experiment",  volume = 5, scale_factor = 14)
+
+sample_experiment_data <- suppressWarnings(dplyr::full_join(plate1, plate2)) %>% dropcolumns(.)
+
+sequencing_runs <- BiomassWorkflow::sequencing_prep_16S(experiment_data_list = list(sample_experiment_data), n_barcode_plates = 2)
+```

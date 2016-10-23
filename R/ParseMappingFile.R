@@ -1,11 +1,16 @@
+#' Function to read in mapping file and tweak format so that it is friendly with the rest of the package functinos
+#' @param mapping_file string containing path to mapping file
+#' @return Mapping information in a data frame
+#' @export
+#'
+
 ParseMappingFile <- function(mapping_file) {
-  
-  #Import file
-  file <- read.csv(mapping_file)
- # mapping <- na.omit(read.csv(file = standards_mapping_csv_file, sep = ",", fill = TRUE, header = TRUE, na.strings = "", colClasses = c(rep("character", 8), "numeric")))
-  
-  # Cast well names as characters
-  file$ReaderWell <- as.character(file$ReaderWell)
-  
-  return(file)
+    
+    # Import file
+    table <- utils::read.csv(file = mapping_file, row.names = NULL)
+    
+    # Cast well names as characters
+    table$ReaderWell <- as.character(table$ReaderWell)
+    
+    return(table)
 }

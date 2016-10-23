@@ -1,13 +1,32 @@
 Package: BiomassWorkflow
-Version: 4.0
-Date: 2015-08-14
-Title: Biomass Workflow
-Authors@R: person('Eduardo', 'Contijoch', role = 'aut', email = 'eduardo.contijoch@gmail.com')
-Author: Eduardo Contijoch
-Maintainer: Eduardo Contijoch <eduardo.contijoch@gmail.com>
-Depends: R (>= 1.8.0), nlme, ggplot2, devtools, reshape, plyr, dplyr, biom, cowplot
-Suggests: MASS
-Description: Functions for standards analysis, data analysis, plot making, and taxonomic scaling.
+Type: Package
+Title: Microbiome Biomass Data Generation and Analysis Tools
+Version: 5.0.0
+Date: 2016-10-21
+Authors@R: person("Eduardo", "Contijoch", email = "eduardo.contijoch@gmail.com", role = c("aut", "cre"))
+Description: Package that helps streamline data analysis and sample preparation for microbiome samples. This package should help streamline the incorporation of absolute abundances into microbial biomass data, and improve the speed with which samples can be prepared for sequencing.
 License: GPL (>= 2)
-URL: http://www.github.com/econtijoch/Biomass-Workflow
-BugReports: http://www.github.com/econtijoch/Biomass-Workflow
+LazyData: TRUE
+Depends:
+    R (>= 2.10)
+Imports:
+    ggplot2,
+    cowplot,
+    plyr,
+    dplyr,
+    shiny,
+    DT,
+    stringr,
+    lazyeval,
+    biom,
+    reshape2,
+    magrittr,
+    XLConnect,
+    tidyr,
+    methods
+URL: http://github.com/econtijoch/Biomass-Workflow
+BugReports: http://github.com/econtijoch/Biomass-Workflow/issues
+RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
