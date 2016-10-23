@@ -1,0 +1,97 @@
+"ReaderWell","BarcodeID","Type","Timepoint","Cage","Animal","Compare","SampleMass","PlateID","SampleWell"
+"A01","TrB1|0000000003a|042016|4IycA","Experiment",21,3,"3a","Vancomycin",16.61,"TrB1_Plate2","A01"
+"A02","TrB1|0000000003b|042016|w3cee","Experiment",21,3,"3b","Vancomycin",11.55,"TrB1_Plate2","A02"
+"A03","TrB1|0000000003c|042016|H6Lei","Experiment",21,3,"3c","Vancomycin",27.58,"TrB1_Plate2","A03"
+"A04","TrB1|0000000004a|042016|HJvEa","Experiment",21,4,"4a","Vancomycin",20.16,"TrB1_Plate2","A04"
+"A05","TrB1|0000000004b|042016|debMh","Experiment",21,4,"4b","Vancomycin",22.95,"TrB1_Plate2","A05"
+"A06","TrB1|0000000004c|042016|xSGRn","Experiment",21,4,"4c","Vancomycin",27.46,"TrB1_Plate2","A06"
+"A07","TrB1|0000000005a|042016|WIkgt","Experiment",21,5,"5a","Polymyxin B",17.34,"TrB1_Plate2","A07"
+"A08","TrB1|0000000005b|042016|WPQkC","Experiment",21,5,"5b","Polymyxin B",18.19,"TrB1_Plate2","A08"
+"A09","TrB1|0000000005c|042016|TDzKJ","Experiment",21,5,"5c","Polymyxin B",15.95,"TrB1_Plate2","A09"
+"A10","TrB1|0000000006a|042016|iOie4","Experiment",21,6,"6a","Polymyxin B",31,"TrB1_Plate2","A10"
+"A11","TrB1|0000000006b|042016|QNsIg","Experiment",21,6,"6b","Polymyxin B",24.5,"TrB1_Plate2","A11"
+"A12","TrB1|0000000006c|042016|0ykSG","Experiment",21,6,"6c","Polymyxin B",19.41,"TrB1_Plate2","A12"
+"B01","TrB1|0000000007a|042016|oPoiD","Experiment",21,7,"7a","Ciprofloxacin",32.16,"TrB1_Plate2","B01"
+"B02","TrB1|0000000007b|042016|AakBP","Experiment",21,7,"7b","Ciprofloxacin",27.57,"TrB1_Plate2","B02"
+"B03","TrB1|0000000007c|042016|eu9Di","Experiment",21,7,"7c","Ciprofloxacin",17.94,"TrB1_Plate2","B03"
+"B04","TrB1|0000000008a|042016|uoIoz","Experiment",21,8,"8a","Ciprofloxacin",18.41,"TrB1_Plate2","B04"
+"B05","TrB1|0000000008b|042016|kF9Rs","Experiment",21,8,"8b","Ciprofloxacin",19.83,"TrB1_Plate2","B05"
+"B06","TrB1|0000000008c|042016|12xBr","Experiment",21,8,"8c","Ciprofloxacin",29.09,"TrB1_Plate2","B06"
+"B07","TrB1|0000000009a|042016|RjWDt","Experiment",21,9,"9a","Ampicillin",27.5,"TrB1_Plate2","B07"
+"B08","TrB1|0000000009b|042016|CYMlC","Experiment",21,9,"9b","Ampicillin",26,"TrB1_Plate2","B08"
+"B09","TrB1|0000000009c|042016|RMoA6","Experiment",21,9,"9c","Ampicillin",36.71,"TrB1_Plate2","B09"
+"B10","TrB1|0000000010a|042016|icKAB","Experiment",21,10,"10a","Ampicillin",31.89,"TrB1_Plate2","B10"
+"B11","TrB1|0000000010b|042016|zFW9C","Experiment",21,10,"10b","Ampicillin",32.02,"TrB1_Plate2","B11"
+"B12","TrB1|0000000010c|042016|1IDsl","Experiment",21,10,"10c","Ampicillin",36.6,"TrB1_Plate2","B12"
+"C01","TrB1|0000000002a|042716|fgXdE","Experiment",28,2,"2a","Control",32.05,"TrB1_Plate2","C01"
+"C02","TrB1|0000000002b|042716|XfyXe","Experiment",28,2,"2b","Control",13.91,"TrB1_Plate2","C02"
+"C03","TrB1|0000000002c|042716|BCSwG","Experiment",28,2,"2c","Control",35.2,"TrB1_Plate2","C03"
+"C04","TrB1|0000000004a|042716|3WHYT","Experiment",28,4,"4a","Vancomycin",50.06,"TrB1_Plate2","C04"
+"C05","TrB1|0000000004b|042716|v2ijh","Experiment",28,4,"4b","Vancomycin",22.43,"TrB1_Plate2","C05"
+"C06","TrB1|0000000004c|042716|qvFVz","Experiment",28,4,"4c","Vancomycin",46.4,"TrB1_Plate2","C06"
+"C07","TrB1|0000000006a|042716|w65n7","Experiment",28,6,"6a","Polymyxin B",23.51,"TrB1_Plate2","C07"
+"C08","TrB1|0000000006b|042716|rlocC","Experiment",28,6,"6b","Polymyxin B",25.95,"TrB1_Plate2","C08"
+"C09","TrB1|0000000006c|042716|9QbCc","Experiment",28,6,"6c","Polymyxin B",38.88,"TrB1_Plate2","C09"
+"C10","TrB1|0000000008a|042716|N3tHf","Experiment",28,8,"8a","Ciprofloxacin",16.06,"TrB1_Plate2","C10"
+"C11","TrB1|0000000008b|042716|DukL5","Experiment",28,8,"8b","Ciprofloxacin",30.49,"TrB1_Plate2","C11"
+"C12","TrB1|0000000008c|042716|hDD1A","Experiment",28,8,"8c","Ciprofloxacin",48.92,"TrB1_Plate2","C12"
+"D01","TrB1|0000000010a|042716|M8HJx","Experiment",28,10,"10a","Ampicillin",34.43,"TrB1_Plate2","D01"
+"D02","TrB1|0000000010b|042716|xOOX7","Experiment",28,10,"10b","Ampicillin",30.39,"TrB1_Plate2","D02"
+"D03","TrB1|0000000010c|042716|UWzbm","Experiment",28,10,"10c","Ampicillin",34.15,"TrB1_Plate2","D03"
+"D04",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"D05",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"D06",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"D07",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"D08",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"D09",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"D10",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"D11",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"D12",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"E01","Standard_0000","Standard",NA,NA,NA,NA,0,"Plate2","E01"
+"E02","Standard_0050","Standard",NA,NA,NA,NA,50,"Plate2","E02"
+"E03","Standard_0100","Standard",NA,NA,NA,NA,100,"Plate2","E03"
+"E04","Standard_0200","Standard",NA,NA,NA,NA,200,"Plate2","E04"
+"E05","Standard_0400","Standard",NA,NA,NA,NA,400,"Plate2","E05"
+"E06","Standard_0600","Standard",NA,NA,NA,NA,600,"Plate2","E06"
+"E07","Standard_0800","Standard",NA,NA,NA,NA,800,"Plate2","E07"
+"E08",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"E09",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"E10",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"E11",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"E12",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F01",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F02",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F03",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F04",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F05",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F06",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F07",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F08",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F09",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F10",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F11",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"F12",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G01",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G02",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G03",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G04",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G05",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G06",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G07",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G08",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G09",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G10",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G11",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"G12",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H01",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H02",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H03",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H04",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H05",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H06",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H07",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H08",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H09",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H10",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H11",NA,NA,NA,NA,NA,NA,NA,NA,NA
+"H12",NA,NA,NA,NA,NA,NA,NA,NA,NA

@@ -1,8 +1,11 @@
 ---
-title: "Raw Data Processing"
+title: "BiomassWorkflow Package Tutorial"
 author: "Eduardo Contijoch"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_document:
+    toc: true
+    toc_depth: 4
 vignette: >
   %\VignetteIndexEntry{Raw Data Processing}
   %\VignetteEngine{knitr::rmarkdown}
@@ -11,14 +14,13 @@ vignette: >
 
 ```{r Dependencies, include=FALSE}
 library(pander)
-library(devtools)
 ```
 ## Getting Set Up
 
 This document is meant to serve as an introductory primer for using R to streamline and standardize the generation and analysis of microbial biomass data. 
 
 To follow along, you will need to download and load the package:
-```{r Setup, eval=T, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide', include = FALSE}
+```{r Setup, eval=T, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide', include = TRUE}
 # Install and load the devtools package to help download the BiomassWorkflow package
 install.packages('devtools', repos='http://cran.us.r-project.org')
 library(devtools)
@@ -33,11 +35,11 @@ Now you should be able to get working. If those instructions cause any errors or
 ### Sample Data
 If you don't have data ready to work with, you can use the example data that comes with the package to get started or to model your work. This can be done with the `sample_file_maker()` function. Briefly, it will download example raw files for use with this (and other) tutorials. You can specify a directory to write the output into.
 
-```{r SampleData, eval = T, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide', include = FALSE}
+```{r SampleData, eval = T, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide', include = TRUE}
 # Get and store path to working directory
 working_directory <- getwd()
 # Generate sample files to this directory
-BiomassWorkflow::sample_file_maker(directory = working_directory)
+sample_file_maker(directory = working_directory)
 ```
 
 
@@ -66,10 +68,10 @@ For this data, I used 5 uL of DNA for quantification, and took 50 uL of 700uL of
 ```{r DataAnalysis, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F, results='hide'}
 
 ## Plate 1 does not contain standards, it contains 96 samples (see mapping file)
-plate1 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_Plate1.xlsx" , mapping_csv_file = "SampleMapping_Plate1.csv", exp_id = "Sample_Experiment", volume = 5, scale_factor = 14, standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv")
+plate1 <- DataAnalysis(plate_reader_file = "SamplePlateReader_Plate1.xlsx" , mapping_csv_file = "SampleMapping_Plate1.csv", exp_id = "Sample_Experiment", volume = 5, scale_factor = 14, standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv")
 
 ## Plate 2 contains the standards
-plate2 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_Plate2.csv" , mapping_csv_file = "SampleMapping_Plate2.csv", exp_id = "Sample_Experiment",  volume = 5, scale_factor = 14)
+plate2 <- DataAnalysis(plate_reader_file = "SamplePlateReader_Plate2.csv" , mapping_csv_file = "SampleMapping_Plate2.csv", exp_id = "Sample_Experiment",  volume = 5, scale_factor = 14)
 
 ```
 
@@ -79,13 +81,13 @@ You will notice that when you run these functions, you will receive information 
 
 
 ```{r StandardsOutput, echo=FALSE}
-plate1 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_Plate1.xlsx" , mapping_csv_file = "SampleMapping_Plate1.csv", exp_id = "Sample_Experiment", volume = 5, scale_factor = 14, standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv")
+plate1 <- DataAnalysis(plate_reader_file = "SamplePlateReader_Plate1.xlsx" , mapping_csv_file = "SampleMapping_Plate1.csv", exp_id = "Sample_Experiment", volume = 5, scale_factor = 14, standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv")
 ```
 
 To access more of the Standards data, you can call the `StandardAnalysis()` function, which will return a data table of the standards, and the information generated from a linear fit to the standard curve.
 
 ```{r Standards, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F, results = 'hide'}
-standards <- BiomassWorkflow::StandardAnalysis(standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv", exp_id = "Sample_Experiment")
+standards <- StandardAnalysis(standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv", exp_id = "Sample_Experiment")
 ```
  
 This feature also creates a plot of the standard curve, saved as a PDF file to your working directory.
@@ -117,8 +119,37 @@ This package also contains a wrapper function that is meant to take data from on
 
 ### 16S Sequencing Prep
 
-```{r 16SPrep, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F}
-sequencing_runs <- BiomassWorkflow::sequencing_prep_16S(experiment_data_list = list(sample_experiment), n_barcode_plates = 2)
+To prep samples for 16S sequencing, we can call upon the `sequencing_prep_16S()` function, which takes a list of data, and generates files in the working directory that correspond to entire sequencing runs. You need to provide the number of barcode plates available (e.g. if you have 192 sequencing barcodes, this would be 2 plates. if you have 480 barcodes, this would be 5, etc..). 
+
+```{r 16SPrep, eval=F, fig.path='figure/', warning=FALSE, include=T, messages = F}
+sequencing_runs_16S <- sequencing_prep_16S(experiment_data_list = list(sample_experiment), n_barcode_plates = 2)
 ```
 
+This function call may throw a warning if you don't pre-filter your data to exclude samples that will have less than the necessary DNA in them to move forward with sequencing. You can change this default action by passing along `filter = FALSE` in the function call.
+
+This function will indicate which plates are needed (it is important to label your DNA plates with PlateIDs in your mapping file), how many samples will be included in the sequencing run(s), how many sequencing runs will be needed to sequence all samples, and the number of unused barcodes that will remain.
+
+The output will be organized into folders based on sequencing runs, which each will contain a file for using the Beckmann robot to performa a dilution of each plate in the sequencing run, and a QIIME-ready mapping file. By default, the sequencing mapping file is created using the Faith Lab 16S sequencing barcodes. If you have a different set of barcodes, you will need to pass in a .csv file that contains the correct. 
+
+You can indicate the directory in which to place these files by passing a directory as `output_directory = '/path/to/directory/'`. 
+
+Within R, the output of these functions will be a list of lists, containing all of the data that is written to the output directory.
+
 ### Shotgun Metagenomics Sequencing Prep
+
+To prep samples for shotgun metagenomics sequencing, we can call upon the `sequencing_prep_metagenomics()` function, which takes a list of data, and generates files in the working directory that correspond to entire sequencing runs. You need to provide the number of barcode plates available (e.g. if you have 192 sequencing barcodes, this would be 2 plates. if you have 480 barcodes, this would be 5, etc..). 
+
+```{r MetagenomicsPrep, eval=F, fig.path='figure/', warning=FALSE, include=T, messages = F}
+sequencing_runs_metagenomics <- sequencing_prep_metagenomics(experiment_data_list = list(sample_experiment), n_barcode_plates = 2)
+```
+
+This function call may throw a warning if you don't pre-filter your data to exclude samples that will have less than the necessary DNA in them to move forward with sequencing. You can change this default action by passing along `filter = FALSE` in the function call.
+
+This function will indicate which plates are needed (it is important to label your DNA plates with PlateIDs in your mapping file), how many samples will be included in the sequencing run(s), how many sequencing runs will be needed to sequence all samples, and the number of unused barcodes that will remain.
+
+The output will be organized into folders based on sequencing runs, which each will contain a file for using the Beckmann robot to performa a dilution of each plate in the sequencing run, and a QIIME-ready mapping file. By default, the sequencing mapping file is created using empty sequencing barcodes. You can insert your set of barcodes by passing in a .csv file that contains the correct. 
+
+You can indicate the directory in which to place these files by passing a directory as `output_directory = '/path/to/directory/'`. 
+
+Within R, the output of these functions will be a list of lists, containing all of the data that is written to the output directory.
+

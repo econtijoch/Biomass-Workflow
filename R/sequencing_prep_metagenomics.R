@@ -8,7 +8,7 @@
 #' @export
 #'
 
-sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates, barcode_map_file, output_directory = getwd(), 
+sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates, barcode_map_file = NULL, output_directory = getwd(), 
     filter = T) {
     setwd(output_directory)
     # Useful for adding barcode metadata
@@ -24,7 +24,11 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
         }
     }
     
-    barcodes <- utils::read.csv(barcode_map_file)
+    if (!is.null(barcode_map_file)) {
+      barcodes <- utils::read.csv(barcode_map_file)
+    } else {
+      barcodes <- data.frame(BarcodePlate = barcode_info$BarcodePlate, BarcodeWell = barcode_info$BarcodeWell, BarcodeSequence = "", LinkerPrimerSequence = "")
+    }
     
     if (filter == T) {
         sequencing_combined <- Reduce(function(...) suppressWarnings(dplyr::full_join(...)), experiment_data_list) %>% 

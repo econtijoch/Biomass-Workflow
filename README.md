@@ -11,20 +11,18 @@ Installation
 You can install BiomassWorkflow from github with:
 
 ``` r
-# install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("econtijoch/Biomass-Workflow")
 ```
 
 If you need to install devtools first, you'll need to do the following first to download and update devtools to the most current version:
 
 ``` r
-    install.packages("devtools")
-    devtools::install_github("hadley/devtools")
+install.packages("devtools")
+devtools::install_github("hadley/devtools")
 ```
 
-Examples
+Tutorial
 --------
 
-Here are links to some walkthroughs for common features:
-
-[Raw Data Processing](http://www.eduardocontijoch.com/Projects/Biomass-Workflow/Vignettes/raw-data-processing.html)
+For a step-by-step tutorial on how to use this package, please visit the [BiomassWorkflow Tutorial page](http://www.eduardocontijoch.com/Projects/Biomass-Workflow/Vignettes/tutorial.html)

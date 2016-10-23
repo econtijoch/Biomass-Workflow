@@ -5,7 +5,7 @@
 \title{Function to produce files necessary to generate metagenomic sequencing runs that utilizes the Beckmann robot for dilutions and creates sequencing mapping files in QIIME-ready format, from multiple experiment data sets.}
 \usage{
 sequencing_prep_metagenomics(experiment_data_list, n_barcode_plates,
-  barcode_map_file, output_directory = getwd(), filter = T)
+  barcode_map_file = NULL, output_directory = getwd(), filter = T)
 }
 \arguments{
 \item{experiment_data_list}{an input list that contains the data from the samples you want to sequence (ideally, the output from DataAnalysis, or combinations of them)}
