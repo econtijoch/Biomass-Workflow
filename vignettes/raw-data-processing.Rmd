@@ -11,6 +11,7 @@ vignette: >
 
 ```{r Dependencies, include=FALSE}
 library(pander)
+library(devtools)
 ```
 ## Getting Set Up
 
@@ -62,7 +63,7 @@ The main function to perform analyses will be `DataAnalysis()`. It reads in your
 
 For this data, I used 5 uL of DNA for quantification, and took 50 uL of 700uL of the supernatants in the extraction. Therefore volume = 5 and scale_factor = 14. 
 
-```{r DataAnalysis, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F}
+```{r DataAnalysis, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F, results='hide'}
 
 ## Plate 1 does not contain standards, it contains 96 samples (see mapping file)
 plate1 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_Plate1.xlsx" , mapping_csv_file = "SampleMapping_Plate1.csv", exp_id = "Sample_Experiment", volume = 5, scale_factor = 14, standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv")
@@ -72,7 +73,9 @@ plate2 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_P
 
 ```
 
-You will note, that when you run these functions, you will receive information about the standard curve that will look like:
+#### Quick note - Standard Curve
+
+You will notice that when you run these functions, you will receive information about the standard curve that will look like:
 
 
 ```{r StandardsOutput, echo=FALSE}
@@ -81,11 +84,13 @@ plate1 <- BiomassWorkflow::DataAnalysis(plate_reader_file = "SamplePlateReader_P
 
 To access more of the Standards data, you can call the `StandardAnalysis()` function, which will return a data table of the standards, and the information generated from a linear fit to the standard curve.
 
-```{r Standards, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F}
+```{r Standards, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F, results = 'hide'}
 standards <- BiomassWorkflow::StandardAnalysis(standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv", exp_id = "Sample_Experiment")
 ```
+ 
+This feature also creates a plot of the standard curve, saved as a PDF file to your working directory.
 
-
+### Back to the data
 
 We can then combine these data frames to create one data frame for our experiment:
 
@@ -93,16 +98,27 @@ We can then combine these data frames to create one data frame for our experimen
 sample_experiment <- rbind(plate1, plate2)
 ```
 
-We can take a peek at the resulting table by calling `head(sample_experiment)`. We can see that this data contains all of our raw data and the helpful calculated values described above.
+If you want to save this data in an excel-readable file, simply call:
+
+```{r Save, eval=FALSE, message=FALSE, warning=FALSE, include=T}
+write.csv(x = sample_experiment, file = 'sample_experiment_data.csv', row.names = F)
+```
+
+Otherwise, to keep working in R, we can take a peek at the resulting table by calling `head(sample_experiment)`. We can see that this data contains all of our raw data and the helpful calculated values described above. 
+
 
 ```{r PrintTable, echo=FALSE, results="asis"}
 pander::pandoc.table(head(sample_experiment))
 ```
 
+## Preparing for Sequencing
 
+This package also contains a wrapper function that is meant to take data from one or more experiments and generate the files necessary to plan and create a 16S or shotgun metagenomic sequencing run (or runs).
 
+### 16S Sequencing Prep
 
-sample_experiment_data <- suppressWarnings(dplyr::full_join(plate1, plate2)) %>% dropcolumns(.)
+```{r 16SPrep, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F}
+sequencing_runs <- BiomassWorkflow::sequencing_prep_16S(experiment_data_list = list(sample_experiment), n_barcode_plates = 2)
+```
 
-sequencing_runs <- BiomassWorkflow::sequencing_prep_16S(experiment_data_list = list(sample_experiment_data), n_barcode_plates = 2)
-
+### Shotgun Metagenomics Sequencing Prep

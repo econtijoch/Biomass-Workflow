@@ -5,6 +5,12 @@
 #'
 
 sample_file_maker <- function(directory = getwd()) {
+  
+  utils::data('plate1_raw')
+  utils::data('plate2_raw')
+  utils::data('map1')
+  utils::data('map2')
+  
   starting <- getwd()
   if (file.exists(directory)) {
     setwd(directory)
