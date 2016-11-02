@@ -10,10 +10,10 @@
 PlateParser <- function(plate_reader_file, num_reads = 1, shiny = FALSE, type = NULL) {
     
     
-	if (shiny = TRUE) {
-		if (type = 'csv') {
+	if (shiny == TRUE) {
+		if (type == 'csv') {
 			file <- utils::read.csv(plate_reader_file)
-		} else if (type = 'excel') {
+		} else if (type == 'excel') {
 			file <- XLConnect::readWorksheet(object = XLConnect::loadWorkbook(plate_reader_file), sheet = 1)
 		}
 	} 
