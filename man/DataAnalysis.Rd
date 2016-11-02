@@ -7,7 +7,7 @@
 DataAnalysis(plate_reader_file, mapping_csv_file, exp_id,
   standards_plate_reader_file = plate_reader_file,
   standards_mapping_csv_file = mapping_csv_file, num_reads = 1,
-  volume = 2, scale = 7, ...)
+  volume = 2, scale = 7, shiny = FALSE, type = NULL, ...)
 }
 \arguments{
 \item{plate_reader_file}{raw file from plate-reader (can be in .xls format, or .csv), but will only read in first sheet of excel file}
@@ -25,6 +25,10 @@ DataAnalysis(plate_reader_file, mapping_csv_file, exp_id,
 \item{volume}{OPTIONAL: The volume (in uL) used to quantify DNA with Qubit (Default = 2)}
 
 \item{scale}{OPTIONAL: The scale factor used in the DNA isolation protocol (Defualt = 7, which corresponds to taking 100uL of supernatant from the 700uL of the DIB added). For phenol extraction, use scale = 1.}
+
+\item{shiny}{OPTIONAL: necessary for running with shiny app interface since filenames are not the same.}
+
+\item{type}{OPTIONAL: necessary for running with shiny app, must specify file type}
 
 \item{...}{Optional arguments to pass}
 }

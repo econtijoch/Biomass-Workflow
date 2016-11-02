@@ -1,15 +1,26 @@
 #' Function to read in mapping file and tweak format so that it is friendly with the rest of the package functinos
 #' @param plate_reader_file Fluorescence data from the plate reader (can be in .csv or .xls(x) format -- if in excel file, only the FIRST sheet within the file will be read)
 #' @param num_reads OPTIONAL: number of measurements that the plate reader took for each sample (default = 1)
+#' @param shiny OPTIONAL: necessary for running with shiny app interface since filenames are not the same.
+#' @param type OPTIONAL: necessary for running with shiny app, must specify file type
 #' @return a list containing: 1) a data frame with the data from the plate reader file and 2) the number of measurements taken for each sample
 #' @export
 #'
 
-PlateParser <- function(plate_reader_file, num_reads = 1) {
+PlateParser <- function(plate_reader_file, num_reads = 1, shiny = FALSE, type = NULL) {
     
-    # Import file, handle xls(x) vs csv files
+    
+	if (shiny = TRUE) {
+		if (type = 'csv') {
+			file <- utils::read.csv(plate_reader_file)
+		} else if (type = 'excel') {
+			file <- XLConnect::readWorksheet(object = XLConnect::loadWorkbook(plate_reader_file), sheet = 1)
+		}
+	} 
+	
+	# Import file, handle xls(x) vs csv files
     if (utils::tail(unlist(strsplit(plate_reader_file, "\\.")), n = 1) == "csv") {
-        file <- utils::read.csv(plate_reader_file)
+        
     } else if (utils::tail(unlist(strsplit(plate_reader_file, "\\.")), n = 1) == "xls" | utils::tail(unlist(strsplit(plate_reader_file, 
         "\\.")), n = 1) == "xlsx") {
         file <- XLConnect::readWorksheet(object = XLConnect::loadWorkbook(plate_reader_file), sheet = 1)

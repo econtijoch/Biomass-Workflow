@@ -3,17 +3,19 @@
 #' @param standards_mapping_csv_file mapping file for plate contianing standards (for wells with standards, Type must be 'Standard')
 #' @param exp_id experiment id
 #' @param num_reads OPTIONAL: number of measurements that the plate reader took per well (Default = 1)
+#' @param shiny OPTIONAL: necessary for running with shiny app interface since filenames are not the same.
+#' @param type OPTIONAL: necessary for running with shiny app, must specify file type
 #' @param ... optional inputs
 #' @return list containing a table of the standards, and the information for the standard curve
 #' @export
 #'
 
-StandardAnalysis <- function(standards_plate_reader_file, standards_mapping_csv_file, exp_id, num_reads = 1, ...) {
+StandardAnalysis <- function(standards_plate_reader_file, standards_mapping_csv_file, exp_id, num_reads = 1, shiny = FALSE, type = NULL, ...) {
     
     
     # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read
     # information for the plate.
-    rawdata <- PlateParser(standards_plate_reader_file, num_reads)
+    rawdata <- PlateParser(standards_plate_reader_file, num_reads, shiny, type)
     
     # Read barcode ID's from a file containing the label information
     

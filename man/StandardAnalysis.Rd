@@ -5,7 +5,7 @@
 \title{Function to process standards information and create line of best fit}
 \usage{
 StandardAnalysis(standards_plate_reader_file, standards_mapping_csv_file,
-  exp_id, num_reads = 1, ...)
+  exp_id, num_reads = 1, shiny = FALSE, type = NULL, ...)
 }
 \arguments{
 \item{standards_plate_reader_file}{the file path of the plate reader file for the standards (in .csv or .xls(x) format)}
@@ -15,6 +15,10 @@ StandardAnalysis(standards_plate_reader_file, standards_mapping_csv_file,
 \item{exp_id}{experiment id}
 
 \item{num_reads}{OPTIONAL: number of measurements that the plate reader took per well (Default = 1)}
+
+\item{shiny}{OPTIONAL: necessary for running with shiny app interface since filenames are not the same.}
+
+\item{type}{OPTIONAL: necessary for running with shiny app, must specify file type}
 
 \item{...}{optional inputs}
 }

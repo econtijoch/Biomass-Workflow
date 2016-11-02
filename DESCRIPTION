@@ -26,7 +26,8 @@ Imports:
     methods,
     pander,
     devtools,
-    rmarkdown
+    rmarkdown,
+	mime
 URL: http://github.com/econtijoch/Biomass-Workflow
 BugReports: http://github.com/econtijoch/Biomass-Workflow/issues
 RoxygenNote: 5.0.1
