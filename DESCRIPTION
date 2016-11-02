@@ -30,6 +30,5 @@ Imports:
 URL: http://github.com/econtijoch/Biomass-Workflow
 BugReports: http://github.com/econtijoch/Biomass-Workflow/issues
 RoxygenNote: 5.0.1
-Suggests: knitr,
-    rmarkdown
+Suggests: knitr
 VignetteBuilder: knitr
