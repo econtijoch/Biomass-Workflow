@@ -7,7 +7,8 @@
 DataAnalysis(plate_reader_file, mapping_csv_file, exp_id,
   standards_plate_reader_file = plate_reader_file,
   standards_mapping_csv_file = mapping_csv_file, num_reads = 1,
-  volume = 2, scale = 7, shiny = FALSE, type = NULL, ...)
+  volume = 2, scale = 7, shiny = FALSE, type_plate = NULL,
+  type_standards_plate = NULL, ...)
 }
 \arguments{
 \item{plate_reader_file}{raw file from plate-reader (can be in .xls format, or .csv), but will only read in first sheet of excel file}
@@ -28,12 +29,14 @@ DataAnalysis(plate_reader_file, mapping_csv_file, exp_id,
 
 \item{shiny}{OPTIONAL: necessary for running with shiny app interface since filenames are not the same.}
 
-\item{type}{OPTIONAL: necessary for running with shiny app, must specify file type}
+\item{type_plate}{OPTIONAL: necessary for running with shiny app, must specify file type of plate}
+
+\item{type_standards_plate}{OPTIONAL: necessary for running with shiny app, must specify type of plate for standards}
 
 \item{...}{Optional arguments to pass}
 }
 \value{
-output table with DNA concentrations, biomass, metadata, and useful computations for downstream (sequencing) applications
+output table with DNA concentrations, biomass, metadata, and useful computations for downstream (sequencing) applications, and a plot of the standard curve
 }
 \description{
 Main function call to generate biomass data from DNA extraction protocol

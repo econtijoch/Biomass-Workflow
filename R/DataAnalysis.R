@@ -11,7 +11,7 @@
 #' @param type_plate OPTIONAL: necessary for running with shiny app, must specify file type of plate
 #' @param type_standards_plate OPTIONAL: necessary for running with shiny app, must specify type of plate for standards
 #' @param ... Optional arguments to pass
-#' @return output table with DNA concentrations, biomass, metadata, and useful computations for downstream (sequencing) applications
+#' @return output table with DNA concentrations, biomass, metadata, and useful computations for downstream (sequencing) applications, and a plot of the standard curve
 #' @export
 #'
 
@@ -73,8 +73,9 @@ DataAnalysis <- function(plate_reader_file, mapping_csv_file, exp_id, standards_
     exp_data$vol_needed_for_metagenomics <- 625/exp_data[, "dna_concentration"]
     exp_data$water_volume_up_metagenomics <- 25 - exp_data$vol_needed_for_metagenomics
     
+    output_list <- list(data = exp_data, standards_plot = standard_analysis$plot)
     
-    return(exp_data)
+    return(output_list)
     
     
 }

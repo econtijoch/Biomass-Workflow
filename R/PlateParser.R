@@ -17,10 +17,10 @@ PlateParser <- function(plate_reader_file, num_reads = 1, shiny = FALSE, type = 
 			file <- XLConnect::readWorksheet(object = XLConnect::loadWorkbook(plate_reader_file), sheet = 1)
 		}
 	} 
-	
+
 	# Import file, handle xls(x) vs csv files
     if (utils::tail(unlist(strsplit(plate_reader_file, "\\.")), n = 1) == "csv") {
-        
+        file <- utils::read.csv(plate_reader_file)
     } else if (utils::tail(unlist(strsplit(plate_reader_file, "\\.")), n = 1) == "xls" | utils::tail(unlist(strsplit(plate_reader_file, 
         "\\.")), n = 1) == "xlsx") {
         file <- XLConnect::readWorksheet(object = XLConnect::loadWorkbook(plate_reader_file), sheet = 1)

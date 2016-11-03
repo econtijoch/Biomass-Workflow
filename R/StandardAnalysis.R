@@ -61,13 +61,16 @@ StandardAnalysis <- function(standards_plate_reader_file, standards_mapping_csv_
         se = FALSE) + ggplot2::annotate("text", x = 0, y = max(s_y), hjust = 0, label = standards_info) + EJC_theme() + 
         ggplot2::theme(axis.text.x = ggplot2::element_text(size = 18, angle = 0, hjust = 0.5, color = "black"))
     
-    cowplot::save_plot(filename = name, plot = standards_plot, base_height = 6, base_width = 6)
+    if (shiny == FALSE) {
+      cowplot::save_plot(filename = name, plot = standards_plot, base_height = 6, base_width = 6)
+      
+      cat("Standards Information:\n")
+      cat(paste(paste("Line of best fit: Y = ", round(scale_x, 5), "* X ", round(intercept, 5)), "\n", sep = ""))
+      cat(paste(paste("R^2 = ", round(rsquared, 5)), "\n", sep = ""))
+    }
     
-    cat("Standards Information:\n")
-    cat(paste(paste("Line of best fit: Y = ", round(scale_x, 5), "* X ", round(intercept, 5)), "\n", sep = ""))
-    cat(paste(paste("R^2 = ", round(rsquared, 5)), "\n", sep = ""))
     
-    output_list <- list(table = standard_table, scale_x = scale_x, intercept = intercept)
+    output_list <- list(table = standard_table, scale_x = scale_x, intercept = intercept, plot = standards_plot)
     
     return(output_list)
     
