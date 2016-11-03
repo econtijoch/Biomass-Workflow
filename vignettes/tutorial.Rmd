@@ -97,7 +97,7 @@ This feature also creates a plot of the standard curve, saved as a PDF file to y
 We can then combine these data frames to create one data frame for our experiment:
 
 ```{r CombineData, eval=T, warning=FALSE, include=T}
-sample_experiment <- rbind(plate1, plate2)
+sample_experiment <- rbind(plate1$data, plate2$data)
 ```
 
 If you want to save this data in an excel-readable file, simply call:
