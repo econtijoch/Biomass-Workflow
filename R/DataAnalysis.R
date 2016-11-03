@@ -8,23 +8,24 @@
 #' @param volume OPTIONAL: The volume (in uL) used to quantify DNA with Qubit (Default = 2)
 #' @param scale OPTIONAL: The scale factor used in the DNA isolation protocol (Defualt = 7, which corresponds to taking 100uL of supernatant from the 700uL of the DIB added). For phenol extraction, use scale = 1.
 #' @param shiny OPTIONAL: necessary for running with shiny app interface since filenames are not the same.
-#' @param type OPTIONAL: necessary for running with shiny app, must specify file type
+#' @param type_plate OPTIONAL: necessary for running with shiny app, must specify file type of plate
+#' @param type_standards_plate OPTIONAL: necessary for running with shiny app, must specify type of plate for standards
 #' @param ... Optional arguments to pass
 #' @return output table with DNA concentrations, biomass, metadata, and useful computations for downstream (sequencing) applications
 #' @export
 #'
 
 DataAnalysis <- function(plate_reader_file, mapping_csv_file, exp_id, standards_plate_reader_file = plate_reader_file, 
-    standards_mapping_csv_file = mapping_csv_file, num_reads = 1, volume = 2, scale = 7, shiny = FALSE, type = NULL, ...) {
+    standards_mapping_csv_file = mapping_csv_file, num_reads = 1, volume = 2, scale = 7, shiny = FALSE, type_plate = NULL, type_standards_plate = NULL, ...) {
     
     standard_analysis <- StandardAnalysis(standards_plate_reader_file = standards_plate_reader_file, standards_mapping_csv_file = standards_mapping_csv_file, 
-        num_reads = num_reads, exp_id = exp_id, shiny, type)
+        num_reads = num_reads, exp_id = exp_id, shiny = shiny, type = type_standards_plate)
     
     # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read
     # information for the plate.
     
     
-    rawdata <- PlateParser(plate_reader_file, num_reads, shiny, type)
+    rawdata <- PlateParser(plate_reader_file, num_reads, shiny, type_plate)
     
     # Parse Metadata from mapping file
     mapping <- ParseMappingFile(mapping_csv_file)
