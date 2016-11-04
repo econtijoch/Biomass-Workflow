@@ -2,20 +2,20 @@
 #' @param standards_plate_reader_file the file path of the plate reader file for the standards (in .csv or .xls(x) format)
 #' @param standards_mapping_csv_file mapping file for plate contianing standards (for wells with standards, Type must be 'Standard')
 #' @param exp_id experiment id
-#' @param num_reads OPTIONAL: number of measurements that the plate reader took per well (Default = 1)
 #' @param shiny OPTIONAL: necessary for running with shiny app interface since filenames are not the same.
 #' @param type OPTIONAL: necessary for running with shiny app, must specify file type
+#' @param print OPTIONAL: whether or not to save a copy of the standards curve to the working directory
 #' @param ... optional inputs
 #' @return list containing a table of the standards, and the information for the standard curve
 #' @export
 #'
 
-StandardAnalysis <- function(standards_plate_reader_file, standards_mapping_csv_file, exp_id, num_reads = 1, shiny = FALSE, type = NULL, ...) {
+StandardAnalysis <- function(standards_plate_reader_file, standards_mapping_csv_file, exp_id, shiny = FALSE, type = NULL, print = FALSE, ...) {
     
     
     # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read
     # information for the plate.
-    rawdata <- PlateParser(standards_plate_reader_file, num_reads, shiny, type)
+    rawdata <- PlateParser(standards_plate_reader_file, shiny, type)
     
     # Read barcode ID's from a file containing the label information
     
@@ -23,24 +23,19 @@ StandardAnalysis <- function(standards_plate_reader_file, standards_mapping_csv_
     
     
     # Merge data with mapping file, label data appropriately
-    data <- merge(rawdata$table, mapping, by = "ReaderWell")
+    data <- merge(rawdata, mapping, by = "ReaderWell")
     
     data <- subset(data, !is.na(data$BarcodeID))
     data <- subset(data, data$BarcodeID != "")
     
     rownames(data) <- data$BarcodeID
     
-    # Add average fluorescence column to data
-    read_start = 2
-    read_end = rawdata$num_reads + 1
-    
-    data$fluor_av <- apply(data[read_start:read_end], 1, mean)
     
     standard_table <- split(data, data$Type)$Standard
     standard_table <- standard_table[order(standard_table$BarcodeID), ]
     
     s_y <- standard_table$SampleMass
-    s_x <- standard_table$fluor_av
+    s_x <- standard_table$Fluorescence
     
     standards <- data.frame(s_x, s_y)
     
@@ -61,7 +56,7 @@ StandardAnalysis <- function(standards_plate_reader_file, standards_mapping_csv_
         se = FALSE) + ggplot2::annotate("text", x = 0, y = max(s_y), hjust = 0, label = standards_info) + EJC_theme() + 
         ggplot2::theme(axis.text.x = ggplot2::element_text(size = 18, angle = 0, hjust = 0.5, color = "black"))
     
-    if (shiny == FALSE) {
+    if (print == TRUE) {
       cowplot::save_plot(filename = name, plot = standards_plot, base_height = 6, base_width = 6)
       
       cat("Standards Information:\n")

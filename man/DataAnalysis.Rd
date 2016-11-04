@@ -6,9 +6,9 @@
 \usage{
 DataAnalysis(plate_reader_file, mapping_csv_file, exp_id,
   standards_plate_reader_file = plate_reader_file,
-  standards_mapping_csv_file = mapping_csv_file, num_reads = 1,
-  volume = 2, scale = 7, shiny = FALSE, type_plate = NULL,
-  type_standards_plate = NULL, ...)
+  standards_mapping_csv_file = mapping_csv_file, volume = 2, scale = 7,
+  shiny = FALSE, type_plate = NULL, type_standards_plate = NULL,
+  print = FALSE, ...)
 }
 \arguments{
 \item{plate_reader_file}{raw file from plate-reader (can be in .xls format, or .csv), but will only read in first sheet of excel file}
@@ -21,8 +21,6 @@ DataAnalysis(plate_reader_file, mapping_csv_file, exp_id,
 
 \item{standards_mapping_csv_file}{OPTIONAL: if your standards are not on the same plate as your samples, you will also need to provide the file path of a mapping file for the standards plate (Default is to use same plate as samples)}
 
-\item{num_reads}{OPTIONAL: the number of reads of each sample from the plate reader (Default = 1)}
-
 \item{volume}{OPTIONAL: The volume (in uL) used to quantify DNA with Qubit (Default = 2)}
 
 \item{scale}{OPTIONAL: The scale factor used in the DNA isolation protocol (Defualt = 7, which corresponds to taking 100uL of supernatant from the 700uL of the DIB added). For phenol extraction, use scale = 1.}
@@ -32,6 +30,8 @@ DataAnalysis(plate_reader_file, mapping_csv_file, exp_id,
 \item{type_plate}{OPTIONAL: necessary for running with shiny app, must specify file type of plate}
 
 \item{type_standards_plate}{OPTIONAL: necessary for running with shiny app, must specify type of plate for standards}
+
+\item{print}{OPTIONAL: whether or not to save a copy of the standards curve to the working directory}
 
 \item{...}{Optional arguments to pass}
 }

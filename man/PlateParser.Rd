@@ -4,12 +4,10 @@
 \alias{PlateParser}
 \title{Function to read in mapping file and tweak format so that it is friendly with the rest of the package functinos}
 \usage{
-PlateParser(plate_reader_file, num_reads = 1, shiny = FALSE, type = NULL)
+PlateParser(plate_reader_file, shiny = FALSE, type = NULL)
 }
 \arguments{
 \item{plate_reader_file}{Fluorescence data from the plate reader (can be in .csv or .xls(x) format -- if in excel file, only the FIRST sheet within the file will be read)}
-
-\item{num_reads}{OPTIONAL: number of measurements that the plate reader took for each sample (default = 1)}
 
 \item{shiny}{OPTIONAL: necessary for running with shiny app interface since filenames are not the same.}
 
