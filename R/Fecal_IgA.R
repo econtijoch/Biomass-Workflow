@@ -58,7 +58,7 @@ IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = N
   
   x_values <- seq(0,3.5, length=1000)
   OD <- sigmoid_model(params,x_values)
-  standards_plot <- ggplot2::ggplot() + ggplot2::geom_line(ggplot2::aes(x = x_values, y = OD)) + ggplot2::geom_point(ggplot2::aes(x = x, y = y))
+  standards_plot <- ggplot2::ggplot() + ggplot2::geom_line(ggplot2::aes(x = x_values, y = OD)) + ggplot2::geom_point(ggplot2::aes(x = x, y = y)) + labs(x = 'Log[IgA]', y = 'OD', title = 'Standard Curve') + EJC_theme()
   
   IgA_samples$Log_IgA <- predictor(params, IgA_samples$OD)
   IgA_samples$IgA <- (10^IgA_samples$Log_IgA)*IgA_samples$Dilution/1000
