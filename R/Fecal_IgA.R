@@ -31,7 +31,7 @@ predictor <- function(params, y) {
 #' @export
 #'
 
-IgAAnalysis2 <- function(plate_reader_file, mapping_file, shiny = FALSE, type = NULL, print = FALSE, ...) {
+IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = NULL, print = FALSE, ...) {
  
   # Read in files and join
   IgA_raw <- PlateParser(plate_reader_file, shiny, type)
