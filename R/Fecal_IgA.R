@@ -31,10 +31,10 @@ predictor <- function(params, y) {
 #' @export
 #'
 
-IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = NULL, print = FALSE, ...) {
+IgAAnalysis2 <- function(plate_reader_file, mapping_file, shiny = FALSE, type = NULL, print = FALSE, ...) {
  
   # Read in files and join
-  IgA_raw <- PlateParser(plate_reader_file, shiny, type)$table
+  IgA_raw <- PlateParser(plate_reader_file, shiny, type)
   IgA_map <- ParseMappingFile(mapping_file)
   IgA_data <- dplyr::full_join(IgA_map, IgA_raw)
   
@@ -61,7 +61,7 @@ IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = N
   standards_plot <- ggplot2::ggplot() + ggplot2::geom_line(ggplot2::aes(x = x_values, y = OD)) + ggplot2::geom_point(ggplot2::aes(x = x, y = y))
   
   IgA_samples$Log_IgA <- predictor(params, IgA_samples$OD)
-  IgA_samples$IgA <- (10^IgA_samples$log_IgA)*IgA_samples$Dilution/1000
+  IgA_samples$IgA <- (10^IgA_samples$Log_IgA)*IgA_samples$Dilution/1000
   IgA_samples$Sample_Dilution <- paste("Dilution = 1/", IgA_samples$Dilution, sep = "")
   
   
