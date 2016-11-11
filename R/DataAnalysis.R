@@ -60,10 +60,10 @@ DataAnalysis <- function(plate_reader_file, mapping_csv_file, exp_id, standards_
     exp_data$total_dna <- exp_data[, "dna_concentration"] * 0.1
     exp_data$scale_factor <- scale
     exp_data$biomass_ratio <- exp_data$total_dna * scale/exp_data$SampleMass
-    exp_data$X16S_possible <- exp_data[, "dna_concentration"] > 1.5
+    exp_data$X16S_possible <- (exp_data[, "dna_concentration"] > 1.5)  & (exp_data[, 'dna_concentration'] > 0)
     exp_data$vol_needed_for_PCR <- 400/exp_data[, "dna_concentration"]
     exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR
-    exp_data$metagenomics_possible <- 625/exp_data[, "dna_concentration"] < 28
+    exp_data$metagenomics_possible <- (625/exp_data[, "dna_concentration"] < 28) & (exp_data[, 'dna_concentration'] > 0)
     exp_data$vol_needed_for_metagenomics <- 625/exp_data[, "dna_concentration"]
     exp_data$water_volume_up_metagenomics <- 25 - exp_data$vol_needed_for_metagenomics
     
