@@ -64,10 +64,10 @@ sequencing_prep_16S <- function(experiment_data_list, n_barcode_plates, barcode_
         sequencing_runs[[sequencing_id]] <- list()
         
         if (file.exists(sequencing_id)) {
-            setwd(file.path(output_directory, sequencing_id))
+            setwd(file.path(current_directory, output_directory, sequencing_id))
         } else {
             dir.create(file.path(output_directory, sequencing_id))
-            setwd(file.path(output_directory, sequencing_id))
+            setwd(file.path(current_directory, output_directory, sequencing_id))
         }
         sequencing_runs[[sequencing_id]][["Plates"]] <- list()
         
@@ -98,7 +98,7 @@ sequencing_prep_16S <- function(experiment_data_list, n_barcode_plates, barcode_
             sep = "\t", quote = F, col.names = F, eol = "")
         suppressWarnings(utils::write.table(x = sequencing_runs[[sequencing_id]][["Mapping"]], file = paste(sequencing_id, 
             "_sequencing_mapping.txt", sep = ""), row.names = F, sep = "\t", quote = F, append = T, na = "NA"))
-        setwd("../")
+        setwd(current_directory)
     }
     
     return(sequencing_runs)
