@@ -10,7 +10,15 @@
 
 sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates, barcode_map_file = NULL, output_directory = getwd(), 
     filter = T) {
-    setwd(output_directory)
+
+	current_directory <- getwd()
+	if (file.exists(output_directory)) {
+	  setwd(file.path(current_directory, output_directory))
+	} else {
+	  dir.create(file.path(current_directory, output_directory))
+	  setwd(file.path(current_directory, output_directory))
+	}
+	
     # Useful for adding barcode metadata
     barcode_info <- data.frame()
     for (i in 1:n_barcode_plates) {
