@@ -66,7 +66,7 @@ sequencing_prep_16S <- function(experiment_data_list, n_barcode_plates, barcode_
         if (file.exists(sequencing_id)) {
             setwd(file.path(current_directory, output_directory, sequencing_id))
         } else {
-            dir.create(file.path(output_directory, sequencing_id))
+            dir.create(file.path(current_directory, output_directory, sequencing_id))
             setwd(file.path(current_directory, output_directory, sequencing_id))
         }
         sequencing_runs[[sequencing_id]][["Plates"]] <- list()
