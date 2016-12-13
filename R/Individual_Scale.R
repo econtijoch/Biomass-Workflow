@@ -173,6 +173,6 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     
     
     return(list(scaled_otus = otus_scaled, relative_otus = otus_relative, melted_scaled_by_taxonomy = melted_by_tax_scaled, 
-        melted_relative_by_taxonomy = melted_by_tax_relative, compact_scaled_by_taxonomy = compact_by_tax_scaled, compact_relative_by_taxonomy = compact_by_tax_relative, metadata = metadata))
+        melted_relative_by_taxonomy = melted_by_tax_relative, compact_scaled_by_taxonomy = compact_by_tax_scaled, compact_relative_by_taxonomy = compact_by_tax_relative, sample_metadata = metadata))
     
 }
