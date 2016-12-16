@@ -12,7 +12,6 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
     filter = T) {
 
 	current_directory <- getwd()
-	setwd(file.path(current_directory))
 	if (file.exists(output_directory)) {
 	  setwd(file.path(current_directory, output_directory))
 	} else {
@@ -99,7 +98,7 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
             sep = "\t", quote = F, col.names = F, eol = "")
         suppressWarnings(utils::write.table(x = sequencing_runs[[sequencing_id]][["Mapping"]], file = paste(sequencing_id, 
             "_sequencing_mapping.txt", sep = ""), row.names = F, sep = "\t", quote = F, append = T, na = "NA"))
-        setwd(file.path(current_directory))
+        setwd(current_directory)
     }
     
     return(sequencing_runs)
