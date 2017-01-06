@@ -10,11 +10,11 @@
 #'
 
 Deprecated_DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, exp_id, standards_plate_reader_csv_file = plate_reader_csv_file, 
-    standards_mapping_csv_file = mapping_csv_file, volume = 2, scale = 1, ...) {
+    standards_mapping_csv_file = mapping_csv_file, volume = 2, scale = 1, print = FALSE, ...) {
     
     
     standard_analysis <- Deprecated_StandardAnalysis(standards_plate_reader_csv_file = standards_plate_reader_csv_file, 
-        standards_mapping_csv_file = standards_mapping_csv_file, exp_id = exp_id)
+        standards_mapping_csv_file = standards_mapping_csv_file, exp_id = exp_id, print = print)
     
     # Read in raw data file from the .csv output of the plate reader. This will produce a data frame with well and read
     # information for the plate.
