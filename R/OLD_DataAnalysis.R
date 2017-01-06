@@ -4,8 +4,11 @@
 #' @param standards_plate_reader_csv_file plate reader file for plate containing standards (from old machine)
 #' @param standards_mapping_csv_file mapping file for plate contianing standards (for wells with standards, Type must be 'Standard')
 #' @param exp_id experiment id
+#' @param volume qubit volume
+#' @param scale subsampling scaling factor
+#' @param print print standards information
 #' @param ... other arguments
-#' @return data table with biomass data calculated
+#' @return list with a data table with biomass data calculated and the standards information
 #' @export
 #'
 

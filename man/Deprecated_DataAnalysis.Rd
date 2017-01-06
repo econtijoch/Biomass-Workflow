@@ -6,7 +6,8 @@
 \usage{
 Deprecated_DataAnalysis(plate_reader_csv_file, mapping_csv_file, exp_id,
   standards_plate_reader_csv_file = plate_reader_csv_file,
-  standards_mapping_csv_file = mapping_csv_file, ...)
+  standards_mapping_csv_file = mapping_csv_file, volume = 2, scale = 1,
+  print = FALSE, ...)
 }
 \arguments{
 \item{plate_reader_csv_file}{plate reader file (old version)}
@@ -19,10 +20,16 @@ Deprecated_DataAnalysis(plate_reader_csv_file, mapping_csv_file, exp_id,
 
 \item{standards_mapping_csv_file}{mapping file for plate contianing standards (for wells with standards, Type must be 'Standard')}
 
+\item{volume}{qubit volume}
+
+\item{scale}{subsampling scaling factor}
+
+\item{print}{print standards information}
+
 \item{...}{other arguments}
 }
 \value{
-data table with biomass data calculated
+list with a data table with biomass data calculated and the standards information
 }
 \description{
 Deprecated function for Data Analysis. See DataAnalysis instead

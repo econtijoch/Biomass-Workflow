@@ -5,7 +5,7 @@
 \title{Deprecated function to process standards information and create line of best fit}
 \usage{
 Deprecated_StandardAnalysis(standards_plate_reader_csv_file,
-  standards_mapping_csv_file, exp_id)
+  standards_mapping_csv_file, exp_id, print = FALSE, ...)
 }
 \arguments{
 \item{standards_plate_reader_csv_file}{plate reader file for plate containing standards (from old machine)}
@@ -13,6 +13,10 @@ Deprecated_StandardAnalysis(standards_plate_reader_csv_file,
 \item{standards_mapping_csv_file}{mapping file for plate contianing standards (for wells with standards, Type must be 'Standard')}
 
 \item{exp_id}{experiment id}
+
+\item{print}{print standards information or not}
+
+\item{...}{...}
 }
 \value{
 list containing a table of the standards, and the information for the standard curve
