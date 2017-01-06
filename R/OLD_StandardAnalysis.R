@@ -18,7 +18,7 @@ Deprecated_StandardAnalysis <- function(standards_plate_reader_csv_file, standar
     
     
     # Merge data with mapping file, label data appropriately
-    data <- merge(rawdata$table, mapping, by = "Well")
+    data <- merge(rawdata$table, mapping, by = "SampleWell")
     
     data <- subset(data, !is.na(data$BarcodeID))
     
