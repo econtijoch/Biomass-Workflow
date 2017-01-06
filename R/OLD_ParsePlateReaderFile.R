@@ -68,6 +68,6 @@ Deprecated_ParsePlateReaderFile <- function(plate_reader_file) {
   
   
   
-  return(final_able)
+  return(final_table)
   
 }
