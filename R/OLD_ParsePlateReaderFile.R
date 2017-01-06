@@ -35,8 +35,8 @@ Deprecated_ParsePlateReaderFile <- function(plate_reader_file) {
         parsed_table[, i] <- as.numeric(as.character(parsed_table[, i]))
     }
     
-    # Remove NAs
-    final_table <- subset(parsed_table, !is.na(parsed_table$Read.1))
+    # Remove NAs, rename column
+    final_table <- dplyr::rename(subset(parsed_table, !is.na(parsed_table$Read.1)), SampleWell = Well)
     
     output_list <- list(table = final_table, num_reads = num_reads)
     
