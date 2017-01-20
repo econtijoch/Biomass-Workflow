@@ -11,13 +11,16 @@
 sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates, barcode_map_file = NULL, output_directory = getwd(), 
     filter = T) {
 
-	current_directory <- getwd()
-	if (file.exists(output_directory)) {
-	  setwd(file.path(current_directory, output_directory))
-	} else {
-	  dir.create(file.path(current_directory, output_directory))
-	  setwd(file.path(current_directory, output_directory))
-	}
+		current_directory <- getwd()
+		if (current_directory == output_directory) {
+			output_path <- output_directory
+		}
+		else {
+			output_path <- output_directory
+		}
+		if (!file.exists(output_path)) {
+		 dir.create(file.path(output_path))
+	 	}
 	
     # Useful for adding barcode metadata
     barcode_info <- data.frame()
@@ -63,11 +66,8 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
         sequencing_id <- paste("Metagenomics_Run", i, sep = "")
         sequencing_runs[[sequencing_id]] <- list()
         
-        if (file.exists(sequencing_id)) {
-            setwd(file.path(current_directory, output_directory, sequencing_id))
-        } else {
-            dir.create(file.path(current_directory, output_directory, sequencing_id))
-            setwd(file.path(current_directory, output_directory, sequencing_id))
+        if (!file.exists(file.path(output_path, sequencing_id))) {
+            dir.create(file.path(output_path, sequencing_id))
         }
         sequencing_runs[[sequencing_id]][["Plates"]] <- list()
         
@@ -81,7 +81,7 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
             plate_id <- paste("Plate", j, sep = "")
             sequencing_runs[[sequencing_id]][["Plates"]][[plate_id]] <- robot_dilution %>% dplyr::filter(SequencingRun == 
                 sequencing_id, BarcodePlate == paste("Plate", j, sep = ""))
-            utils::write.csv(x = sequencing_runs[[sequencing_id]][["Plates"]][[plate_id]], file = paste(sequencing_id, 
+            utils::write.csv(x = sequencing_runs[[sequencing_id]][["Plates"]][[plate_id]], file = paste(file.path(output_path, sequencing_id), "/", sequencing_id, 
                 "_", plate_id, "_robot_file.csv", sep = ""), row.names = F)
         }
         sequencing_runs[[sequencing_id]][["Samples"]] <- unlist(lapply(sequencing_runs[[sequencing_id]][["Plates"]], 
@@ -94,11 +94,10 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
             -BarcodeID, -ReaderWell, -Type) %>% dplyr::mutate(Description = SampleID))
         
         
-        utils::write.table(x = "#", file = paste(sequencing_id, "_sequencing_mapping.txt", sep = ""), row.names = F, 
+        utils::write.table(x = "#", file = paste(file.path(output_path, sequencing_id), "/", sequencing_id, "_sequencing_mapping.txt", sep = ""), row.names = F, 
             sep = "\t", quote = F, col.names = F, eol = "")
-        suppressWarnings(utils::write.table(x = sequencing_runs[[sequencing_id]][["Mapping"]], file = paste(sequencing_id, 
+        suppressWarnings(utils::write.table(x = sequencing_runs[[sequencing_id]][["Mapping"]], file = paste(file.path(output_path, sequencing_id), "/", sequencing_id, 
             "_sequencing_mapping.txt", sep = ""), row.names = F, sep = "\t", quote = F, append = T, na = "NA"))
-        setwd(current_directory)
     }
     
     return(sequencing_runs)
