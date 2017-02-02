@@ -8,11 +8,10 @@ The goal of BiomassWorkflow is to streamline data analysis and removing the pote
 Installation
 ------------
 
-You can install BiomassWorkflow from github with:
+You can install BiomassWorkflow from bitbucket with:
 
 ``` r
-install.packages("devtools")
-devtools::install_github("econtijoch/Biomass-Workflow")
+devtools::install_bitbucket("econtijoch/Biomass-Workflow")
 ```
 
 If you need to install devtools first, you'll need to do the following first to download and update devtools to the most current version:
