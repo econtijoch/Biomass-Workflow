@@ -9,7 +9,7 @@
 
 individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     
-    cat("Reading Biom Table...\n")
+    message("Reading Biom Table...\n")
     # Read in biom table, begin manipulating
     raw_biom_table <- biom::read_biom(biom_file)
     biom_data <- methods::as(biom::biom_data(raw_biom_table), "matrix")
@@ -18,7 +18,7 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     biom_only$X.SampleID <- as.character(row.names(biom_only))
     row.names(biom_only) <- NULL
     
-    cat("Reading Metadata...\n")
+    message("Reading Metadata...\n")
     # Read in metadata, QC for NA values of biomass
     metadata <- utils::read.delim(metadata_file)
     if ("biomass_ratio" %in% colnames(metadata)) {
@@ -29,14 +29,14 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     }
     
     
-    cat("Making sure OTU data and metadata are properly aligned...\n")
+    message("Making sure OTU data and metadata are properly aligned...\n")
     # Make sure we are working with the right data, sort in same order:
     biom_only <- biom_only[biom_only$X.SampleID %in% base::intersect(biom_only$X.SampleID, metadata$X.SampleID), ] %>% 
         dplyr::arrange(X.SampleID)
     metadata <- metadata[metadata$X.SampleID %in% base::intersect(biom_only$X.SampleID, metadata$X.SampleID), ] %>% 
         dplyr::arrange(X.SampleID)
     
-    cat("Reading Taxonomy...\n")
+    message("Reading Taxonomy...\n")
     # Read in Taxonomy
     taxonomy <- utils::read.delim(taxonomy_file, header = F)
     taxonomy <- as.data.frame(apply(taxonomy, 2, function(x) gsub("\\s+", "", x)))
@@ -44,7 +44,7 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     taxonomy$OTU_ID <- paste("OTU", taxonomy$OTU_ID, sep = "_")
     taxonomy$OTU_ID <- as.character(taxonomy$OTU_ID)
     
-    cat("Manipulating data...\n")
+    message("Manipulating data...\n")
     
     # Add metadata biom_merged <- inner_join(biom_only, biomass, by = 'X.SampleID')
     
@@ -53,15 +53,15 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     # metadata_only <- biom_merged[, !grepl('OTU_', names(biom_merged))] metadata_only$X.SampleID <-
     # as.character(metadata_only$X.SampleID)
     
-    cat("Scaling taxonomic abundances...\n")
+    message("Scaling taxonomic abundances...\n")
     # Create relative abundances and scale
     pre_normalized <- otus_only/base::rowSums(otus_only)
     
     if (missing(filter)) {
-        cat("OTU table is NOT being filtered by relative abundance...\n")
+        message("OTU table is NOT being filtered by relative abundance...\n")
         normalized <- pre_normalized
     } else {
-        cat(paste("OTU table is being filtered to remove OTUs with relative abundance below", filter, "...\n", sep = " "))
+        message(paste("OTU table is being filtered to remove OTUs with relative abundance below", filter, "...\n", sep = " "))
         max_otu_fraction <- apply(pre_normalized, 2, max)
         normalized <- pre_normalized[, max_otu_fraction > filter]
     }
@@ -74,7 +74,7 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     relative$X.SampleID <- as.character(metadata$X.SampleID)
     
     fraction_filtered <- 1 - (base::ncol(normalized)/base::ncol(pre_normalized))
-    cat(paste("OTU table successfully filtered (", round(fraction_filtered, 3) * 100, "% of OTUs removed)...\n", sep = ""))
+    message(paste("OTU table successfully filtered (", round(fraction_filtered, 3) * 100, "% of OTUs removed)...\n", sep = ""))
     
     
     
@@ -97,7 +97,7 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     names(relative_melted)[names(relative_melted) == "variable"] <- "OTU_ID"
     relative_melted$OTU_ID <- as.character(relative_melted$OTU_ID)
     
-    cat("Adding taxonomy and collapsing OTUs by taxonomy...\n")
+    message("Adding taxonomy and collapsing OTUs by taxonomy...\n")
     # Add taxonomy
     taxonomy_added <- dplyr::inner_join(melted, taxonomy, by = "OTU_ID")
     relative_taxonomy_added <- dplyr::inner_join(relative_melted, taxonomy, by = "OTU_ID")
@@ -122,7 +122,7 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     melted_by_tax_relative <- list()
     compact_by_tax_relative <- list()
     
-    cat("Creating melted and compact tables by taxonomic depth...\n")
+    message("Creating melted and compact tables by taxonomic depth...\n")
     for (i in 1:length(phylogeny)) {
         
         # Define a label for plotting
