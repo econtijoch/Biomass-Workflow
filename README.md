@@ -25,4 +25,4 @@ devtools::install_github("hadley/devtools")
 Tutorial
 --------
 
-I am working on updating the documentation for the tutorial. I'll get around to it soon. <!-- For a step-by-step tutorial on how to use this package, please visit the [BiomassWorkflow Tutorial page ](http://www.eduardocontijoch.com/Projects/Biomass-Workflow/Vignettes/tutorial.html) -->
+I am working on updating the documentation for the tutorial. I'll get around to it soon.
