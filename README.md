@@ -8,17 +8,23 @@ The goal of BiomassWorkflow is to streamline data analysis and removing the pote
 Installation
 ------------
 
-You can install BiomassWorkflow from bitbucket with:
-
-``` r
-devtools::install_bitbucket("econtijoch/Biomass-Workflow")
-```
-
-If you need to install devtools first, you'll need to do the following first to download and update devtools to the most current version:
+From within R, you can install BiomassWorkflow from scratch from bitbucket with:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("hadley/devtools")
+devtools::install_bitbucket("econtijoch/Biomass-Workflow")
+```
+There is a strong chance that you will also need to set up java to play nicely with R and this package. To do that, you'll need to go to terminal and type
+
+```sh
+sudo R CMD javareconf
+```
+This will prompt you for your password.
+
+Then, back in R, you will need to re-install the rJava library:
+
+```r
+install.packages("rJava",type='source')
 ```
 
 Tutorial
