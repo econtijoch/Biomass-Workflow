@@ -11,5 +11,5 @@
 scale_and_visualize <- function(biom_file, metadata_file, taxonomy_file, filter = 0) {
   output <- BiomassWorkflow::individual_scale(biom_file = biom_file, metadata_file = metadata_file, taxonomy_file = taxonomy_file, filter = filter)
   BiomassWorkflow::sequencing_data_viz(output)
-  return(output)
+#  return(output)
 }
