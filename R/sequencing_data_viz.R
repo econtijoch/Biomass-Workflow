@@ -241,7 +241,7 @@ sequencing_data_viz <- function(sequencing_object) {
         return(p)
       })
       output$spree_plot_relative <- renderPlot({
-        spree_plot_relative()
+        print(spree_plot_relative())
       })
       
       spree_plot_absolute <- eventReactive(plot_inputs() , {
@@ -267,7 +267,7 @@ sequencing_data_viz <- function(sequencing_object) {
         return(p)
       })
       output$spree_plot_absolute <- renderPlot({
-        spree_plot_absolute()
+        print(spree_plot_absolute())
       })
       
       data_viz_plot_relative <- eventReactive(plot_inputs(), {
@@ -363,7 +363,7 @@ sequencing_data_viz <- function(sequencing_object) {
         return(p)
       })
       output$data_plot_absolute <- renderPlot({
-        data_viz_plot_absolute()
+        print(data_viz_plot_absolute())
       })
       
       output$download_relative_viz_plot <- downloadHandler(
