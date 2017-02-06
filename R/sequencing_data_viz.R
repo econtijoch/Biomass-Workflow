@@ -399,7 +399,7 @@ sequencing_data_viz <- function(sequencing_object) {
         } else {
           data <- data %>% dplyr::group_by_("long_label", "short_label", "Abundance_Type", input$taxonomic_depth, input$grouping_x_variable)
         }
-        output_data <- data %>% dplyr::summarize(mean_abundance = mean(abundance)/dplyr::n()) %>% dplyr::left_join(., metadata)
+        output_data <- data %>% dplyr::summarize(mean_abundance = mean(abundance)/n()) %>% dplyr::left_join(., metadata)
         return(output_data)
       })
       
@@ -446,7 +446,7 @@ sequencing_data_viz <- function(sequencing_object) {
         } else {
           data <- data %>% dplyr::group_by_("long_label", "short_label", "Abundance_Type", input$taxonomic_depth, input$grouping_x_variable)
         }
-        output_data <- data %>% dplyr::summarize(mean_abundance = mean(abundance)/dplyr::n()) %>% dplyr::left_join(., metadata)
+        output_data <- data %>% dplyr::summarize(mean_abundance = mean(abundance)/n()) %>% dplyr::left_join(., metadata)
         return(output_data)
       })
       
