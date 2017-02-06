@@ -45,7 +45,7 @@ sequencing_data_viz <- function(sequencing_object) {
                                        uiOutput('plot_facet_row'),
                                        uiOutput('plot_facet_col')),
                                 column(
-                                  2,
+                                  3,
                                   sliderInput(
                                     "point_size",
                                     "Point size:",
