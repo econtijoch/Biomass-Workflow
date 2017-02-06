@@ -13,7 +13,7 @@ sequencing_data_viz <- function(sequencing_object) {
                      tabPanel(title = 'Ordination',
                               fluidRow(
                                 column(
-                                  3,
+                                  2,
                                   selectInput(
                                     'distance_method',
                                     label = 'Select Distance Method',
@@ -38,14 +38,14 @@ sequencing_data_viz <- function(sequencing_object) {
                                   ),
                                   uiOutput('plot_color_by')
                                 ),
-                                column(3,
+                                column(2,
                                        uiOutput('plot_x'),
                                        uiOutput('plot_y')),
-                                column(3,
+                                column(2,
                                        uiOutput('plot_facet_row'),
                                        uiOutput('plot_facet_col')),
                                 column(
-                                  3,
+                                  2,
                                   sliderInput(
                                     "point_size",
                                     "Point size:",
@@ -60,8 +60,13 @@ sequencing_data_viz <- function(sequencing_object) {
                                     choices = c('Scatter', 'Boxplot', "Mean + SEM"),
                                     selected = 'Scatter',
                                     inline = T
-                                  )
-                                )
+                                  )),
+								column(
+								  2,
+								  helpText('Download plots as R objects'),
+								  downloadButton('download_relative_viz_plot', label = 'Relative Abundance'),
+								  hr(),
+								  downloadButton('download_absolute_viz_plot', label = 'Absolute Abundance'))
                               ),
                               # Sidebar with a slider input for number of bins
                               hr(),
@@ -75,10 +80,6 @@ sequencing_data_viz <- function(sequencing_object) {
                                               plotOutput(
                                                 'data_plot_absolute'
                                               ))),
-                              fluidRow(column(6,
-                                              downloadButton('download_relative_viz_plot', label = 'Download Relative Abundance Plot')),
-                                       column(6,
-                                              downloadButton('download_absolute_viz_plot', label = 'Download Absolute Abundance Plot'))),
                               fluidRow(column(6,
                                               plotOutput(
                                                 "spree_plot_relative"
