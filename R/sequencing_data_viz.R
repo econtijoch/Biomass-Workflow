@@ -311,7 +311,7 @@ sequencing_data_viz <- function(sequencing_object) {
         return(p)
       })
       output$data_plot_relative <- renderPlot({
-        data_viz_plot_relative()
+        print(data_viz_plot_relative())
       })
       
       
