@@ -1,5 +1,6 @@
 #' Shiny App that aids in vizualizing sequencing objects returned from individual_scale
 #' @import shiny
+#' @importFrom dplyr n
 #' @param sequencing_object output object of individual_scale
 #' @return launches shiny app that helps interactively visualize data
 #' @export

@@ -1,13 +1,3 @@
-#' pipe or
-#' @param a a
-#' @param b b
-#' @return a or b
-#' @export
-
-"%||%" <- function(a, b) {
-  if (!is.null(a)) a else b
-}
-
 #' ggname
 #' Helper function taken from ggplot2 -- not exported, need to re-create
 #' @param prefix prefix
@@ -20,8 +10,6 @@ ggname <- function(prefix, grob) {
   grob
 }
 
-## Stat to compute summary statistics for data
-##
 StatMeanSEM <- ggplot2::ggproto(
   "StatMeanSEM",
   ggplot2::Stat,
@@ -29,8 +17,11 @@ StatMeanSEM <- ggplot2::ggproto(
   
   
   setup_params = function(data, params) {
-    params$width <-
-      params$width %||% (ggplot2::resolution(data$x) * 0.75)
+    params$width <- if (!is.null(params$width)) {
+      params$width
+    } else {
+      ggplot2::resolution(data$x) * 0.75
+    }
     
     if (is.double(data$x) &&
         !data$group[1L] != -1L && any(data$x != data$x[1L])) {
@@ -115,8 +106,13 @@ GeomMeanSEM <- ggplot2::ggproto(
   "GeomMeanSEM",
   ggplot2::Geom,
   setup_data = function(data, params) {
-    data$width <- data$width %||%
-      params$width %||% (ggplot2::resolution(data$x, FALSE) * 0.9)
+    data$width <- if (!is.null(data$width)) {
+      data$width
+    } else if (!is.null(params$width)) {
+      params$width
+    } else {
+      ggplot2::resolution(data$x, FALSE) * 0.9
+    }
     
     data$xmin <-
       data$x - data$width / 3
