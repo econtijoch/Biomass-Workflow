@@ -235,7 +235,7 @@ sequencing_data_viz <- function(sequencing_object) {
         return(p)
       })
       output$spree_plot_relative <- renderPlot({
-        print(spree_plot_relative())
+		  spree_plot_relative()
       })
       
       spree_plot_absolute <- eventReactive(plot_inputs() , {
@@ -255,7 +255,7 @@ sequencing_data_viz <- function(sequencing_object) {
         return(p)
       })
       output$spree_plot_absolute <- renderPlot({
-        print(spree_plot_absolute())
+        spree_plot_absolute()
       })
       
       data_viz_plot_relative <- eventReactive(plot_inputs(), {
@@ -290,7 +290,7 @@ sequencing_data_viz <- function(sequencing_object) {
         return(p)
       })
       output$data_plot_relative <- renderPlot({
-        print(data_viz_plot_relative())
+        data_viz_plot_relative()
       })
       
       
@@ -334,7 +334,7 @@ sequencing_data_viz <- function(sequencing_object) {
         return(p)
       })
       output$data_plot_absolute <- renderPlot({
-        print(data_viz_plot_absolute())
+		  data_viz_plot_absolute()
       })
       
       output$download_relative_viz_plot <- downloadHandler(
@@ -396,7 +396,7 @@ sequencing_data_viz <- function(sequencing_object) {
         return(plot)
       })
       output$relative_abundance_plot <- renderPlot({
-        print(relative_abundance_plot() + BiomassWorkflow::paper_theme_tilted())
+		  relative_abundance_plot() + BiomassWorkflow::paper_theme_tilted()
       })
       output$download_relative_bar_plot <- downloadHandler(
         filename = function() {'Relative Abundance Bar Plot.rds'},
@@ -443,7 +443,7 @@ sequencing_data_viz <- function(sequencing_object) {
         return(plot)
       })
       output$absolute_abundance_plot <- renderPlot({
-		  print(absolute_abundance_plot() + BiomassWorkflow::paper_theme_tilted())
+		  absolute_abundance_plot() + BiomassWorkflow::paper_theme_tilted()
 	  })
       
       output$download_absolute_bar_plot <- downloadHandler(
