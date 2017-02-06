@@ -338,7 +338,7 @@ sequencing_data_viz <- function(sequencing_object) {
         print(data_viz_plot_absolute())
       })
       
-      output$download_relative_viz_plot <- downloadHandler(
+      output$download_absolute_viz_plot <- downloadHandler(
         filename = function() {'Absolute Abundance Data Plot.rds'},
         content = function(file) {
           saveRDS(file = file, object = data_viz_plot_absolute())
