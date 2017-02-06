@@ -94,7 +94,9 @@ ordinate_sequencing <-
         absolute_ordination_output = pc_table_absolute,
         relative_ordination_output = pc_table_relative,
         absolute_plotting_data = pc_output_absolute,
-        relative_plotting_data = pc_output_relative
+        relative_plotting_data = pc_output_relative,
+		absolute_distance_matrix = distance_table_absolute,
+		relative_distance_matrix = distance_table_relative
       )
     )
     
