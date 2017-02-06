@@ -1,3 +1,12 @@
+#' pipe or
+#' @param a a
+#' @param b b
+#' @return a or b
+#' @export
+
+"%||%" <- function(a, b) {
+  if (!is.null(a)) a else b
+}
 
 #' ggname
 #' Helper function taken from ggplot2 -- not exported, need to re-create
