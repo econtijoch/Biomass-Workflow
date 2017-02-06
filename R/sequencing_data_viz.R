@@ -231,13 +231,7 @@ sequencing_data_viz <- function(sequencing_object) {
           factor(spree_data$x_spree, levels = paste("PC", 1:10, sep = " "))
         
         p <-
-          ggplot2::ggplot(data = spree_data[1:10, ], ggplot2::aes(x = x_spree, y = y_spree)) + ggplot2::geom_bar(stat = 'identity') + ggplot2::labs(x = "", y = "Percent Explained") + ggplot2::theme_classic() + ggplot2::coord_cartesian(ylim = c(0, 100)) + ggplot2::theme(
-            axis.text = ggplot2::element_text(size = 14, face = "bold"),
-            axis.title = ggplot2::element_text(size = 16, face = "bold"),
-            axis.line.x = ggplot2::element_line(size = 1, color = 'black'),
-            axis.line.y = ggplot2::element_line(size = 1, color = 'black'),
-            axis.ticks = ggplot2::element_line(size = 1.5)
-          ) + ggplot2::scale_y_continuous(expand = c(0, 0))
+          ggplot2::ggplot(data = spree_data[1:10, ], ggplot2::aes(x = x_spree, y = y_spree)) + ggplot2::geom_bar(stat = 'identity') + ggplot2::labs(x = "", y = "Percent Explained") + ggplot2::theme_classic() + ggplot2::coord_cartesian(ylim = c(0, 100)) + ggplot2::scale_y_continuous(expand = c(0, 0)) + BiomassWorkflow::paper_theme()
         return(p)
       })
       output$spree_plot_relative <- renderPlot({
@@ -257,13 +251,7 @@ sequencing_data_viz <- function(sequencing_object) {
           factor(spree_data$x_spree, levels = paste("PC", 1:10, sep = " "))
         
         p <-
-          ggplot2::ggplot(data = spree_data[1:10, ], ggplot2::aes(x = x_spree, y = y_spree)) + ggplot2::geom_bar(stat = 'identity') + ggplot2::labs(x = "", y = "Percent Explained") + ggplot2::theme_classic() + ggplot2::coord_cartesian(ylim = c(0, 100)) + ggplot2::theme(
-            axis.text = ggplot2::element_text(size = 14, face = "bold"),
-            axis.title = ggplot2::element_text(size = 16, face = "bold"),
-            axis.line.x = ggplot2::element_line(size = 1, color = 'black'),
-            axis.line.y = ggplot2::element_line(size = 1, color = 'black'),
-            axis.ticks = ggplot2::element_line(size = 1.5)
-          ) + ggplot2::scale_y_continuous(expand = c(0, 0))
+          ggplot2::ggplot(data = spree_data[1:10, ], ggplot2::aes(x = x_spree, y = y_spree)) + ggplot2::geom_bar(stat = 'identity') + ggplot2::labs(x = "", y = "Percent Explained") + ggplot2::theme_classic() + ggplot2::coord_cartesian(ylim = c(0, 100)) + ggplot2::scale_y_continuous(expand = c(0, 0)) + BiomassWorkflow::paper_theme()
         return(p)
       })
       output$spree_plot_absolute <- renderPlot({
@@ -283,16 +271,7 @@ sequencing_data_viz <- function(sequencing_object) {
           plot <- plot + ggplot2::geom_point(size = input$point_size)
         }
         
-        p <- plot +
-          ggplot2::theme_classic() +
-          ggplot2::theme(
-            axis.text = ggplot2::element_text(size = 14, face = "bold"),
-            axis.title = ggplot2::element_text(size = 16, face = "bold"),
-            axis.line.x = ggplot2::element_line(size = 1, color = 'black'),
-            axis.line.y = ggplot2::element_line(size = 1, color = 'black'),
-            axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
-            axis.ticks = ggplot2::element_line(size = 1.5)
-          )
+        p <- plot + BiomassWorkflow::paper_theme()
         
         
         if (!is.null(input$plot_color_by)) {
@@ -335,16 +314,8 @@ sequencing_data_viz <- function(sequencing_object) {
         } else if ('Scatter' %in% input$plot_type) {
           plot <- plot + ggplot2::geom_point(size = input$point_size)
         }
-        p <- plot +
-          ggplot2::theme_classic() +
-          ggplot2::theme(
-            axis.text = ggplot2::element_text(size = 14, face = "bold"),
-            axis.title = ggplot2::element_text(size = 16, face = "bold"),
-            axis.line.x = ggplot2::element_line(size = 1, color = 'black'),
-            axis.line.y = ggplot2::element_line(size = 1, color = 'black'),
-            axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
-            axis.ticks = ggplot2::element_line(size = 1.5)
-          )
+		
+        p <- plot + BiomassWorkflow::paper_theme()
         
         
         if (!is.null(input$plot_color_by)) {
@@ -425,7 +396,7 @@ sequencing_data_viz <- function(sequencing_object) {
         return(plot)
       })
       output$relative_abundance_plot <- renderPlot({
-        relative_abundance_plot() + BiomassWorkflow::EJC_theme_tilted()
+        print(relative_abundance_plot() + BiomassWorkflow::paper_theme_tilted())
       })
       output$download_relative_bar_plot <- downloadHandler(
         filename = function() {'Relative Abundance Bar Plot.rds'},
@@ -471,7 +442,9 @@ sequencing_data_viz <- function(sequencing_object) {
         }
         return(plot)
       })
-      output$absolute_abundance_plot <- renderPlot({absolute_abundance_plot() + BiomassWorkflow::EJC_theme_tilted()})
+      output$absolute_abundance_plot <- renderPlot({
+		  print(absolute_abundance_plot() + BiomassWorkflow::paper_theme_tilted())
+	  })
       
       output$download_absolute_bar_plot <- downloadHandler(
         filename = function() {'Absolute Abundance Bar Plot.rds'},
