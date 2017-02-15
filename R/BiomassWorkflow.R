@@ -16,6 +16,6 @@ if (getRversion() >= "2.15.1") {
         "water_volume_up_metagenomics", "dna_concentration", "BarcodePlate", "BarcodeWell", "SequencingRun", "WaterSource", 
         "WaterWell", "DNASource", "DNASourceWell", "Destination", "DestinationWell", "DNA_Vol", "Water_Vol", "Warning", 
         "NormalizedVolume", "StartingConc", "FinalConc", "X16S_possible", ".", "SampleID", "BarcodeSequence", "LinkerPrimerSequence", 
-        "Fluorescence", "ReaderWell", "Type", "metagenomics_possible", 'plate1_raw', 'plate2_raw', 'map1', 'map2', 'abundance')) 
+        "Fluorescence", "ReaderWell", "Type", "metagenomics_possible", 'plate1_raw', 'plate2_raw', 'map1', 'map2', 'abundance', 'Full Mass', "Empty Mass")) 
 }
 
