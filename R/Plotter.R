@@ -120,8 +120,13 @@ plotter <- function(data) {
 
 	          if (!is.null(input$plot_color_by)) {
 	            if (input$plot_color_by != 'None') {
-	              p <-
-	                p + ggplot2::aes_string(color = input$plot_color_by) + ggplot2::scale_color_manual(values = BiomassWorkflow::EJC_colors)
+	  			  if (plyr::is.discrete(data[[input$plot_color_by]])) {
+	  	              p <-
+	  	                p + ggplot2::aes_string(color = input$plot_color_by) + ggplot2::scale_color_manual(values = BiomassWorkflow::EJC_colors)
+	  			  } else {
+	  	              p <-
+	  	                p + ggplot2::aes_string(color = input$plot_color_by) + ggplot2::scale_color_gradient(low = 'firebrick', high = 'navyblue')
+	  			  }
 	            }
 	          }
 
