@@ -34,7 +34,7 @@ ordinate_sequencing <-
     }
     
     distance_table_relative <-
-      as.matrix(vegan::vegdist(relative_matrix, method = method))
+      as.matrix(vegan::vegdist(relative_matrix, method = method, na.rm = T))
     pc_table_relative <-
       stats::cmdscale(
         distance_table_relative,
@@ -45,7 +45,7 @@ ordinate_sequencing <-
     
     
     distance_table_absolute <-
-      as.matrix(vegan::vegdist(absolute_matrix, method = method))
+      as.matrix(vegan::vegdist(absolute_matrix, method = method, na.rm = T))
     pc_table_absolute <-
       stats::cmdscale(
         distance_table_absolute,
