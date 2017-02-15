@@ -282,7 +282,7 @@ sequencing_data_viz <- function(sequencing_object) {
 	                p + ggplot2::aes_string(color = input$plot_color_by) + ggplot2::scale_color_manual(values = BiomassWorkflow::EJC_colors)
 			  } else {
 	              p <-
-	                p + ggplot2::aes_string(color = input$plot_color_by) + ggplot2::scale_color_gradient(low = 'brickred3', high = 'navyblue')
+	                p + ggplot2::aes_string(color = input$plot_color_by) + ggplot2::scale_color_gradient(low = 'firebrick', high = 'navyblue')
 			  }
             
           }
@@ -332,7 +332,7 @@ sequencing_data_viz <- function(sequencing_object) {
 	                p + ggplot2::aes_string(color = input$plot_color_by) + ggplot2::scale_color_manual(values = BiomassWorkflow::EJC_colors)
 			  } else {
 	              p <-
-	                p + ggplot2::aes_string(color = input$plot_color_by) + ggplot2::scale_color_gradient(low = 'brickred3', high = 'navyblue')
+	                p + ggplot2::aes_string(color = input$plot_color_by) + ggplot2::scale_color_gradient(low = 'firebrick', high = 'navyblue')
 			  }
           }
         }
