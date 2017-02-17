@@ -6,6 +6,7 @@
 #'
 
 plotter <- function(data) {
+	colnames(data) <- make.names(colnames(data))
 
 	shinyApp(
 		ui = fluidPage(
