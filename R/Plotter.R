@@ -48,7 +48,7 @@ plotter <- function(data) {
 			plotOutput("Plot1")
 			),
 			
-		server = function(input, output) {
+		server = function(input, output, session) {
 			
 	        output$plot_x <- renderUI({
 	          selectInput('plot_x', 'X', names(data))
@@ -141,6 +141,10 @@ plotter <- function(data) {
 	        })
 			
 			output$Plot1 <- renderPlot({plot_item_final()})
+			
+	        session$onSessionEnded(function() { stopApp() })
+      
 		}
+		
 	)
 }
