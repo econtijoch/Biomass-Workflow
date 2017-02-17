@@ -28,7 +28,7 @@ mass_and_order <-
           readr::col_character()
         )
       )
-    
+	  
     # Read in full mass file
     full <-
       readr::read_delim(
@@ -120,5 +120,14 @@ mass_and_order <-
       output <-
         dplyr::left_join(full, empty, by = 'Barcode') %>% dplyr::mutate(SampleMass = `Full Mass` - `Empty Mass`)
     }
+	
+	# Handle cases where some tubes were not weighed beforehand - use average weight of empty tubes
+	if (sum(is.na(output[,"Empty Mass"])) > 0) {
+		output[is.na(output$`Empty Mass`), "Empty Weight Date"] <- "[WARNING]: Tube not weighed empty. Using average empty tube weight instead."
+		output[is.na(output$`Empty Mass`), "Empty Mass"] <- mean(output$`Empty Mass`, na.rm = TRUE)
+		output <- output %>% dplyr::mutate(SampleMass = `Full Mass` - `Empty Mass`)
+	}
+	
+	
     return(output)
   }
