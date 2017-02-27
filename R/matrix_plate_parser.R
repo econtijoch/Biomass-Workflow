@@ -60,10 +60,10 @@ matrix_plate_parser <- function(matrix_barcode_plate_scan) {
         tube_order[index, "SampleWell"] <-
           as.character(index_name)
         if (nchar(as.character(order_file[r, c])) == 9) {
-          tube_order[index, "Barcode"] <-
+          tube_order[index, "TubeBarcode"] <-
             paste0("0", as.character(order_file[r, c]))
         } else {
-          tube_order[index, "Barcode"] <-
+          tube_order[index, "TubeBarcode"] <-
             as.character(order_file[r, c])
         }
         
