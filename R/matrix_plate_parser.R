@@ -28,25 +28,13 @@ matrix_plate_parser <- function(matrix_barcode_plate_scan) {
     tube_order <-
       data.frame(
         SampleWell = NA,
-        Barcode = NA,
+        TubeBarcode = NA,
         stringsAsFactors = FALSE
       )
     
     # Parse plate layout to table
-    rows <- c("A", "B", "C", "D", "E", "F", "G", "H")
-    cols <-
-      c("01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12")
+    rows <- LETTERS[1:8]
+    cols <- sprintf(1:12, fmt = '%02.0f')
     
     rows_length <- length(rows)
     cols_length <- length(cols)

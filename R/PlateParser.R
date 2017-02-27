@@ -6,7 +6,7 @@
 #' @export
 #'
 
-PlateParser <- function(plate_reader_file, shiny = FALSE, type = NULL) {
+PlateParser <- function(plate_reader_file, shiny = FALSE, type = NULL, size = 96) {
     
     
 	if (shiny == TRUE) {
@@ -30,7 +30,12 @@ PlateParser <- function(plate_reader_file, shiny = FALSE, type = NULL) {
     for (i in 0:ncol(file)) {
         if (length((grep("Results", file[, i]))) > 0) {
             title_row <- grep("Results", file[, i])
-            end_row <- title_row + 11
+            if (size == 96) {
+              end_row <- title_row + 11
+            } else {
+              end_row <- title_row + 23
+            }
+            
             start_column <- i + 2
         }
     }
@@ -39,36 +44,33 @@ PlateParser <- function(plate_reader_file, shiny = FALSE, type = NULL) {
     # Parse table
     parsed_table <- file[start_row:end_row, start_column:(ncol(file) - 1)]
     
-    newtable <- rep(0, 96)
+    newtable <- data.frame(ReaderWell = NA, Fluorescence = NA, stringsAsFactors = FALSE)
     
-    rows <- c("A", "B", "C", "D", "E", "F", "G", "H")
-    cols <- c("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12")
+    if (size == 96) {
+      rows <- LETTERS[1:8]
+      cols <- sprintf(1:12, fmt = '%02.0f')
+      
+    } else if (size == 384) {
+      rows <- LETTERS[1:16]
+      cols <- sprintf(1:24, fmt = '%02.0f')
+    } else {
+      stop('Size must be 96 or 384')
+    }
     
     rows_length <- length(rows)
     cols_length <- length(cols)
     
-    wells <- "Well"
     for (r in 1:rows_length) {
         for (c in 1:cols_length) {
-            
-            index <- (r - 1) * 12 + c
+            index <- (r - 1) * cols_length + c
             index_name <- paste(rows[r], cols[c], sep = "")
-            wells <- c(wells, index_name)
-            newtable[index] <- parsed_table[r, c]
-            
+            newtable[index, "ReaderWell"] <- as.character(index_name)
+            newtable[index, "Fluorescence"] <- as.numeric(as.character(parsed_table[r, c]))
         }
     }
-    newtable_data <- data.frame(ReaderWell = wells[-1], Fluorescence = newtable)
-    
-    
-    # Cast well names as characters
-    newtable_data$ReaderWell <- as.character(newtable_data$ReaderWell)
-    
-    # Cast as numeric
-    newtable_data$Fluorescence <- as.numeric(as.character(newtable_data$Fluorescence))
     
     # Remove NAs
-    final_table <- subset(newtable_data, !is.na(newtable_data$Fluorescence))
+    final_table <- subset(newtable, !is.na(newtable$Fluorescence))
     
     return(final_table)
     
