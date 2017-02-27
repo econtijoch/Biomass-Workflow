@@ -71,4 +71,5 @@ matrix_plate_parser <- function(matrix_barcode_plate_scan) {
       }
     }
   }
+  return(tube_order)
 }
