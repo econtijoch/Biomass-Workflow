@@ -44,12 +44,10 @@ plate_to_table <- function(plate_layout, size = 96) {
   rows_length <- length(rows)
   cols_length <- length(cols)
   
-  wells <- ""
   for (r in 1:rows_length) {
     for (c in 1:cols_length) {
       index <- (r - 1) * length(cols) + c
       index_name <- paste(rows[r], cols[c], sep = "")
-      wells <- c(wells, index_name)
       table_output[index, "SampleWell"] <-
         as.character(index_name)
       table_output[index, "Content"] <-
