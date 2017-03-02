@@ -1,5 +1,6 @@
 #' Function to read in mapping file and tweak format so that it is friendly with the rest of the package functinos
 #' @param plate_reader_file Fluorescence data from the plate reader (can be in .csv or .xls(x) format -- if in excel file, only the FIRST sheet within the file will be read)
+#' @param size optional size of plate (96 or 384)
 #' @param shiny OPTIONAL: necessary for running with shiny app interface since filenames are not the same.
 #' @param type OPTIONAL: necessary for running with shiny app, must specify file type
 #' @return a list containing: 1) a data frame with the data from the plate reader file and 2) the number of measurements taken for each sample

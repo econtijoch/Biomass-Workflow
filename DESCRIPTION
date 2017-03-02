@@ -8,7 +8,8 @@ Description: Package that helps streamline data analysis and sample preparation 
 License: GPL (>= 2)
 LazyData: TRUE
 Depends:
-    R (>= 2.10)
+    R (>= 2.10),
+    tidyverse
 Imports:
     ggplot2,
     cowplot,
@@ -29,7 +30,6 @@ Imports:
     rmarkdown,
 	  mime,
 	  stats,
-	  tidyverse,
 	  readr,
 	  tibble,
 	  vegan,
