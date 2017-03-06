@@ -4,6 +4,7 @@
 #'
 #' @docType package
 #' @name BiomassWorkflow
+#' @import tidyverse
 NULL
 
 "%ni%" <- Negate("%in%")

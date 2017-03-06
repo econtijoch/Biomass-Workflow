@@ -4,10 +4,12 @@
 \alias{well_parser}
 \title{Function to toggle between a well ID and a well location number (useful for use with the Beckmann robot)}
 \usage{
-well_parser(well)
+well_parser(well, size = 96)
 }
 \arguments{
 \item{well}{well ID (e.g  A01 or F05)}
+
+\item{size}{size of plate (96 or 384)}
 }
 \value{
 A well number (e.g. 1 or 65)
