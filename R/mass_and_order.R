@@ -24,6 +24,7 @@ mass_and_order <-
         ),
         col_types = list(
           readr::col_character(),
+		  readr::col_character(),
           readr::col_double(),
           readr::col_character(),
           readr::col_character()
@@ -38,6 +39,7 @@ mass_and_order <-
         col_names = c("Barcode", "TubeBarcode", "Full Mass", "Full Weight Date", "Full Weight Time"),
         col_types = list(
           readr::col_character(),
+		  readr::col_character(),
           readr::col_double(),
           readr::col_character(),
           readr::col_character()
