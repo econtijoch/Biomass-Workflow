@@ -17,6 +17,7 @@ mass_and_order <-
         delim = '\t',
         col_names = c(
           "Barcode",
+		  "TubeBarcode"
           "Empty Mass",
           "Empty Weight Date",
           "Empty Weight Time"
@@ -34,7 +35,7 @@ mass_and_order <-
       readr::read_delim(
         full_weights,
         delim = '\t',
-        col_names = c("Barcode", "Full Mass", "Full Weight Date", "Full Weight Time"),
+        col_names = c("Barcode", "TubeBarcode", "Full Mass", "Full Weight Date", "Full Weight Time"),
         col_types = list(
           readr::col_character(),
           readr::col_double(),
