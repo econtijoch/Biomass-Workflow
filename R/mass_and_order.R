@@ -17,7 +17,7 @@ mass_and_order <-
         delim = '\t',
         col_names = c(
           "Barcode",
-		  "TubeBarcode"
+		  "TubeBarcode",
           "Empty Mass",
           "Empty Weight Date",
           "Empty Weight Time"
