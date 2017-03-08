@@ -42,7 +42,7 @@ IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = N
   IgA_data <- dplyr::full_join(IgA_map, IgA_raw)
   
   # Pull out standards, average
-  IgA_standards <- IgA_data %>% dplyr::filter(Type == "Standard") %>% dplyr::group_by(BarcodeID) %>% dplyr::summarize(OD = mean(Fluorescence))
+  IgA_standards <- IgA_data %>% dplyr::filter(Type == "Standard") %>% dplyr::group_by(BarcodeID, SampleMass) %>% dplyr::summarize(OD = mean(Fluorescence))
   IgA_standards$Standard <- IgA_standards$SampleMass
   IgA_standards$log_std <- log10(IgA_standards$Standard)
   
