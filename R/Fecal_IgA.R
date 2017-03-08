@@ -26,12 +26,15 @@ predictor <- function(params, y) {
 #' @param shiny OPTIONAL: necessary for running with shiny app interface since filenames are not the same.
 #' @param type OPTIONAL: necessary for running with shiny app, must specify file type
 #' @param print OPTIONAL: whether or not to save a copy of the standards curve to the working directory
+#' @param a a/(1 + exp(-b * (x-c))) starting conditions for nls fit
+#' @param b a/(1 + exp(-b * (x-c))) starting conditions for nls fit
+#' @param c a/(1 + exp(-b * (x-c))) starting conditions for nls fit
 #' @param ... optional inputs
 #' @return list containing a table of the standards, and the information for the standard curve
 #' @export
 #'
 
-IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = NULL, print = FALSE, ...) {
+IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = NULL, print = FALSE, a = 0.9,b = 0.5,c = 1, ...) {
  
   # Read in files and join
   IgA_raw <- PlateParser(plate_reader_file, shiny, type)
@@ -40,7 +43,7 @@ IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = N
   
   # Pull out standards, average
   IgA_standards <- IgA_data %>% dplyr::filter(Type == "Standard") %>% dplyr::group_by(BarcodeID) %>% dplyr::summarize(OD = mean(Fluorescence))
-  IgA_standards$Standard <- c(1000, 333.3, 111.1, 37, 12.3, 4.1, 1.4, 0.5)
+  IgA_standards$Standard <- IgAstandards$SampleMass
   IgA_standards$log_std <- log10(IgA_standards$Standard)
   
   # Pull out samples

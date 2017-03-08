@@ -5,7 +5,7 @@
 \title{Function to process Fecal IgA Elisa data}
 \usage{
 IgAAnalysis(plate_reader_file, mapping_file, shiny = FALSE, type = NULL,
-  print = FALSE, ...)
+  print = FALSE, a = 0.9, b = 0.5, c = 1, ...)
 }
 \arguments{
 \item{plate_reader_file}{the file path of the plate reader file (in .csv or .xls(x) format)}
@@ -17,6 +17,12 @@ IgAAnalysis(plate_reader_file, mapping_file, shiny = FALSE, type = NULL,
 \item{type}{OPTIONAL: necessary for running with shiny app, must specify file type}
 
 \item{print}{OPTIONAL: whether or not to save a copy of the standards curve to the working directory}
+
+\item{a}{a/(1 + exp(-b * (x-c))) starting conditions for nls fit}
+
+\item{b}{a/(1 + exp(-b * (x-c))) starting conditions for nls fit}
+
+\item{c}{a/(1 + exp(-b * (x-c))) starting conditions for nls fit}
 
 \item{...}{optional inputs}
 }
