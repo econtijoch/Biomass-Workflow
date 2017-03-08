@@ -56,7 +56,7 @@ IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = N
   y <- IgA_standards$OD
   
   
-  fitmodel <- stats::nls(y~a/(1 + exp(-b * (x-c))), start=list(a=0.9,b=0.5,c=1))
+  fitmodel <- stats::nls(y ~ a/(1 + exp(-b * (x - c))), start=list(a = a,b = b,c = c))
   
   params <- stats::coef(fitmodel)
   
