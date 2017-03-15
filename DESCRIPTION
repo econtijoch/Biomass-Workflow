@@ -34,7 +34,8 @@ Imports:
 	  tibble,
 	  vegan,
 	  ggbeeswarm,
-	  grid
+	  grid,
+	  phyloseq
 URL: http://github.com/econtijoch/Biomass-Workflow
 BugReports: http://github.com/econtijoch/Biomass-Workflow/issues
 RoxygenNote: 5.0.1
