@@ -2,14 +2,14 @@
 % Please edit documentation in R/Individual_Scale.R
 \name{individual_scale}
 \alias{individual_scale}
-\title{Function to process 16S sequencing data and scale individual samples by biomass, generating absolute abundances}
+\title{Function to process 16S sequencing data and scale individual samples by microbial density, generating absolute abundances}
 \usage{
 individual_scale(biom_file, metadata_file, taxonomy_file, filter)
 }
 \arguments{
 \item{biom_file}{.biom table in rhdf5 format. It is wise to use a pre-filtered table (for example, de-duplicated)}
 
-\item{metadata_file}{the mapping file used in QIIME to split your sequencing library (must include biomass data)}
+\item{metadata_file}{the mapping file used in QIIME to split your sequencing library (must include microbial density data)}
 
 \item{taxonomy_file}{a file containing taxonomy (e.g. output from assign_taxonomy.py in QIIME, or greengenes taxonomy)}
 
@@ -19,6 +19,6 @@ individual_scale(biom_file, metadata_file, taxonomy_file, filter)
 a list containing OTU tables with and without taxonomy (at each given depth), both scaled and unscaled (the output is a list of lists).
 }
 \description{
-Function to process 16S sequencing data and scale individual samples by biomass, generating absolute abundances
+Function to process 16S sequencing data and scale individual samples by microbial density, generating absolute abundances
 }
 

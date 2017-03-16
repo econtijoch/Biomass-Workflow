@@ -9,7 +9,7 @@ scale_and_visualize(biom_file, metadata_file, taxonomy_file, filter = 0)
 \arguments{
 \item{biom_file}{.biom table in rhdf5 format. It is wise to use a pre-filtered table (for example, de-duplicated)}
 
-\item{metadata_file}{the mapping file used in QIIME to split your sequencing library (must include biomass data)}
+\item{metadata_file}{the mapping file used in QIIME to split your sequencing library (must include microbial biomass data)}
 
 \item{taxonomy_file}{a file containing taxonomy (e.g. output from assign_taxonomy.py in QIIME, or greengenes taxonomy)}
 

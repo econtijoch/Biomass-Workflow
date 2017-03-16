@@ -29,7 +29,7 @@ Deprecated_DataAnalysis(plate_reader_csv_file, mapping_csv_file, exp_id,
 \item{...}{other arguments}
 }
 \value{
-list with a data table with biomass data calculated and the standards information
+list with a data table with microbial density data calculated and the standards information
 }
 \description{
 Deprecated function for Data Analysis. See DataAnalysis instead

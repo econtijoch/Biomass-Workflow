@@ -1,10 +1,10 @@
 Package: BiomassWorkflow
 Type: Package
-Title: Microbiome Biomass Data Generation and Analysis Tools
+Title: Microbial Density Data Generation and Analysis Tools
 Version: 5.0.0
 Date: 2016-10-21
 Authors@R: person("Eduardo", "Contijoch", email = "eduardo.contijoch@gmail.com", role = c("aut", "cre"))
-Description: Package that helps streamline data analysis and sample preparation for microbiome samples. This package should help streamline the incorporation of absolute abundances into microbial biomass data, and improve the speed with which samples can be prepared for sequencing.
+Description: Package that helps streamline data analysis and sample preparation for microbiome samples. This package should help streamline the incorporation of absolute abundances into microbial density data, and improve the speed with which samples can be prepared for sequencing.
 License: GPL (>= 2)
 LazyData: TRUE
 Depends:

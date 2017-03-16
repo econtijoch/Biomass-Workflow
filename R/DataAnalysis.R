@@ -1,4 +1,4 @@
-#' Main function call to generate biomass data from DNA extraction protocol
+#' Main function call to generate microbial density data from DNA extraction protocol
 #' @param plate_reader_file raw file from plate-reader (can be in .xls format, or .csv), but will only read in first sheet of excel file
 #' @param mapping_csv_file a .csv file that contains information as to the location of the samples, the sample types, and their mass. A sample file has been included in this package and can be found at https://github.com/econtijoch/Biomass-Workflow/blob/master/SampleMapping.csv
 #' @param exp_id a string that indicates the name of the experiment (used to label the plot of your standard curve)
@@ -11,7 +11,7 @@
 #' @param type_standards_plate OPTIONAL: necessary for running with shiny app, must specify type of plate for standards
 #' @param print OPTIONAL: whether or not to save a copy of the standards curve to the working directory
 #' @param ... Optional arguments to pass
-#' @return output table with DNA concentrations, biomass, metadata, and useful computations for downstream (sequencing) applications, and a plot of the standard curve
+#' @return output table with DNA concentrations, microbial density, metadata, and useful computations for downstream (sequencing) applications, and a plot of the standard curve
 #' @export
 #'
 
@@ -59,7 +59,7 @@ DataAnalysis <- function(plate_reader_file, mapping_csv_file, exp_id, standards_
     # Biomass Analysis
     exp_data$total_dna <- exp_data[, "dna_concentration"] * 0.1
     exp_data$scale_factor <- scale
-    exp_data$biomass_ratio <- exp_data$total_dna * scale/exp_data$SampleMass
+    exp_data$microbial_density <- exp_data$total_dna * scale/exp_data$SampleMass
     exp_data$X16S_possible <- (exp_data[, "dna_concentration"] > 1.5)  & (exp_data[, 'dna_concentration'] > 0)
     exp_data$vol_needed_for_PCR <- 400/exp_data[, "dna_concentration"]
     exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR

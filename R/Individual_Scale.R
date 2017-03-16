@@ -1,6 +1,6 @@
-#' Function to process 16S sequencing data and scale individual samples by biomass, generating absolute abundances
+#' Function to process 16S sequencing data and scale individual samples by microbial density, generating absolute abundances
 #' @param biom_file .biom table in rhdf5 format. It is wise to use a pre-filtered table (for example, de-duplicated)
-#' @param metadata_file the mapping file used in QIIME to split your sequencing library (must include biomass data)
+#' @param metadata_file the mapping file used in QIIME to split your sequencing library (must include microbial density data)
 #' @param taxonomy_file a file containing taxonomy (e.g. output from assign_taxonomy.py in QIIME, or greengenes taxonomy)
 #' @param filter OPTIONAL: minimum relative abundance to filter from data
 #' @return a list containing OTU tables with and without taxonomy (at each given depth), both scaled and unscaled (the output is a list of lists). 
@@ -19,13 +19,13 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     row.names(biom_only) <- NULL
     
     message("Reading Metadata...\n")
-    # Read in metadata, QC for NA values of biomass
+    # Read in metadata, QC for NA values of microbial density
     metadata <- utils::read.delim(metadata_file)
-    if ("biomass_ratio" %in% colnames(metadata)) {
+    if ("microbial_density" %in% colnames(metadata)) {
         metadata$X.SampleID <- as.character(metadata$X.SampleID)
-        metadata <- metadata[!is.na(metadata$biomass_ratio), ]
+        metadata <- metadata[!is.na(metadata$microbial_density), ]
     } else {
-        stop("Biomass data not in metadata file")
+        stop("Microbial density data not in metadata file")
     }
     
     
@@ -45,13 +45,9 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     taxonomy$OTU_ID <- as.character(taxonomy$OTU_ID)
     
     message("Manipulating data...\n")
-    
-    # Add metadata biom_merged <- inner_join(biom_only, biomass, by = 'X.SampleID')
-    
-    # Work with specific components
+        
+    # Pick out otu data only
     otus_only <- biom_only[, -length(names(biom_only))]
-    # metadata_only <- biom_merged[, !grepl('OTU_', names(biom_merged))] metadata_only$X.SampleID <-
-    # as.character(metadata_only$X.SampleID)
     
     message("Scaling taxonomic abundances...\n")
     # Create relative abundances and scale
@@ -68,7 +64,7 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     if (ncol(normalized) == 0) {
         stop("Filter is too strict, all OTUs filtered out!")
     }
-    scaled <- normalized * metadata$biomass_ratio
+    scaled <- normalized * metadata$microbial_density
     relative <- normalized * 100
     scaled$X.SampleID <- as.character(metadata$X.SampleID)
     relative$X.SampleID <- as.character(metadata$X.SampleID)
@@ -79,7 +75,7 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     
     
     # Re-join metadata (may not be necessary to have added previously, but am concerned about not applying correct
-    # biomass scaling to samples)
+    # microbial density scaling to samples)
     otus_scaled <- dplyr::left_join(metadata, scaled, by = "X.SampleID")
     otus_relative <- dplyr::left_join(metadata, relative, by = "X.SampleID")
     

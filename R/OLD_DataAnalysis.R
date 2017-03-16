@@ -8,7 +8,7 @@
 #' @param scale subsampling scaling factor
 #' @param print print standards information
 #' @param ... other arguments
-#' @return list with a data table with biomass data calculated and the standards information
+#' @return list with a data table with microbial density data calculated and the standards information
 #' @export
 #'
 
@@ -55,7 +55,7 @@ Deprecated_DataAnalysis <- function(plate_reader_csv_file, mapping_csv_file, exp
     # Biomass Analysis
     exp_data$total_dna <- exp_data[, "dna_concentration"] * 0.1
     exp_data$scale_factor <- scale
-    exp_data$biomass_ratio <- exp_data$total_dna * scale/exp_data$SampleMass
+    exp_data$microbial_density <- exp_data$total_dna * scale/exp_data$SampleMass
     exp_data$X16S_possible <- (exp_data[, "dna_concentration"] > 1.5)  & (exp_data[, 'dna_concentration'] > 0)
     exp_data$vol_needed_for_PCR <- 400/exp_data[, "dna_concentration"]
     exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR

@@ -2,7 +2,7 @@
 % Please edit documentation in R/DataAnalysis.R
 \name{DataAnalysis}
 \alias{DataAnalysis}
-\title{Main function call to generate biomass data from DNA extraction protocol}
+\title{Main function call to generate microbial density data from DNA extraction protocol}
 \usage{
 DataAnalysis(plate_reader_file, mapping_csv_file, exp_id,
   standards_plate_reader_file = plate_reader_file,
@@ -36,9 +36,9 @@ DataAnalysis(plate_reader_file, mapping_csv_file, exp_id,
 \item{...}{Optional arguments to pass}
 }
 \value{
-output table with DNA concentrations, biomass, metadata, and useful computations for downstream (sequencing) applications, and a plot of the standard curve
+output table with DNA concentrations, microbial density, metadata, and useful computations for downstream (sequencing) applications, and a plot of the standard curve
 }
 \description{
-Main function call to generate biomass data from DNA extraction protocol
+Main function call to generate microbial density data from DNA extraction protocol
 }
 
