@@ -15,6 +15,11 @@ Deprecated_ParsePlateReaderFile <- function(plate_reader_file) {
       end_row <- grep("Well", file[, i]) + 96
       start_column <- i
     }
+	else {
+		title_row <- 9
+		end_row <- 105
+		start_column <- 2
+	}
   }
   start_row = title_row + 1
   num_reads = ncol(file) - start_column
