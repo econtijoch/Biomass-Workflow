@@ -12,7 +12,7 @@ matrix_plate_parser <- function(matrix_barcode_plate_scan) {
     tube_order <-
       readr::read_csv(
         matrix_barcode_plate_scan,
-        col_names = c("SampleWell", "Barcode"),
+        col_names = c("SampleWell", "TubeBarcode"),
         col_types = list(readr::col_character(), readr::col_character())
       )
   } else if (utils::tail(unlist(strsplit(matrix_barcode_plate_scan, "\\.")), n = 1) == "xls" |
