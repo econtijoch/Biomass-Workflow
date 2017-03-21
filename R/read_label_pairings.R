@@ -9,7 +9,7 @@
 #' @export
 
 read_label_pairings <- function(label_barcode_pairings, col1_name = 'col1', col2_name = 'col2', save = F) {
-  input <- stringr::str_split(readr::read_lines('~/Desktop/testing.txt'), pattern = '\t')[[1]]
+  input <- stringr::str_split(readr::read_lines(label_barcode_pairings), pattern = '\t')[[1]]
   if (length(input) %% 2 != 0) {
     input <- input[-length(input)]
   }
