@@ -260,9 +260,6 @@ geom_mean_sem <- function(mapping = NULL,
       inherit.aes = inherit.aes,
       params = list(na.rm = na.rm,
                     size = line.size,
-					color = NULL,
-					group = NULL,
-					shape = NULL,
                     ...)
     ),
     ggplot2::layer(
