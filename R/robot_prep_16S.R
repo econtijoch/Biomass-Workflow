@@ -45,7 +45,7 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
         }
     }
     
-    robot_table <- dataset %>% dplyr::select(BarcodeID, PlateID, SampleWell, vol_needed_for_PCR, water_volume_up_PCR, 
+    robot_table <- dataset %>% dplyr::mutate(vol_needed_for_PCR = 400/dna_concentration, water_volume_up_PCR = 200 - vol_needed_for_PCR) %>% dplyr::select(BarcodeID, PlateID, SampleWell, vol_needed_for_PCR, water_volume_up_PCR, 
         dna_concentration, BarcodePlate, BarcodeWell, SequencingRun)
     robot_table$BarcodeID <- as.character(robot_table$BarcodeID)
     robot_table$PlateID <- as.character(robot_table$PlateID)
@@ -60,25 +60,25 @@ robot_prep_16S <- function(dataset, n_barcode_plates) {
             robot_table[i, "water_volume_up_PCR"] = 0
             robot_table[i, "Warning"] = "[WARNING] **DID NOT PASS 16S_possible check. Starting Concentration < 1.5: Transferred 40 uL + 0 uL Water/EB"
             robot_table[i, "FinalConc"] = robot_table[i, "StartingConc"]
-        } else if (robot_table[i, "dna_concentration"] < 2) {
+        } else if (robot_table[i, "dna_concentration"] <= 2) {
             robot_table[i, "vol_needed_for_PCR"] = 40
             robot_table[i, "water_volume_up_PCR"] = 0
-            robot_table[i, "Warning"] = "[WARNING] 2 > Starting Concentration > 1.5: Transferred 40 uL + 0 uL Water/EB"
+            robot_table[i, "Warning"] = "[WARNING] 2 >= Starting Concentration > 1.5: Transferred 40 uL + 0 uL Water/EB"
             robot_table[i, "FinalConc"] = robot_table[i, "StartingConc"]
-        } else if (robot_table[i, "dna_concentration"] < 20) {
+        } else if (robot_table[i, "dna_concentration"] <= 20) {
             robot_table[i, "vol_needed_for_PCR"] = robot_table[i, "vol_needed_for_PCR"]/5
             robot_table[i, "water_volume_up_PCR"] = robot_table[i, "water_volume_up_PCR"]/5
-            robot_table[i, "Warning"] = "20 > Starting Concentration > 2: Transferred [DNAvol + Water/EB]= 40 uL"
+            robot_table[i, "Warning"] = "20 >= Starting Concentration > 2: Transferred [DNAvol + Water/EB]= 40 uL"
             robot_table[i, "FinalConc"] = (robot_table[i, "StartingConc"] * robot_table[i, "vol_needed_for_PCR"])/40
-        } else if (robot_table[i, "dna_concentration"] < 100) {
+        } else if (robot_table[i, "dna_concentration"] <= 100) {
             robot_table[i, "vol_needed_for_PCR"] = robot_table[i, "vol_needed_for_PCR"]/2
             robot_table[i, "water_volume_up_PCR"] = robot_table[i, "water_volume_up_PCR"]/2
-            robot_table[i, "Warning"] = "100 > Starting Concentration > 20: Transferred [DNAvol + Water/EB]= 100 uL"
+            robot_table[i, "Warning"] = "100 >= Starting Concentration > 20: Transferred [DNAvol + Water/EB]= 100 uL"
             robot_table[i, "FinalConc"] = (robot_table[i, "StartingConc"] * robot_table[i, "vol_needed_for_PCR"])/100
-        } else if (robot_table[i, "dna_concentration"] < 400) {
+        } else if (robot_table[i, "dna_concentration"] <= 400) {
             robot_table[i, "vol_needed_for_PCR"] = robot_table[i, "vol_needed_for_PCR"] * 3/4
             robot_table[i, "water_volume_up_PCR"] = robot_table[i, "water_volume_up_PCR"] * 3/4
-            robot_table[i, "Warning"] = "400 > Starting Concentration > 100: Transferred [DNAvol + Water/EB]= 150 uL"
+            robot_table[i, "Warning"] = "400 >= Starting Concentration > 100: Transferred [DNAvol + Water/EB]= 150 uL"
             robot_table[i, "FinalConc"] = (robot_table[i, "StartingConc"] * robot_table[i, "vol_needed_for_PCR"])/150
         } else {
             robot_table[i, "vol_needed_for_PCR"] = 1

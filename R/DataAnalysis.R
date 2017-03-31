@@ -41,7 +41,7 @@ DataAnalysis <- function(plate_reader_file, mapping_csv_file, exp_id, standards_
     
     exp_data <- split(data, data$Type)$Experiment
     
-    exp_data <- exp_data %>% dplyr::mutate(Other = ifelse(SampleMass < 10, "No_Pellet", NA))
+    exp_data <- exp_data %>% dplyr::mutate(Other = ifelse(SampleMass < 5, "No_Pellet", NA))
     
     "%ni%" <- Negate("%in%")
     
@@ -53,21 +53,20 @@ DataAnalysis <- function(plate_reader_file, mapping_csv_file, exp_id, standards_
     intercept <- standard_analysis$intercept
     
     # Begin working with the data
-    exp_data$qubit_volume <- volume
-    exp_data$dna_concentration <- (exp_data[, "Fluorescence"] * scale_x + intercept)/volume
+	output_data <- exp_data %>% dplyr::mutate(qubit_volume = volume, 
+		dna_concentration = (Fluorescence * scale_x + intercept)/volume, 
+		total_dna = dna_concentration * 0.1, 
+		scale_factor = scale, 
+		microbial_density = (total_dna * scale)/SampleMass, 
+		X16S_possible = (dna_concentration > 1.5 & dna_concentration > 0),
+		vol_needed_for_PCR = 400/dna_concentration,
+		water_volume_up_PCR = 200 - vol_needed_for_PCR,
+		metagenomics_possible =  dna_concentration > 25,
+		vol_needed_for_metagenomics = 625/dna_concentration,
+		water_volume_up_metagenomics = 25 - vol_needed_for_metagenomics)
+		
     
-    # Biomass Analysis
-    exp_data$total_dna <- exp_data[, "dna_concentration"] * 0.1
-    exp_data$scale_factor <- scale
-    exp_data$microbial_density <- exp_data$total_dna * scale/exp_data$SampleMass
-    exp_data$X16S_possible <- (exp_data[, "dna_concentration"] > 1.5)  & (exp_data[, 'dna_concentration'] > 0)
-    exp_data$vol_needed_for_PCR <- 400/exp_data[, "dna_concentration"]
-    exp_data$water_volume_up_PCR <- 200 - exp_data$vol_needed_for_PCR
-    exp_data$metagenomics_possible <- (625/exp_data[, "dna_concentration"] < 28) & (exp_data[, 'dna_concentration'] > 0)
-    exp_data$vol_needed_for_metagenomics <- 625/exp_data[, "dna_concentration"]
-    exp_data$water_volume_up_metagenomics <- 25 - exp_data$vol_needed_for_metagenomics
-    
-    output_list <- list(data = exp_data, standards_plot = standard_analysis$plot)
+    output_list <- list(data = output_data, standards_plot = standard_analysis$plot)
     
     return(output_list)
     

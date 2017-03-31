@@ -115,13 +115,13 @@ GeomMeanSEM <- ggplot2::ggproto(
     }
     
     data$xmin <-
-      data$x - data$width / 3
-    data$xmax <-
-      data$x + data$width / 3
-    data$xleft <-
       data$x - data$width / 6
-    data$xright <-
+    data$xmax <-
       data$x + data$width / 6
+    data$xleft <-
+      data$x - data$width / 3
+    data$xright <-
+      data$x + data$width / 3
     data
     
   },
@@ -260,6 +260,9 @@ geom_mean_sem <- function(mapping = NULL,
       inherit.aes = inherit.aes,
       params = list(na.rm = na.rm,
                     size = line.size,
+					color = NULL,
+					group = NULL,
+					shape = NULL,
                     ...)
     ),
     ggplot2::layer(

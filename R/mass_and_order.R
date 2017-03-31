@@ -23,16 +23,36 @@ mass_and_order <-
       if (empty_parser[[column]] == 'hms') {
         empty_parser[[column]] <- "Empty Weight Time"
         empty_parser[[column - 1]] <- "Empty Weight Date"
-      } else if (empty_parser[[column]] == 'character') {
-        if (stringr::str_length(empty[[column]][[1]]) == 10) {
-          empty_parser[[column]] <- 'TubeBarcode'
+      
+	  } else if (empty_parser[[column]] == 'character') {
+        
+		if (stringr::str_length(empty[[column]][[1]]) == 10) {
+			if ('TubeBarcode' %in% empty_parser) {
+				empty_parser[[column]] <- paste0("Column.", column)
+			} else {
+				empty_parser[[column]] <- 'TubeBarcode'
+			}
         } else if (stringr::str_length(empty[[column]][[1]]) == 29) {
-          empty_parser[[column]] <- 'BarcodeID'
+		
+			if ('BarcodeID' %in% empty_parser) {
+				empty_parser[[column]] <- paste0("Column.", column)
+			} else {
+				empty_parser[[column]] <- 'BarcodeID'
+			}
+          
         } else {
           empty_parser[[column]] <- paste0("Column.", column)
         }
       } else if (empty_parser[[column]] == 'numeric') {
         empty_parser[[column]] <- 'Empty Mass'
+      } else if (empty_parser[[column]] == 'integer') {
+		  if (8 < log10(empty[[column]][[1]]) <= 10) {
+			  empty_parser[[column]] <- 'TubeBarcode'
+		  } else {
+		  empty_parser[[column]] <- paste0("Column.", column)
+	  }
+      } else {
+      	empty_parser[[column]] <- paste0("Column.", column)
       }
       
     }
@@ -53,15 +73,31 @@ mass_and_order <-
         full_parser[[column]] <- "Full Weight Time"
         full_parser[[column - 1]] <- "Full Weight Date"
       } else if (full_parser[[column]] == 'character') {
-        if (stringr::str_length(full[[column]][[1]]) == 10) {
-          full_parser[[column]] <- 'TubeBarcode'
-        } else if (stringr::str_length(full[[column]][[1]]) == 29) {
-          full_parser[[column]] <- 'BarcodeID'
+          if (stringr::str_length(full[[column]][[1]]) == 10) {
+  			if ('TubeBarcode' %in% full_parser) {
+  				full_parser[[column]] <- paste0("Column.", column)
+  			} else {
+  				full_parser[[column]] <- 'TubeBarcode'
+  			}
+          } else if (stringr::str_length(full[[column]][[1]]) == 29) {
+  			if ('BarcodeID' %in% full_parser) {
+  				full_parser[[column]] <- paste0("Column.", column)
+  			} else {
+  				full_parser[[column]] <- 'BarcodeID'
+  			}
         } else {
           full_parser[[column]] <- paste0("Column.", column)
         }
       } else if (full_parser[[column]] == 'numeric') {
         full_parser[[column]] <- 'Full Mass'
+      } else if (full_parser[[column]] == 'integer') {
+		  if (8 < log10(full[[column]][[1]]) <= 10) {
+			  full_parser[[column]] <- 'TubeBarcode'
+		  } else {
+		  full_parser[[column]] <- paste0("Column.", column)
+	  }
+      } else {
+      	full_parser[[column]] <- paste0("Column.", column)
       }
       
     }
