@@ -91,7 +91,7 @@ mass_and_order <-
       } else if (full_parser[[column]] == 'numeric') {
         full_parser[[column]] <- 'Full Mass'
       } else if (full_parser[[column]] == 'integer') {
-		  if (8 < log10(full[[column]][[1]]) <= 10) {
+		  if (8 < log10(full[[column]][[1]]) & log10(empty[[column]][[1]]) <= 10) {
 			  full_parser[[column]] <- 'TubeBarcode'
 		  } else {
 		  full_parser[[column]] <- paste0("Column.", column)
