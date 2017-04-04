@@ -63,7 +63,7 @@ DataAnalysis <- function(plate_reader_file, mapping_csv_file, exp_id, standards_
 		water_volume_up_PCR = 200 - vol_needed_for_PCR,
 		metagenomics_possible =  dna_concentration >= 20,
 		vol_needed_for_metagenomics = 500/dna_concentration,
-		water_volume_up_metagenomcs = 25 - vol_needed_for_metagenomics)
+		water_volume_up_metagenomics = 25 - vol_needed_for_metagenomics)
 		
     
     output_list <- list(data = output_data, standards_plot = standard_analysis$plot)
