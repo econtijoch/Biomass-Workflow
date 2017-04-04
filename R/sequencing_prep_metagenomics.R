@@ -43,8 +43,8 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
     
     if (filter == T) {
         sequencing_combined <- Reduce(function(...) suppressWarnings(dplyr::full_join(...)), experiment_data_list) %>% 
-            dplyr::filter(metagenomics_possible == TRUE)
-        cat("WARNING: By default, any samples with DNA concentration < 22 ng/uL will be filtered and not sequenced. To overcome this, pass \"filter = FALSE\" as an argument to the function call.\n")
+            dplyr::filter(dna_concentration >= 20)
+        cat("WARNING: By default, any samples with DNA concentration < 20 ng/uL will be filtered and not sequenced. To overcome this, pass \"filter = FALSE\" as an argument to the function call.\n")
     } else {
         sequencing_combined <- Reduce(function(...) suppressWarnings(dplyr::full_join(...)), experiment_data_list)
     }
