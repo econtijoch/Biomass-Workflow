@@ -67,7 +67,7 @@ robot_prep_metagenomics <- function(dataset, n_barcode_plates) {
             robot_table[i, "vol_needed_for_metagenomics"] <- 1
             robot_table[i, "water_volume_up_metagenomics"] <- 24
             robot_table[i, "Warning"] <- "[WARNING] DNA concentration >= 500 ng/uL. Transferred 1 uL of sample + 24 uL Water/EB"
-            robot_table[i, "FinalConc"] <- robot_table[i, "StartingConc"]
+            robot_table[i, "FinalConc"] <- (robot_table[i, "StartingConc"])/25
         } else {
             robot_table[i, "Warning"] <- "20 ng/uL < DNA concentration < 500 ng/uL. Diluted Sample to be at 20 ng/uL."
             robot_table[i, "FinalConc"] <- (robot_table[i, "StartingConc"] * robot_table[i, "vol_needed_for_metagenomics"])/(25)
