@@ -64,6 +64,13 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     if (ncol(normalized) == 0) {
         stop("Filter is too strict, all OTUs filtered out!")
     }
+	
+
+	if (min(metadata$microbial_density) < 0) {
+		message('WARNING: Some microbial density values are less than zero, changing these values to 0.0001 to avoid errors.')
+		metadata$microbial_density[which(metadata$microbial_density<0)] <- 0.0001
+	}
+	
     scaled <- normalized * metadata$microbial_density
     relative <- normalized * 100
     scaled$X.SampleID <- as.character(metadata$X.SampleID)
