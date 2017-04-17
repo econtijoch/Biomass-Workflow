@@ -81,7 +81,7 @@ sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var =
   if (tilt.axis) {
     output <- plot + paper_theme_tilted()
   } else {
-    output <- plot
+    output <- plot + paper_theme()
   }
   return(output)
   
