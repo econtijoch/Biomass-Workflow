@@ -32,9 +32,9 @@ EJC_theme_tilted <- function(base_size = 12, base_family = "sans", bgcolor = "de
 		legend.key.size = ggplot2::unit(0.5, "cm"), 
         legend.title.align = 0.5, 
 		legend.title = ggplot2::element_text(size = 14, face = "bold"),
-		strip.background = element_rect(colour = NA, fill = NA),
+		strip.background = ggplot2::element_rect(colour = NA, fill = NA),
 		strip.placement = 'outside',
-		strip.text = element_text(face = 'bold')
+		strip.text = ggplot2::element_text(face = 'bold')
 		)
     ret
 }
@@ -73,9 +73,9 @@ EJC_theme <- function(base_size = 12, base_family = "sans", bgcolor = "default")
 		legend.key.size = ggplot2::unit(0.5, "cm"), 
         legend.title.align = 0.5, 
 		legend.title = ggplot2::element_text(size = 14, face = "bold"),
-		strip.background = element_rect(colour = NA, fill = NA),
+		strip.background = ggplot2::element_rect(colour = NA, fill = NA),
 		strip.placement = 'outside',
-		strip.text = element_text(face = 'bold')
+		strip.text = ggplot2::element_text(face = 'bold')
 		)
     ret
 }
@@ -130,9 +130,9 @@ paper_theme <-
         legend.title.align = 0.5,
         legend.margin = ggplot2::margin(1.5,1.5,1.5,1.5),
         legend.title = ggplot2::element_text(size = 8, face = "bold"),
-		strip.background = element_rect(colour = NA, fill = NA),
+		strip.background = ggplot2::element_rect(colour = NA, fill = NA),
 		strip.placement = 'outside',
-		strip.text = element_text(face = 'bold')
+		strip.text = ggplot2::element_text(face = 'bold')
       )
     return(ret)
   }
@@ -188,9 +188,9 @@ paper_theme_tilted <-
         legend.title.align = 0.5,
         legend.margin = ggplot2::margin(1.5,1.5,1.5,1.5),
         legend.title = ggplot2::element_text(size = 8, face = "bold"),
-		strip.background = element_rect(colour = NA, fill = NA),
+		strip.background = ggplot2::element_rect(colour = NA, fill = NA),
 		strip.placement = 'outside',
-		strip.text = element_text(face = 'bold')
+		strip.text = ggplot2::element_text(face = 'bold')
       )
     return(ret)
   }

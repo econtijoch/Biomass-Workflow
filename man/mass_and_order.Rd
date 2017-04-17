@@ -2,7 +2,7 @@
 % Please edit documentation in R/mass_and_order.R
 \name{mass_and_order}
 \alias{mass_and_order}
-\title{Generate sample mass and final order of tubes}
+\title{Generate sample mass and final order of tubes. Will attempt to identify BarcodeID (length 29 generated sample description) and TubeBarcodes (length 10 number found on the Matrix Tubes) in files if possible}
 \usage{
 mass_and_order(empty_weights, full_weights, order = NULL)
 }
@@ -17,6 +17,6 @@ mass_and_order(empty_weights, full_weights, order = NULL)
 table of weights and tubes with order of samples
 }
 \description{
-Generate sample mass and final order of tubes
+Generate sample mass and final order of tubes. Will attempt to identify BarcodeID (length 29 generated sample description) and TubeBarcodes (length 10 number found on the Matrix Tubes) in files if possible
 }
 
