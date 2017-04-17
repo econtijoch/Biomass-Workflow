@@ -50,10 +50,9 @@ sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var =
   
   
   if (x.axis.factor) {
-	  xval <- as.factor(x.var)
-  } else {
-	  xval <- x.var
-  }
+	  plot_data[[x.var]] <- as.factor(plot_data[[x.var]])
+  } 
+  xval <- x.var
   
   yval <- 'mean_abundance'
   filling <- 'long_label'
