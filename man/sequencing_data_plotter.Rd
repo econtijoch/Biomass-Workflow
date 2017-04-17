@@ -7,7 +7,7 @@
 sequencing_data_plotter(sequencing_object, depth = "Phylum",
   x.var = "X.SampleID", abundance = "relative", x.groups = NULL,
   y.groups = NULL, facet.scales = "free", facet.space = "free",
-  colors = NULL, tilt.axis = T)
+  colors = NULL, tilt.axis = T, x.axis.factor = F)
 }
 \arguments{
 \item{sequencing_object}{sequencing object (e.g. result of individual_scale)}
@@ -29,6 +29,8 @@ sequencing_data_plotter(sequencing_object, depth = "Phylum",
 \item{colors}{colors to use for bars}
 
 \item{tilt.axis}{tilt x axis?}
+
+\item{x.axis.factor}{Make x axis variable factor?}
 }
 \value{
 ggplot object
