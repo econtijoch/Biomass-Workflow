@@ -10,11 +10,12 @@
 #' @param facet.space space for facets (e.g. free)
 #' @param colors colors to use for bars
 #' @param tilt.axis tilt x axis?
+#' @param x.axis.factor Make x axis variable factor?
 #'
 #' @return ggplot object
 #' @export
 
-sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var = 'X.SampleID', abundance = 'relative', x.groups = NULL, y.groups = NULL, facet.scales = 'free', facet.space = 'free', colors = NULL, tilt.axis = T) {
+sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var = 'X.SampleID', abundance = 'relative', x.groups = NULL, y.groups = NULL, facet.scales = 'free', facet.space = 'free', colors = NULL, tilt.axis = T, x.axis.factor = F) {
   
   if (abundance == 'relative') {
     data <- dplyr::left_join(sequencing_object$melted_relative_by_taxonomy[[depth]], sequencing_object$sample_metadata)
@@ -48,7 +49,12 @@ sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var =
   plot_data <- data %>% dplyr::summarize(mean_abundance = mean(abundance)/n()) %>% dplyr::left_join(., sequencing_object$sample_metadata)
   
   
-  xval <- x.var
+  if (x.axis.factor) {
+	  xval <- as.factor(x.var)
+  } else {
+	  xval <- x.var
+  }
+  
   yval <- 'mean_abundance'
   filling <- 'long_label'
   taxa_label_pre <- stringr::str_split(plot_data$long_label, pattern = '__', simplify = T)
