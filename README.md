@@ -37,6 +37,7 @@ will also need to set up java to play nicely with R and this package. To
 do that, you'll need to go to terminal and type:
 
     sudo R CMD javareconf
+    sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
 
 This will prompt you for your password in order to execute.
 
