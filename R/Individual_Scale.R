@@ -88,11 +88,6 @@ individual_scale <- function(biom_file, metadata_file, taxonomy_file, filter) {
     
     # Melt data to help create plots
     melted <- reshape2::melt(data = scaled, id.vars = "X.SampleID", measure.vars = colnames(scaled)[-length(colnames(scaled))])
-    # QC to elimnate errors and spurious negative abundance (spot-checked, this occurs only once from all samples, and
-    # is minimally negative anyways...)
-    if (length(melted[melted$value < 0, ]$value) > 0) {
-        melted[melted$value < 0, ]$value <- 0
-    }
     names(melted)[names(melted) == "variable"] <- "OTU_ID"
     melted$OTU_ID <- as.character(melted$OTU_ID)
     
