@@ -19,22 +19,25 @@ package to work. Simply follow the following commands:
 
     # Install devtools, a package that helps install other packages from GitHub/Bitbucket
     install.packages("devtools")
+    
+    # Update to the development verison (0.4.0) of the biom R package that can accept hdf5 .biom files
+    devtools::install_github('joey711/biom')
+    
+    # Source BiocLite and install rhdf5 - a package necessary for being able to read hdf5-formatted .biom tables
+    source("https://bioconductor.org/biocLite.R")
+    biocLite("rhdf5")
+    biocLite("phyloseq")
 
     # Install this package ("BiomassWorkflow") from Bitbucket (or GitHub via devtools::install_github('econtijoch/Biomass-Workflow') )
     devtools::install_bitbucket("econtijoch/biomass-workflow")  
 
-    # Source BiocLite and install rhdf5 - a package necessary for being able to read hdf5-formatted .biom tables
-    source("https://bioconductor.org/biocLite.R")
-    biocLite("rhdf5")
-
-    # Update to the development verison (0.4.0) of the biom R package that can accept hdf5 .biom files
-    devtools::install_github('joey711/biom')
 
 There is a very strong chance that this alone will not be enough. You
 will also need to set up java to play nicely with R and this package. To
 do that, you'll need to go to terminal and type:
 
     sudo R CMD javareconf
+    sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
 
 This will prompt you for your password in order to execute.
 
