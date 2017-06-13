@@ -90,7 +90,7 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
         sequencing_runs[[sequencing_id]][["Mapping"]] <- suppressWarnings(dplyr::filter(sequencing_combined, BarcodeID %in% samples) %>% 
             dropcolumns(.) %>% dplyr::left_join(., sample_map, by = "BarcodeID") %>% dplyr::left_join(., barcodes, by = c("BarcodePlate", 
             "BarcodeWell")) %>% dplyr::mutate(SampleID = gsub("[[:punct:]]", ".", BarcodeID)) %>% dplyr::select(SampleID, 
-            BarcodeSequence, LinkerPrimerSequence, SequencingRun, BarcodePlate, BarcodeWell, dplyr::everything(), -Fluorescence, 
+            BarcodePlate, BarcodeWell, i5_index, i5_sequence, i7_index, i7_sequence, dualIndex_i7_i5, dplyr::everything(), -Fluorescence, 
             -BarcodeID, -ReaderWell, -Type) %>% dplyr::mutate(Description = SampleID))
         
         
