@@ -27,7 +27,7 @@ sequencing_prep_metagenomics <- function(experiment_data_list, n_barcode_plates,
     for (i in 1:n_barcode_plates) {
         for (j in 1:96) {
             entry <- ((i - 1) * 96) + j
-            barcode_info[entry, "BarcodePlate"] <- paste("Plate", i, sep = "")
+            barcode_info[entry, "BarcodePlate"] <- paste("IDT_Plate", i, sep = "")
             row <- (j - 1)%/%12
             column <- j - (12 * (row))
             row_id <- c("A", "B", "C", "D", "E", "F", "G", "H")
