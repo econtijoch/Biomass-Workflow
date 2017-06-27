@@ -15,4 +15,3 @@ taxonomy file suitable for use with phyloseq
 \description{
 Function to parse greengenes taxonomy file for use with phyloseq
 }
-

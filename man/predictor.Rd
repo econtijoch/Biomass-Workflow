@@ -17,4 +17,3 @@ estimates of IgA based on OD measurements from the fitted model
 \description{
 Helper function for IgA Elisa data generation from standard curve parameters
 }
-

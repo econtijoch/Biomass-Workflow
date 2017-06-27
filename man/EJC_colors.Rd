@@ -12,4 +12,3 @@ EJC_colors
 Color Scheme function for plotting
 }
 \keyword{datasets}
-

@@ -24,4 +24,3 @@ A list containing the data for as many sequencing runs necessary to sequence all
 \description{
 Function to produce files necessary to generate 16S sequencing runs that utilizes the Beckmann robot for dilutions and creates sequencing mapping files in QIIME-ready format, from multiple experiment data sets.
 }
-

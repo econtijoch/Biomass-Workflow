@@ -16,4 +16,3 @@ paper_theme(base_size = 8, base_family = "sans", bgcolor = "default")
 \description{
 Theme function for plotting
 }
-

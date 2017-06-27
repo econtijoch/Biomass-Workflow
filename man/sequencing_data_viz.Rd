@@ -15,4 +15,3 @@ launches shiny app that helps interactively visualize data
 \description{
 Shiny App that aids in vizualizing sequencing objects returned from individual_scale
 }
-

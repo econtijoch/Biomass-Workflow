@@ -21,4 +21,3 @@ percent formatted
 \description{
 quick conversion to percent
 }
-

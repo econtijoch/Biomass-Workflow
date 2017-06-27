@@ -17,4 +17,3 @@ data frame with more accurate DNA concentrations and microbial density measureme
 \description{
 Function to improve accuracy of DNA measurements for samples measured with both HS and BR dye
 }
-

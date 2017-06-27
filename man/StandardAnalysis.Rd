@@ -28,4 +28,3 @@ list containing a table of the standards, and the information for the standard c
 \description{
 Function to process standards information and create line of best fit
 }
-

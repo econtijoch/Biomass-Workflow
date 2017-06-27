@@ -38,4 +38,3 @@ ggplot object
 \description{
 Make abundance bar plots of sequencing data
 }
-

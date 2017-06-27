@@ -34,4 +34,3 @@ list with a data table with microbial density data calculated and the standards 
 \description{
 Deprecated function for Data Analysis. See DataAnalysis instead
 }
-

@@ -22,4 +22,3 @@ a list of otu tables (relative and absolute) in the specified format. Additional
 \description{
 Make biom tables (relative abundance and absolute abundance) from a sequencing object (individual_scale output)
 }
-

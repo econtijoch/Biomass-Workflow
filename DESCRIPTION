@@ -8,36 +8,36 @@ Description: Package that helps streamline data analysis and sample preparation 
 License: GPL (>= 2)
 LazyData: TRUE
 Depends:
-    R (>= 2.10),
-    tidyverse
+  R (>= 2.10),
+  tidyverse
 Imports:
-    ggplot2,
-    cowplot,
-    plyr,
-    dplyr,
-    shiny,
-    DT,
-    stringr,
-    lazyeval,
-    biom,
-    reshape2,
-    magrittr,
-    XLConnect,
-    tidyr,
-    methods,
-    pander,
-    devtools,
-    rmarkdown,
-	  mime,
-	  stats,
-	  readr,
-	  tibble,
-	  vegan,
-	  ggbeeswarm,
-	  grid,
-	  phyloseq
+  ggplot2,
+  cowplot,
+  plyr,
+  dplyr,
+  shiny,
+  DT,
+  stringr,
+  lazyeval,
+  biom,
+  reshape2,
+  magrittr,
+  XLConnect,
+  tidyr,
+  methods,
+  pander,
+  phyloseq,
+  vegan,
+  devtools,
+  rmarkdown,
+  mime,
+  stats,
+  readr,
+  tibble,
+  ggbeeswarm,
+  grid
 URL: http://github.com/econtijoch/Biomass-Workflow
 BugReports: http://github.com/econtijoch/Biomass-Workflow/issues
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests: knitr
 VignetteBuilder: knitr

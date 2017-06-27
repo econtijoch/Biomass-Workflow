@@ -26,4 +26,3 @@ list containing individual components of analyzed data ready for plotting, etc.
 \description{
 Sequencing Analysis Wrapper
 }
-

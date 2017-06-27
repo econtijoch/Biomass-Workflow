@@ -21,4 +21,3 @@ a list containing OTU tables with and without taxonomy (at each given depth), bo
 \description{
 Function to process 16S sequencing data and scale individual samples by microbial density, generating absolute abundances
 }
-

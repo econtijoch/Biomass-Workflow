@@ -5,10 +5,10 @@
 \title{New layer function that plots both the summary statistics AND the quasirandom plot from ggbeeswarm}
 \usage{
 geom_mean_sem(mapping = NULL, data = NULL, position = "identity", ...,
-  point.size = 1, line.size = 1, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, width = 0.2, varwidth = FALSE, bandwidth = 0.5,
-  nbins = NULL, method = "quasirandom", groupOnX = NULL,
-  dodge.width = 0)
+  point.size = 1, point.color = "black", line.size = 1, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, width = 0.2, varwidth = FALSE,
+  bandwidth = 0.5, nbins = NULL, method = "quasirandom",
+  groupOnX = NULL, dodge.width = 0)
 }
 \arguments{
 \item{mapping}{mapping}
@@ -20,6 +20,8 @@ geom_mean_sem(mapping = NULL, data = NULL, position = "identity", ...,
 \item{...}{...}
 
 \item{point.size}{point.size}
+
+\item{point.color}{point.color}
 
 \item{line.size}{line.size}
 
@@ -49,4 +51,3 @@ plot layer
 \description{
 New layer function that plots both the summary statistics AND the quasirandom plot from ggbeeswarm
 }
-

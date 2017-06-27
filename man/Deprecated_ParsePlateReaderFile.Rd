@@ -15,4 +15,3 @@ list that includes data in table format and the number of measurements that the 
 \description{
 Deprecated plate reader file parser
 }
-

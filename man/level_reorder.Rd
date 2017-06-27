@@ -17,4 +17,3 @@ reoredered factor
 \description{
 Reorder factor levels
 }
-

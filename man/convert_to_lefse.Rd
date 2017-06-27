@@ -24,4 +24,3 @@ table that you can save as tab delimited file and pipe to LEFSE
 \description{
 Convert to lefse-friendly
 }
-

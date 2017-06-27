@@ -15,4 +15,3 @@ Mapping information in a data frame
 \description{
 Function to read in mapping file and tweak format so that it is friendly with the rest of the package functinos
 }
-

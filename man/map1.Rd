@@ -15,4 +15,3 @@ map1
 A dataset that contains the information from a mapping, and is used to re-create a template mapping file. This data is used in the sample_file_maker script to generate a sample mapping file
 }
 \keyword{datasets}
-

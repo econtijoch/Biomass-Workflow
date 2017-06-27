@@ -21,4 +21,3 @@ a list containing: 1) a data frame with the data from the plate reader file and 
 \description{
 Function to read in mapping file and tweak format so that it is friendly with the rest of the package functinos
 }
-

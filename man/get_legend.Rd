@@ -15,4 +15,3 @@ legend
 \description{
 Create a stand-alone legend for plotting
 }
-

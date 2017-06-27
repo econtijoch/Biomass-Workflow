@@ -8,4 +8,3 @@
 \description{
 This package helps generate and analyze microbiome biomass data, prepare sequencing of microbiome samples, and analye sequencing data.
 }
-

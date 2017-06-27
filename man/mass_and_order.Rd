@@ -19,4 +19,3 @@ table of weights and tubes with order of samples
 \description{
 Generate sample mass and final order of tubes. Will attempt to identify BarcodeID (length 29 generated sample description) and TubeBarcodes (length 10 number found on the Matrix Tubes) in files if possible
 }
-

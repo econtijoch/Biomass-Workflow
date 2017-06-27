@@ -18,6 +18,6 @@ if (getRversion() >= "2.15.1") {
         "WaterWell", "DNASource", "DNASourceWell", "Destination", "DestinationWell", "DNA_Vol", "Water_Vol", "Warning", 
         "NormalizedVolume", "StartingConc", "FinalConc", "X16S_possible", ".", "SampleID", "BarcodeSequence", "LinkerPrimerSequence", 
         "Fluorescence", "ReaderWell", "Type", "metagenomics_possible", 'plate1_raw', 'plate2_raw', 'map1', 'map2', 'abundance', 
-        'Full Mass', "Empty Mass", "rowname", "taxonomy", "Kingdom", 'total_dna', 'scale_factor', 'BR_dna_concentration', 'HS_dna_concentration')) 
+        'Full Mass', "Empty Mass", "rowname", "taxonomy", "Kingdom", 'total_dna', 'scale_factor', 'BR_dna_concentration', 'HS_dna_concentration', "i5_index", "i5_sequence", "i7_index", "i7_sequence", "dualIndex_i7_i5")) 
 }
 

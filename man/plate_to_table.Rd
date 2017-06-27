@@ -17,4 +17,3 @@ samples in table format
 \description{
 Plate to table
 }
-

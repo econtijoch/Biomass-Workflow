@@ -19,4 +19,3 @@ ggname
 ggname
 Helper function taken from ggplot2 -- not exported, need to re-create
 }
-

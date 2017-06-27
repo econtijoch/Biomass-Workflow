@@ -17,4 +17,3 @@ A well number (e.g. 1 or 65)
 \description{
 Function to toggle between a well ID and a well location number (useful for use with the Beckmann robot)
 }
-

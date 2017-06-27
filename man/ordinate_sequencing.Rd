@@ -17,4 +17,3 @@ a list of outputs containing ordination results and first 10 PC's
 \description{
 Ordination of scaled sequencing object
 }
-

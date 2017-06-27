@@ -15,4 +15,3 @@ A collection of files useful for getting started with the BiomassWorkflow packag
 \description{
 Function to generate sample data files to work wtih locally
 }
-

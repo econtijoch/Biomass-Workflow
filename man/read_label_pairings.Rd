@@ -22,4 +22,3 @@ table with pairings
 \description{
 Read Label Pairings
 }
-

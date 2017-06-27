@@ -17,4 +17,3 @@ sigmoid model for standards
 \description{
 Helper function for IgA Elisa standard curve fitting
 }
-

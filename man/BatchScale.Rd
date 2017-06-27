@@ -31,4 +31,3 @@ a list that contains within it: a list of the scale taxonomy plots (at the vario
 \description{
 Scale taxonomy summary plots (output of summarize_taxa_through_plots.py of QIIME) by biomass
 }
-

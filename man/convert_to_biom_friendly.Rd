@@ -19,4 +19,3 @@ output table
 \description{
 Function to convert scaled/unscaled output of individual_scale to biom-friendly format
 }
-

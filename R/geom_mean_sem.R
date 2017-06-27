@@ -207,6 +207,7 @@ GeomMeanSEM <- ggplot2::ggproto(
 #' @param position position 
 #' @param ... ...
 #' @param point.size point.size
+#' @param point.color point.color
 #' @param line.size line.size
 #' @param na.rm na.rm
 #' @param show.legend show.legend
@@ -227,7 +228,7 @@ geom_mean_sem <- function(mapping = NULL,
                           position = "identity",
                           ...,
                           point.size = 1,
-						  point.color = 'black',
+						              point.color = 'black',
                           line.size = 1,
                           na.rm = FALSE,
                           show.legend = NA,

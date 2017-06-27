@@ -16,4 +16,3 @@ EJC_theme(base_size = 12, base_family = "sans", bgcolor = "default")
 \description{
 Theme function for plotting
 }
-

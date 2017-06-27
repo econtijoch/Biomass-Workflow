@@ -15,4 +15,3 @@ plate1_raw
 A dataset that contains the information from a plate reader file, and is used to re-create a raw fluorescence file as if it came from the plate reader. This data is used in the sample_file_maker script to generate sample raw files.
 }
 \keyword{datasets}
-

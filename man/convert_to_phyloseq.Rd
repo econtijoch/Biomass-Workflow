@@ -19,4 +19,3 @@ phyloseq object with provided data
 \description{
 Function to convert sequencing object to phyloseq object with optional addition of phylogenetic tree and taxonomy data
 }
-

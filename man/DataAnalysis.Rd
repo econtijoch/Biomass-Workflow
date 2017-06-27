@@ -41,4 +41,3 @@ output table with DNA concentrations, microbial density, metadata, and useful co
 \description{
 Main function call to generate microbial density data from DNA extraction protocol
 }
-

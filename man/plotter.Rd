@@ -15,4 +15,3 @@ launches a shiny app that can help quickly visualize data. Has an interactive x 
 \description{
 Function to generate an interactive data plotter
 }
-

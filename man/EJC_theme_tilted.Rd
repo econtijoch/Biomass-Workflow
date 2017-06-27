@@ -17,4 +17,3 @@ EJC_theme_tilted(base_size = 12, base_family = "sans",
 \description{
 Theme function for plotting with tilted axes
 }
-

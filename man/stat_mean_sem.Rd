@@ -31,4 +31,3 @@ plot layer
 \description{
 Layer function for stat
 }
-

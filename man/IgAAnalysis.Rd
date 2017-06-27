@@ -32,4 +32,3 @@ list containing a table of the standards, and the information for the standard c
 \description{
 Function to process Fecal IgA Elisa data
 }
-

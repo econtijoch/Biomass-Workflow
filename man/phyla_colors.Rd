@@ -12,4 +12,3 @@ phyla_colors
 Color Scheme function for phyla
 }
 \keyword{datasets}
-
