@@ -34,7 +34,7 @@ predictor <- function(params, y) {
 #' @export
 #'
 
-IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = NULL, print = FALSE, a = 0.9,b = 0.5,c = 1, ...) {
+IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = NULL, print = FALSE, upper_asymptote = 0.9, growth_rate = 0.5, max_time = 1, ...) {
  
   # Read in files and join
   IgA_raw <- PlateParser(plate_reader_file, shiny, type)
@@ -56,7 +56,7 @@ IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = N
   y <- IgA_standards$OD
   
   
-  fitmodel <- stats::nls(y ~ a/(1 + exp(-b * (x - c))), start=list(a = a,b = b,c = c))
+  fitmodel <- stats::nls(y ~ a/(1 + exp(-b * (x - c))), start=list(a = upper_asymptote, b = growth_rate, c = max_time))
   
   params <- stats::coef(fitmodel)
   
