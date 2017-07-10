@@ -122,7 +122,7 @@ ElisaAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type =
   standards_plot <- ggplot2::ggplot() + ggplot2::geom_line(ggplot2::aes(x = x_values, y = OD)) + ggplot2::geom_point(ggplot2::aes(x = x, y = y)) + ggplot2::labs(x = 'Log[Analyte]', y = 'OD', title = 'Standard Curve') + EJC_theme()
   
   samples$Log_Concentration <- predictor(params, samples$OD)
-  samples$Analyte_Concentration <- (10^samples$Log_IgA)
+  samples$Analyte_Concentration <- (10^samples$Log_Concentration)
   
   
   return(list(data = samples, standards_plot = standards_plot, standards = standards))
