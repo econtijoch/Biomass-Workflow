@@ -75,3 +75,55 @@ IgAAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = N
   
   
 }
+
+#' Function to process ELISA data
+#' @param plate_reader_file the file path of the plate reader file (in .csv or .xls(x) format)
+#' @param mapping_file mapping file for plate. Must contain: BarcodeID (unique names for samples), Type ("Standard" or "Experiment" to designate type of sample), SampleMass (to hold standards information to generate standard curve)
+#' @param shiny OPTIONAL: necessary for running with shiny app interface since filenames are not the same.
+#' @param type OPTIONAL: necessary for running with shiny app, must specify file type
+#' @param print OPTIONAL: whether or not to save a copy of the standards curve to the working directory
+#' @param upper_asymptote  a in the equation: a/(1 + exp(-b * (x-c))) (starting conditions for nls fit)
+#' @param growth_rate b in the equation: a/(1 + exp(-b * (x-c))) (starting conditions for nls fit)
+#' @param max_time c in the equation: a/(1 + exp(-b * (x-c))) (starting conditions for nls fit)
+#' @param log_x_max maximum value of log[Analyte] - used to generate standard curve
+#' @param ... optional inputs
+#' @return list containing a table of the standards, and the information for the standard curve
+#' @export
+#'
+
+ElisaAnalysis <- function(plate_reader_file, mapping_file, shiny = FALSE, type = NULL, print = FALSE, upper_asymptote = 0.9, growth_rate = 0.5, max_time = 1, log_x_max = 3.5, ...) {
+  
+  # Read in files and join
+  raw <- PlateParser(plate_reader_file, shiny, type)
+  map <- ParseMappingFile(mapping_file)
+  combined_data <- dplyr::full_join(map, raw)
+  
+  # Pull out standards, average
+  standards <- combined_data %>% dplyr::filter(Type == "Standard") %>% dplyr::group_by(BarcodeID, SampleMass) %>% dplyr::summarize(OD = mean(Fluorescence))
+  standards$Standard <- standards$SampleMass
+  standards$log_std <- log10(standards$Standard)
+  
+  # Pull out samples
+  samples <- combined_data %>% dplyr::filter(Type == "Experiment")
+  names(samples)[names(samples)=="Fluorescence"] <- "OD"
+  
+  
+  # Make fit model
+  x <- standards$log_std
+  y <- standards$OD
+  
+  
+  fitmodel <- stats::nls(y ~ a/(1 + exp(-b * (x - c))), start=list(a = upper_asymptote, b = growth_rate, c = max_time))
+  
+  params <- stats::coef(fitmodel)
+  
+  x_values <- seq(0, log_x_max, length=1000)
+  OD <- sigmoid_model(params,x_values)
+  standards_plot <- ggplot2::ggplot() + ggplot2::geom_line(ggplot2::aes(x = x_values, y = OD)) + ggplot2::geom_point(ggplot2::aes(x = x, y = y)) + ggplot2::labs(x = 'Log[Analyte]', y = 'OD', title = 'Standard Curve') + EJC_theme()
+  
+  samples$Log_Concentration <- predictor(params, samples$OD)
+  samples$Analyte_Concentration <- (10^samples$Log_IgA)
+  
+  
+  return(list(data = samples, standards_plot = standards_plot, standards = standards))
+}
