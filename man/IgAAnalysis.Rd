@@ -5,7 +5,8 @@
 \title{Function to process Fecal IgA Elisa data}
 \usage{
 IgAAnalysis(plate_reader_file, mapping_file, shiny = FALSE, type = NULL,
-  print = FALSE, a = 0.9, b = 0.5, c = 1, ...)
+  print = FALSE, upper_asymptote = 0.9, growth_rate = 0.5, max_time = 1,
+  ...)
 }
 \arguments{
 \item{plate_reader_file}{the file path of the plate reader file (in .csv or .xls(x) format)}
@@ -18,11 +19,11 @@ IgAAnalysis(plate_reader_file, mapping_file, shiny = FALSE, type = NULL,
 
 \item{print}{OPTIONAL: whether or not to save a copy of the standards curve to the working directory}
 
-\item{a}{a/(1 + exp(-b * (x-c))) starting conditions for nls fit}
+\item{upper_asymptote}{a in the equation: a/(1 + exp(-b * (x-c))) (starting conditions for nls fit)}
 
-\item{b}{a/(1 + exp(-b * (x-c))) starting conditions for nls fit}
+\item{growth_rate}{b in the equation: a/(1 + exp(-b * (x-c))) (starting conditions for nls fit)}
 
-\item{c}{a/(1 + exp(-b * (x-c))) starting conditions for nls fit}
+\item{max_time}{c in the equation: a/(1 + exp(-b * (x-c))) (starting conditions for nls fit)}
 
 \item{...}{optional inputs}
 }

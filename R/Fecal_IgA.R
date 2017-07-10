@@ -26,9 +26,9 @@ predictor <- function(params, y) {
 #' @param shiny OPTIONAL: necessary for running with shiny app interface since filenames are not the same.
 #' @param type OPTIONAL: necessary for running with shiny app, must specify file type
 #' @param print OPTIONAL: whether or not to save a copy of the standards curve to the working directory
-#' @param a a/(1 + exp(-b * (x-c))) starting conditions for nls fit
-#' @param b a/(1 + exp(-b * (x-c))) starting conditions for nls fit
-#' @param c a/(1 + exp(-b * (x-c))) starting conditions for nls fit
+#' @param upper_asymptote  a in the equation: a/(1 + exp(-b * (x-c))) (starting conditions for nls fit)
+#' @param growth_rate b in the equation: a/(1 + exp(-b * (x-c))) (starting conditions for nls fit)
+#' @param max_time c in the equation: a/(1 + exp(-b * (x-c))) (starting conditions for nls fit)
 #' @param ... optional inputs
 #' @return list containing a table of the standards, and the information for the standard curve
 #' @export
