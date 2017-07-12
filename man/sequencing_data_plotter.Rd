@@ -18,6 +18,8 @@ sequencing_data_plotter(sequencing_object, depth = "Phylum",
 
 \item{abundance}{relative or absolute}
 
+\item{wrap.groups}{grouping variable to facet_wrap}
+
 \item{x.groups}{grouping variable for faceting along x axis}
 
 \item{y.groups}{grouping variable for faceting along y axis}

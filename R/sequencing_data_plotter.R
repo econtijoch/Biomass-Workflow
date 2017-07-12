@@ -11,6 +11,7 @@
 #' @param colors colors to use for bars
 #' @param tilt.axis tilt x axis?
 #' @param x.axis.factor Make x axis variable factor?
+#' @param wrap.groups grouping variable to facet_wrap
 #'
 #' @return ggplot object
 #' @export
@@ -82,7 +83,7 @@ sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var =
     }
   }
   if (!is.null(wrap.groups)) {
-	  plot <- plot + ggplot2::facet_wrap(paste0('~ ', wrap.gropus), scales = facet.scales, space = facet.space)
+	  plot <- plot + ggplot2::facet_wrap(paste0('~ ', wrap.groups), scales = facet.scales)
   }
   
   if (tilt.axis) {
