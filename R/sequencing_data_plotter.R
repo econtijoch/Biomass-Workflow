@@ -43,12 +43,11 @@ sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var =
     data <- data %>% dplyr::group_by_("long_label", "short_label", "Abundance_Type", depth, x.var, x.groups)
   } else if (facet_row != ".") {
     data <- data %>% dplyr::group_by_("long_label", "short_label", "Abundance_Type", depth, x.var, y.groups)
-  } else {
-    data <- data %>% dplyr::group_by_("long_label", "short_label", "Abundance_Type", depth, x.var)
+  } else if (!is.null(wrap.groups)) {
+    data <- data %>% dplyr::group_by_("long_label", "short_label", "Abundance_Type", depth, x.var, wrap.groups)
   }
-  
-  if (!is.null(wrap.groups)) {
-	  data <- data %>% dplyr::group_by_("long_label", "short_label", "Abundance_Type", depth, x.var, wrap.groups)
+    else {
+    data <- data %>% dplyr::group_by_("long_label", "short_label", "Abundance_Type", depth, x.var)
   }
   
   plot_data <- data %>% dplyr::summarize(mean_abundance = mean(abundance)/n()) %>% dplyr::left_join(., sequencing_object$sample_metadata)
