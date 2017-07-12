@@ -82,7 +82,7 @@ sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var =
     }
   }
   if (!is.null(wrap.groups)) {
-	  plot <- plot + ggplot2::facet_wrap(paste0('~ ', wrap.groups), scales = facet.scales)
+	  plot <- plot + ggplot2::facet_wrap_(c(wrap.groups), scales = facet.scales)
   }
   
   if (tilt.axis) {
