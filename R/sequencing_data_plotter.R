@@ -15,7 +15,7 @@
 #' @return ggplot object
 #' @export
 
-sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var = 'X.SampleID', abundance = 'relative', x.groups = NULL, y.groups = NULL, facet.scales = 'free', facet.space = 'free', colors = NULL, tilt.axis = T, x.axis.factor = F) {
+sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var = 'X.SampleID', abundance = 'relative', wrap.groups = NULL, x.groups = NULL, y.groups = NULL, facet.scales = 'free', facet.space = 'free', colors = NULL, tilt.axis = T, x.axis.factor = F) {
   
   if (abundance == 'relative') {
     data <- dplyr::left_join(sequencing_object$melted_relative_by_taxonomy[[depth]], sequencing_object$sample_metadata)
@@ -44,6 +44,10 @@ sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var =
     data <- data %>% dplyr::group_by_("long_label", "short_label", "Abundance_Type", depth, x.var, y.groups)
   } else {
     data <- data %>% dplyr::group_by_("long_label", "short_label", "Abundance_Type", depth, x.var)
+  }
+  
+  if (!is.null(wrap.groups)) {
+	  data <- data %>% dplyr::group_by_("long_label", "short_label", "Abundance_Type", depth, x.var, wrap.groups)
   }
   
   plot_data <- data %>% dplyr::summarize(mean_abundance = mean(abundance)/n()) %>% dplyr::left_join(., sequencing_object$sample_metadata)
@@ -76,6 +80,9 @@ sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var =
     if (facets != '. ~ .') {
       plot <- plot + ggplot2::facet_grid(facets, scales = facet.scales, space = facet.space)
     }
+  }
+  if (!is.null(wrap.groups)) {
+	  plot <- plot + ggplot2::facet_wrap(paste0('~ ', wrap.gropus), scales = facet.scales, space = facet.space)
   }
   
   if (tilt.axis) {

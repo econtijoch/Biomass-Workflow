@@ -5,9 +5,9 @@
 \title{Make abundance bar plots of sequencing data}
 \usage{
 sequencing_data_plotter(sequencing_object, depth = "Phylum",
-  x.var = "X.SampleID", abundance = "relative", x.groups = NULL,
-  y.groups = NULL, facet.scales = "free", facet.space = "free",
-  colors = NULL, tilt.axis = T, x.axis.factor = F)
+  x.var = "X.SampleID", abundance = "relative", wrap.groups = NULL,
+  x.groups = NULL, y.groups = NULL, facet.scales = "free",
+  facet.space = "free", colors = NULL, tilt.axis = T, x.axis.factor = F)
 }
 \arguments{
 \item{sequencing_object}{sequencing object (e.g. result of individual_scale)}
