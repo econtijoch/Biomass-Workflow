@@ -5,7 +5,7 @@
 \title{New layer function that plots both the summary statistics AND the quasirandom plot from ggbeeswarm}
 \usage{
 geom_mean_sem(mapping = NULL, data = NULL, position = "identity", ...,
-  point.size = 1, point.color = "black", line.size = 1, na.rm = FALSE,
+  point.size = 1, point.color = NULL, line.size = 1, na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE, width = 0.2, varwidth = FALSE,
   bandwidth = 0.5, nbins = NULL, method = "quasirandom",
   groupOnX = NULL, dodge.width = 0)

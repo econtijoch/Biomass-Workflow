@@ -14,24 +14,24 @@ StatMeanSEM <- ggplot2::ggproto(
   "StatMeanSEM",
   ggplot2::Stat,
   required_aes = c("x", "y"),
-  
-  
+
+
   setup_params = function(data, params) {
     params$width <- if (!is.null(params$width)) {
       params$width
     } else {
       ggplot2::resolution(data$x) * 0.75
     }
-    
+
     if (is.double(data$x) &&
         !data$group[1L] != -1L && any(data$x != data$x[1L])) {
       warning("Continuous x aesthetic -- did you forget aes(group=...)?",
               call. = FALSE)
     }
-    
+
     params
   },
-  
+
   compute_group = function(data,
                            scales,
                            width = NULL,
@@ -43,15 +43,15 @@ StatMeanSEM <- ggplot2::ggproto(
         ymin = mean(y) - sd(y) / sqrt(n())
       )
     n <- sum(!is.na(data$y))
-    
-    
-    
+
+
+
     if (length(unique(data$x)) > 1)
       width <-
       diff(range(data$x)) * 0.9
-    
+
     df <- as.data.frame(stats)
-    
+
     df$x <-
       if (is.factor(data$x))
         data$x[1]
@@ -70,7 +70,7 @@ StatMeanSEM <- ggplot2::ggproto(
 #' @param data dadta
 #' @param geom geom
 #' @param position position
-#' @param ... ... 
+#' @param ... ...
 #' @param na.rm na.rm
 #' @param show.legend show.legend
 #' @param inherit.aes inherit.aes
@@ -113,7 +113,7 @@ GeomMeanSEM <- ggplot2::ggproto(
     } else {
       ggplot2::resolution(data$x, FALSE) * 0.9
     }
-    
+
     data$xmin <-
       data$x - data$width / 6
     data$xmax <-
@@ -123,9 +123,9 @@ GeomMeanSEM <- ggplot2::ggproto(
     data$xright <-
       data$x + data$width / 3
     data
-    
+
   },
-  
+
   draw_group = function(data, panel_scales, coord) {
     common <- data.frame(
       colour = 'black',
@@ -136,7 +136,7 @@ GeomMeanSEM <- ggplot2::ggproto(
       alpha = data$alpha,
       stringsAsFactors = FALSE
     )
-    
+
     vertical <- data.frame(
       x = data$x,
       xend = data$x,
@@ -145,7 +145,7 @@ GeomMeanSEM <- ggplot2::ggproto(
       common,
       stringsAsFactors = FALSE
     )
-    
+
     top <- data.frame(
       x = data$xmin,
       xend = data$xmax,
@@ -154,7 +154,7 @@ GeomMeanSEM <- ggplot2::ggproto(
       common,
       stringsAsFactors = FALSE
     )
-    
+
     bottom <- data.frame(
       x = data$xmin,
       xend = data$xmax,
@@ -163,7 +163,7 @@ GeomMeanSEM <- ggplot2::ggproto(
       common,
       stringsAsFactors = FALSE
     )
-    
+
     middle <- data.frame(
       x = data$xleft,
       xend = data$xright,
@@ -172,8 +172,8 @@ GeomMeanSEM <- ggplot2::ggproto(
       common,
       stringsAsFactors = FALSE
     )
-    
-    
+
+
     ggname(
       "geom_mean_sem",
       grid::grobTree(
@@ -184,9 +184,9 @@ GeomMeanSEM <- ggplot2::ggproto(
       )
     )
   },
-  
+
   draw_key = ggplot2::draw_key_boxplot,
-  
+
   default_aes = ggplot2::aes(
     weight = 1,
     colour = "black",
@@ -195,7 +195,7 @@ GeomMeanSEM <- ggplot2::ggproto(
     alpha = NA,
     fill = NA
   ),
-  
+
   required_aes = c("x", "ymean", "ymax", "ymin")
 )
 
@@ -204,7 +204,7 @@ GeomMeanSEM <- ggplot2::ggproto(
 #'
 #' @param mapping mapping
 #' @param data data
-#' @param position position 
+#' @param position position
 #' @param ... ...
 #' @param point.size point.size
 #' @param point.color point.color
@@ -228,7 +228,7 @@ geom_mean_sem <- function(mapping = NULL,
                           position = "identity",
                           ...,
                           point.size = 1,
-						              point.color = 'black',
+						              point.color = NULL,
                           line.size = 1,
                           na.rm = FALSE,
                           show.legend = NA,
@@ -250,9 +250,9 @@ geom_mean_sem <- function(mapping = NULL,
       groupOnX = groupOnX,
       dodge.width = dodge.width
     )
-  
-  list(
-    ggplot2::layer(
+
+  if (is.null(point.color)) {
+    point_layer <- ggplot2::layer(
       data = data,
       mapping = mapping,
       stat = 'identity',
@@ -262,9 +262,26 @@ geom_mean_sem <- function(mapping = NULL,
       inherit.aes = inherit.aes,
       params = list(size = point.size,
                     na.rm = na.rm,
-					color = point.color,
                     ...)
-    ),
+    )
+  } else {
+    point_layer <- ggplot2::layer(
+      data = data,
+      mapping = mapping,
+      stat = 'identity',
+      geom = ggplot2::GeomPoint,
+      position = quasi,
+      show.legend = show.legend,
+      inherit.aes = inherit.aes,
+      params = list(size = point.size,
+                    na.rm = na.rm,
+                    color = point.color,
+                    ...)
+    )
+  }
+
+  list(
+    point_layer,
     ggplot2::layer(
       data = data,
       mapping = mapping,
@@ -275,6 +292,7 @@ geom_mean_sem <- function(mapping = NULL,
       inherit.aes = inherit.aes,
       params = list(na.rm = na.rm,
                     size = line.size,
+                    color = 'black',
                     ...)
     )
   )
