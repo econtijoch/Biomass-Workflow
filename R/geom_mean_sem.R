@@ -293,6 +293,7 @@ geom_mean_sem <- function(mapping = NULL,
       params = list(na.rm = na.rm,
                     size = line.size,
                     color = 'black',
+                    shape = 16,
                     ...)
     )
   )
