@@ -284,16 +284,15 @@ geom_mean_sem <- function(mapping = NULL,
     point_layer,
     ggplot2::layer(
       data = data,
-      mapping = mapping,
+      mapping = ggplot2::aes(shape = NULL, color = NULL),
       stat = StatMeanSEM,
       geom = GeomMeanSEM,
       position = position,
       show.legend = show.legend,
       inherit.aes = inherit.aes,
+	  check.aes = FALSE,
       params = list(na.rm = na.rm,
                     size = line.size,
-                    color = 'black',
-                    aes(shape = NULL),
                     ...)
     )
   )
