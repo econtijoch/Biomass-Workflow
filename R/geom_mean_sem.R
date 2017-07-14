@@ -228,7 +228,7 @@ geom_mean_sem <- function(mapping = NULL,
                           position = "identity",
                           ...,
                           point.size = 1,
-						              point.color = NULL,
+						  point.color = NULL,
                           line.size = 1,
                           na.rm = FALSE,
                           show.legend = NA,
@@ -293,7 +293,7 @@ geom_mean_sem <- function(mapping = NULL,
       params = list(na.rm = na.rm,
                     size = line.size,
                     color = 'black',
-                    shape = 16,
+                    shape = NULL,
                     ...)
     )
   )
