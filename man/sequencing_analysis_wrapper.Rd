@@ -5,7 +5,7 @@
 \title{Sequencing Analysis Wrapper}
 \usage{
 sequencing_analysis_wrapper(biom_file, metadata_file, taxonomy_file, tree_file,
-  method = "PCoA", distance = "unifrac")
+  method = "PCoA", distance = "unifrac", n_axes = 10)
 }
 \arguments{
 \item{biom_file}{otu table in biom format}
@@ -19,6 +19,8 @@ sequencing_analysis_wrapper(biom_file, metadata_file, taxonomy_file, tree_file,
 \item{method}{dimensionality reduction method (e.g. PCoA, NMDS, DCA)}
 
 \item{distance}{distance metric to use (e.g. unifrac, bray, jaccard)}
+
+\item{n_axes}{number of axes to get from PCoA}
 }
 \value{
 list containing individual components of analyzed data ready for plotting, etc.

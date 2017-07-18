@@ -6,12 +6,13 @@
 #' @param tree_file taxonomic tree information (e.g. greengenes)
 #' @param method dimensionality reduction method (e.g. PCoA, NMDS, DCA)
 #' @param distance distance metric to use (e.g. unifrac, bray, jaccard)
+#' @param n_axes number of axes to get from PCoA
 #'
 #' @return list containing individual components of analyzed data ready for plotting, etc.
 #' @export
 
 
-sequencing_analysis_wrapper <- function(biom_file, metadata_file, taxonomy_file, tree_file,  method = 'PCoA', distance = 'unifrac') {
+sequencing_analysis_wrapper <- function(biom_file, metadata_file, taxonomy_file, tree_file,  method = 'PCoA', distance = 'unifrac', n_axes = 10) {
   
   sequencing_object <- individual_scale(biom_file = biom_file, metadata_file = metadata_file, taxonomy_file = taxonomy_file)
   message('Completed Generating BiomassWorkflow sequencing object...')
@@ -39,10 +40,10 @@ sequencing_analysis_wrapper <- function(biom_file, metadata_file, taxonomy_file,
     absolute_ordination_points <- data.frame(vegan::scores(absolute_ordination))
     absolute_pct_explained <- NA
   } else if (method == 'PCoA') {
-    relative_ordination_points <- data.frame(relative_ordination$vectors[,1:10])
-    relative_pct_explained <- relative_ordination$values$Relative_eig[1:10]
-    absolute_ordination_points <- data.frame(absolute_ordination$vectors[,1:10])
-    absolute_pct_explained <- absolute_ordination$values$Relative_eig[1:10]
+    relative_ordination_points <- data.frame(relative_ordination$vectors[,1:n_axes])
+    relative_pct_explained <- relative_ordination$values$Relative_eig[1:n_axes]
+    absolute_ordination_points <- data.frame(absolute_ordination$vectors[,1:n_axes])
+    absolute_pct_explained <- absolute_ordination$values$Relative_eig[1:n_axes]
   }
   
   
