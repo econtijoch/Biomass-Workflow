@@ -2,17 +2,10 @@
 % Please edit documentation in R/plotting_themes.R
 \name{paper_theme}
 \alias{paper_theme}
-\title{Theme function for plotting}
+\title{Theme function for plotting paper-ready figures}
 \usage{
-paper_theme(base_size = 8, base_family = "sans", bgcolor = "default")
-}
-\arguments{
-\item{base_size}{base text size}
-
-\item{base_family}{base text family}
-
-\item{bgcolor}{background color}
+paper_theme()
 }
 \description{
-Theme function for plotting
+Theme function for plotting paper-ready figures
 }

@@ -2,18 +2,10 @@
 % Please edit documentation in R/plotting_themes.R
 \name{paper_theme_tilted}
 \alias{paper_theme_tilted}
-\title{Theme function for plotting with tilted axes}
+\title{Theme function for plotting paper-ready figures with tilted axes}
 \usage{
-paper_theme_tilted(base_size = 8, base_family = "sans",
-  bgcolor = "default")
-}
-\arguments{
-\item{base_size}{base text size}
-
-\item{base_family}{base text family}
-
-\item{bgcolor}{background color}
+paper_theme_tilted()
 }
 \description{
-Theme function for plotting with tilted axes
+Theme function for plotting paper-ready figures with tilted axes
 }

@@ -208,6 +208,8 @@ GeomMeanSEM <- ggplot2::ggproto(
 #' @param ... ...
 #' @param point.size point.size
 #' @param point.color point.color
+#' @param point.shape point shape
+#' @param point.stroke point stroke
 #' @param line.size line.size
 #' @param na.rm na.rm
 #' @param show.legend show.legend
@@ -228,17 +230,19 @@ geom_mean_sem <- function(mapping = NULL,
                           position = "identity",
                           ...,
                           point.size = 1,
-						  point.color = NULL,
+                          point.shape = 20,
+						              point.color = NULL,
+						              point.stroke = 0,
                           line.size = 1,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE,
                           width = 0.2,
                           varwidth = FALSE,
-                          bandwidth = .5,
+                          bandwidth = 0.5,
                           nbins = NULL,
                           method = 'quasirandom',
-                          groupOnX = NULL,
+                          groupOnX = TRUE,
                           dodge.width = 0) {
   quasi <-
     ggbeeswarm::position_quasirandom(
@@ -261,6 +265,8 @@ geom_mean_sem <- function(mapping = NULL,
       show.legend = show.legend,
       inherit.aes = inherit.aes,
       params = list(size = point.size,
+                    shape = point.shape,
+                    stroke = point.stroke,
                     na.rm = na.rm,
                     ...)
     )
@@ -274,6 +280,8 @@ geom_mean_sem <- function(mapping = NULL,
       show.legend = show.legend,
       inherit.aes = inherit.aes,
       params = list(size = point.size,
+                    shape = point.shape,
+                    stroke = point.stroke,
                     na.rm = na.rm,
                     color = point.color,
                     ...)

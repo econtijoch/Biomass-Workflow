@@ -35,7 +35,8 @@ Imports:
   readr,
   tibble,
   ggbeeswarm,
-  grid
+  grid,
+  extrafont
 URL: http://github.com/econtijoch/Biomass-Workflow
 BugReports: http://github.com/econtijoch/Biomass-Workflow/issues
 RoxygenNote: 6.0.1
