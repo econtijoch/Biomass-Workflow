@@ -23,7 +23,7 @@ sequencing_data_plotter <- function(sequencing_object, depth = 'Phylum', x.var =
     ylabel <- 'Relative Abundance\n(percentage of mapped 16S reads)'
   } else if (abundance == 'absolute') {
     data <- dplyr::left_join(sequencing_object$melted_scaled_by_taxonomy[[depth]], sequencing_object$sample_metadata)
-    ylabel <- paste0('Absolute Abundance \n(\u03bcg DNA per ', depth, ' per mg sample)')
+    ylabel <- paste0('Absolute Abundance \n(ug DNA per ', depth, ' per mg sample)')
   }
   
   
