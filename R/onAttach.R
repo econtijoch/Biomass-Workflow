@@ -8,6 +8,8 @@
 
 .onAttach <- function(libname, pkgname) {
   pdfFonts <- grDevices::pdfFonts
-  suppressWarnings(suppressMessages(extrafont::font_import(pattern = "*Arial", prompt = F)))
+  if (any(grepl("Arial", extrafont::fonts()))) {
+  	suppressWarnings(suppressMessages(extrafont::font_import(pattern = "*Arial", prompt = F)))
+  }  
   extrafont::loadfonts(device = "pdf", quiet = T)
   }
