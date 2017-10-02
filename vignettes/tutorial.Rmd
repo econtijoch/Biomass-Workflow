@@ -69,17 +69,48 @@ The first step in this analysis is to calculate sample masses from the weight da
 
 The function `mass_and_order()` takes care of both of these functions:
 
-```{r mass_and_order, eval=T, fig.path='figure/', message=FALSE, warning=FALSE, include=T, messages=F, results='hide'}
+```{r mass_and_order, eval=T, fig.path='figure/', message=FALSE, warning=FALSE, include=T, messages=F, results='markup'}
 
 sample_masses <- mass_and_order('Sample_Empty_Weights.txt', 'Sample_Full_Weights.txt', order = 'Sample_Tube_Order_Scanned.csv')
 
+
+head(sample_masses)
 ```
 
-```{r mass_and_order_output, message=FALSE, warning=FALSE}
+# Prep - Mapping file
 
-pander::pandoc.table(sample_masses)
+We can use this data to manually create a mapping file (by saving this output as a .csv file, and then manipulating it with excel - making sure to save the result as a .csv file!), or we can do much of that work in R, to leverage some of the data processing capabilities of R.
+
+It is important to remember that a valid mapping file has a few NECESSARY columns:
+
+* **ReaderWell** - This is necessary to be able to connect the data from the plate reader to the data in your mapping file. The ReaderWell column contains which well a sample came from, and it is important that the wells be in 2-digit format (e.g. A01 and not A1).
+* **Type** - This column designates the type of sample in the well. This is either going to be "Experiment" or "Standard" to designate an experimental sample or a standard, respectively.
+* **SampleMass** - This is necessary for the calculation of microbial density in your experimental samples. If you need to just get a DNA concentration, you can put any placeholder here (suggested placeholder is 1). For Standard samples, the SampleMass column is where you include the standard value. For HS dye, this will be \{0, 5, 10, 20, 40, 60, 80, 100\}, and for the BR dye, this will be \{0, 50, 100, 200, 400, 600, 800, 1000\} (this assumes 10 uL of standard was loaded into the plate)
+* **BarcodeID** - This is a unique identifier for the sample. This is typically taken from the BarcodeID generated from the LabelMaker spreadsheet, but it is not necessary for it to be. If you don't want to spend much time making unique sample identifiers, you can simply use \{Sample001, Sample002, Sample003, ...\}
+
+The `mass_and_order()` function will already give us a table with the BarcodeID and the SampleMass, so all we need to do is add a couple of columns, and join this data with some information about the specific samples, and we should have a complete mapping file.
+
+Lets take a look at what's in the example file called *Sample_SampleInfo.csv*:
+
+```{r sample_info, echo=TRUE, message=FALSE, warning=FALSE}
+
+sample_info <- readr::read_csv('Sample_SampleInfo.csv')
+
+head(sample_info)
 
 ```
+
+That looks like it'll help put together a good mapping file, so let's start building it:
+
+```{r mapping_file}
+
+mapping_file <- dplyr::left_join(sample_masses, sample_info) %>% 
+  dplyr::mutate(Type = "Experiment", ReaderWell = SampleWell) %>% 
+  dplyr::select(ReaderWell, Type, BarcodeID, SampleMass, everything())
+
+
+```
+
 
 # Final Data Analysis
 The main function to perform analyses will be `DataAnalysis()`. It reads in your raw data and mapping file and produes a table that will contain a host of useful data for downstream applications. These include:
