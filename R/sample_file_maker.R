@@ -12,7 +12,7 @@ sample_file_maker <- function(directory = getwd()) {
   utils::data('HS_standard_mapping')
   utils::data('Empty_weights')
   utils::data('Full_weights')
-  utils::data('mapping_file')
+  utils::data('mapping')
   utils::data('Sample_info')
   utils::data('Standards_raw')
   utils::data('Tube_order')
@@ -27,32 +27,20 @@ sample_file_maker <- function(directory = getwd()) {
   }
   
   # Make excel files
-  BR_raw <- XLConnect::loadWorkbook(paste(directory, "Sample_BR_raw.xls", sep = "/"), create = TRUE)
-  XLConnect::createSheet(BR_raw, name = "Sheet1")
-  XLConnect::writeWorksheet(BR_raw, BR_samples_raw, sheet = "Sheet1")
-  XLConnect::saveWorkbook(BR_raw)
-  
-  HS_raw <- XLConnect::loadWorkbook(paste(directory, "Sample_HS_raw.xls", sep = "/"), create = TRUE)
-  XLConnect::createSheet(HS_raw, name = "Sheet1")
-  XLConnect::writeWorksheet(HS_raw, HS_samples_raw, sheet = "Sheet1")
-  XLConnect::saveWorkbook(HS_raw)
-  
-  Std_raw <- XLConnect::loadWorkbook(paste(directory, "Sample_Standards_raw", sep = "/"), create = TRUE)
-  XLConnect::createSheet(Std_raw, name = "Sheet1")
-  XLConnect::writeWorksheet(Std_raw, Standards_raw, sheet = "Sheet1")
-  XLConnect::saveWorkbook(Std_raw)
-  
+  writexl::write_xlsx(x = BR_samples_raw, path = paste(directory, "Sample_BR_raw.xlsx", sep = "/"))
+  writexl::write_xlsx(x = HS_samples_raw, path = paste(directory, "Sample_HS_raw.xlsx", sep = "/"))
+  writexl::write_xlsx(x = Standards_raw, path = paste(directory, "Standards_raw.xlsx", sep = "/"))
   
   # Make .csv files
-  utils::write.csv(BR_standard_mapping, file = paste(directory, "Sample_BR_Standards_Mapping.csv", sep = "/"), row.names = F)
-  utils::write.csv(HS_standard_mapping, file = paste(directory, "Sample_HS_Standards_Mapping.csv", sep = "/"), row.names = F)
-  utils::write.csv(mapping, file = paste(directory, "Sample_Mapping.csv", sep = "/"), row.names = F)
-  utils::write.csv(Sample_info, file = paste(directory, "Sample_SampleInfo.csv", sep = "/"), row.names = F)
-  utils::write.csv(Tube_order, file = paste(directory, "Sample_Tube_Order_Scanned.csv", sep = "/"), row.names = F)
+  readr::write_csv(BR_standard_mapping, path = paste(directory, "Sample_BR_Standards_Mapping.csv", sep = "/"))
+  readr::write_csv(HS_standard_mapping, path = paste(directory, "Sample_HS_Standards_Mapping.csv", sep = "/"))
+  readr::write_csv(mapping, path = paste(directory, "Sample_Mapping.csv", sep = "/"))
+  readr::write_csv(Sample_info, path = paste(directory, "Sample_SampleInfo.csv", sep = "/"))
+  readr::write_csv(Tube_order, path = paste(directory, "Sample_Tube_Order_Scanned.csv", sep = "/"))
   
   # Make .txt files
-  utils::write.table(Empty_weights, file = paste(directory, "Sample_Empty_Weights.txt", sep = "/"), row.names = F, sep = '\t')
-  utils::write.table(Full_weights, file = paste(directory, "Sample_Full_Weights.txt", sep = "/"), row.names = F, sep = '\t')
+  readr::write_delim(Empty_weights, path = paste(directory, "Sample_Empty_Weights.txt", sep = "/"), delim = '\t', col_names = F)
+  readr::write_delim(Full_weights, path = paste(directory, "Sample_Full_Weights.txt", sep = "/"), delim = '\t', col_names = F)
   
   setwd(starting)
 }

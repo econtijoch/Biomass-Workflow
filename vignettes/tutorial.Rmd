@@ -14,13 +14,15 @@ vignette: >
 
 ```{r Dependencies, include=FALSE}
 library(pander)
+library(BiomassWorkflow)
+library(magrittr)
 ```
 ## Getting Set Up
 
 This document is meant to serve as an introductory primer for using R to streamline and standardize the generation and analysis of microbial density data. 
 
 To follow along, you will need to download and load the package (I'm also loading the magrittr package to make the code more readable with pipes:
-```{r Setup, eval=T, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide', include = TRUE}
+```{r Setup, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE, results='hide'}
 # Install and load the devtools package to help download the BiomassWorkflow package
 install.packages('devtools', repos='http://cran.us.r-project.org')
 require(devtools)
@@ -67,13 +69,17 @@ The first step in this analysis is to calculate sample masses from the weight da
 
 The function `mass_and_order()` takes care of both of these functions:
 
-```{r mass_and_order, eval = T, fig.path = 'figure/', warning = FALSE, include = T, messages = F, results = 'hide'}
+```{r mass_and_order, eval=T, fig.path='figure/', message=FALSE, warning=FALSE, include=T, messages=F, results='hide'}
 
 sample_masses <- mass_and_order('Sample_Empty_Weights.txt', 'Sample_Full_Weights.txt', order = 'Sample_Tube_Order_Scanned.csv')
 
 ```
 
+```{r mass_and_order_output, message=FALSE, warning=FALSE}
 
+pander::pandoc.table(sample_masses)
+
+```
 
 # Final Data Analysis
 The main function to perform analyses will be `DataAnalysis()`. It reads in your raw data and mapping file and produes a table that will contain a host of useful data for downstream applications. These include:
