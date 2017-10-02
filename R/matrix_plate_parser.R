@@ -12,9 +12,8 @@ matrix_plate_parser <- function(matrix_barcode_plate_scan) {
     tube_order <-
       readr::read_csv(
         matrix_barcode_plate_scan,
-        col_names = c("SampleWell", "TubeBarcode"),
-        col_types = list(readr::col_character(), readr::col_character())
-      )
+        skip = 0
+      ) %>% dplyr::mutate(SampleWell = paste0(LocationRow, LocationColumn), TubeBarcode = TubeCode) %>% dplyr::select(SampleWell, TubeBarcode)
   } else if (utils::tail(unlist(strsplit(matrix_barcode_plate_scan, "\\.")), n = 1) == "xls" |
              utils::tail(unlist(strsplit(matrix_barcode_plate_scan,
                                          "\\.")), n = 1) == "xlsx") {

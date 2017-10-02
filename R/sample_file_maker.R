@@ -6,10 +6,17 @@
 
 sample_file_maker <- function(directory = getwd()) {
   
-  utils::data('plate1_raw')
-  utils::data('plate2_raw')
-  utils::data('map1')
-  utils::data('map2')
+  utils::data('BR_samples_raw')
+  utils::data('HS_samples_raw')
+  utils::data('BR_standard_mapping')
+  utils::data('HS_standard_mapping')
+  utils::data('Empty_weights')
+  utils::data('Full_weights')
+  utils::data('mapping_file')
+  utils::data('Sample_info')
+  utils::data('Standards_raw')
+  utils::data('Tube_order')
+  
   
   starting <- getwd()
   if (file.exists(directory)) {
@@ -19,20 +26,33 @@ sample_file_maker <- function(directory = getwd()) {
     setwd(directory)
   }
   
-  # Make excel file with plate 1
-  workbook <- XLConnect::loadWorkbook(paste(directory, "SamplePlateReader_Plate1.xlsx", sep = "/"), create = TRUE)
-  XLConnect::createSheet(workbook, name = "Sheet1")
-  XLConnect::writeWorksheet(workbook, plate1_raw, sheet = "Sheet1")
-  XLConnect::saveWorkbook(workbook)
+  # Make excel files
+  BR_raw <- XLConnect::loadWorkbook(paste(directory, "Sample_BR_raw.xls", sep = "/"), create = TRUE)
+  XLConnect::createSheet(BR_raw, name = "Sheet1")
+  XLConnect::writeWorksheet(BR_raw, BR_samples_raw, sheet = "Sheet1")
+  XLConnect::saveWorkbook(BR_raw)
   
-  # Make .csv file with plate 2
-  utils::write.csv(plate2_raw, file = paste(directory, "SamplePlateReader_Plate2.csv", sep = "/"), row.names = F)
+  HS_raw <- XLConnect::loadWorkbook(paste(directory, "Sample_HS_raw.xls", sep = "/"), create = TRUE)
+  XLConnect::createSheet(HS_raw, name = "Sheet1")
+  XLConnect::writeWorksheet(HS_raw, HS_samples_raw, sheet = "Sheet1")
+  XLConnect::saveWorkbook(HS_raw)
   
-  # Make .csv file with mapping 1
-  utils::write.csv(map1, file = paste(directory, "SampleMapping_Plate1.csv", sep = "/"), row.names = F)
+  Std_raw <- XLConnect::loadWorkbook(paste(directory, "Sample_Standards_raw", sep = "/"), create = TRUE)
+  XLConnect::createSheet(Std_raw, name = "Sheet1")
+  XLConnect::writeWorksheet(Std_raw, Standards_raw, sheet = "Sheet1")
+  XLConnect::saveWorkbook(Std_raw)
   
-  # Make .csv file with mapping 2
-  utils::write.csv(map2, file = paste(directory, "SampleMapping_Plate2.csv", sep = "/"), row.names = F)
+  
+  # Make .csv files
+  utils::write.csv(BR_standard_mapping, file = paste(directory, "Sample_BR_Standards_Mapping.csv", sep = "/"), row.names = F)
+  utils::write.csv(HS_standard_mapping, file = paste(directory, "Sample_HS_Standards_Mapping.csv", sep = "/"), row.names = F)
+  utils::write.csv(mapping, file = paste(directory, "Sample_Mapping.csv", sep = "/"), row.names = F)
+  utils::write.csv(Sample_info, file = paste(directory, "Sample_SampleInfo.csv", sep = "/"), row.names = F)
+  utils::write.csv(Tube_order, file = paste(directory, "Sample_Tube_Order_Scanned.csv", sep = "/"), row.names = F)
+  
+  # Make .txt files
+  utils::write.table(Empty_weights, file = paste(directory, "Sample_Empty_Weights.txt", sep = "/"), row.names = F, sep = '\t')
+  utils::write.table(Full_weights, file = paste(directory, "Sample_Full_Weights.txt", sep = "/"), row.names = F, sep = '\t')
   
   setwd(starting)
 }

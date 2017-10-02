@@ -17,17 +17,18 @@ library(pander)
 ```
 ## Getting Set Up
 
-This document is meant to serve as an introductory primer for using R to streamline and standardize the generation and analysis of microbial biomass data. 
+This document is meant to serve as an introductory primer for using R to streamline and standardize the generation and analysis of microbial density data. 
 
-To follow along, you will need to download and load the package:
+To follow along, you will need to download and load the package (I'm also loading the magrittr package to make the code more readable with pipes:
 ```{r Setup, eval=T, echo=TRUE, message=FALSE, warning=FALSE, results = 'hide', include = TRUE}
 # Install and load the devtools package to help download the BiomassWorkflow package
 install.packages('devtools', repos='http://cran.us.r-project.org')
-library(devtools)
+require(devtools)
 
 # Install and load the BiomassWorkflow package
-devtools::install_github('econtijoch/Biomass-Workflow')
-library(BiomassWorkflow)
+devtools::install_bitbucket('econtijoch/biomass-workflow')
+require(BiomassWorkflow)
+require(magrittr)
 ```
 
 Now you should be able to get working. If those instructions cause any errors or warnings, the best way to overcome them is to use google to search for answers - links to stackoverflow.com are always a good place to start.
@@ -44,112 +45,42 @@ sample_file_maker(directory = working_directory)
 
 
 
-This will create the following files in your directory:
+This will create several files in your directory:
 
-* ***SamplePlateReader_Plate1.xlsx*** - An excel file containing raw fluorescence data that you would obtain from the plate reader (*include information on plate reader here*)
-* ***SampleMapping_Plate1.csv*** - A mapping file corresponding to the samples in Plate 1 of this set. This mapping file corresponds to the data in the *SamplePlateReader_Plate1.xlsx* file. 
-* ***SamplePlateReader_Plate2.csv*** - A .csv file containing raw fluorescence data as obtained from the plate reader, and subsequently saved as a .csv file.
-* ***SampleMapping_Plate2.csv*** - A mapping file corresponding to the samples in Plate 2 of this set. This mapping file corresponds to the data in the *SamplePlateReader_plate2.csv* file.
+* ***Sample_BR_Standards_Mapping.csv*** - A mapping file for the Broad-Range standards, which were included on the same plate as the High-Sensitivity standards, but a different plate than the samples.
+* ***Sample_HS_Standards_Mapping.csv*** - A mapping file for the High-Sensitivity standards, which were included on the same plate as the Broad-Range standards, but a different plate than the samples.
+* ***Sample_Mapping*** - A mapping file that can be used directly in the DataAnalysis function (see below)
+* ***Sample_SampleInfo.csv*** - A file containing information about the samples, that can be used to make a mapping file from scratch
+* ***Sample_Tube_Order_Scanned*** - A file of tube locations from the Cho Lab Matrix 96-barcode scanner
+* ***Sample_BR_raw.xls*** - An excel file from the plate-reader for the sample plate run with the Broad-Range Dye
+* ***Sample_HS_raw.xls*** - An excel file from the plate-reader for the sample plate run with the High-Sensitivity Dye
+* ***Sample_Standards_raw.xls*** - An excel file from the plate-reader for the standards plate (contains both BR and HS standards)
+* ***Sample_Empty_Weights.txt*** - A text file containing the empty weight information for the tubes. Contains the BarcodeID's (from the LabelMaker Spreadsheet), tube barcode (from bottom of matrix tubes), which will both be helpful in constructing a mapping file.
+* ***Sample_Full_Weights.txt*** - A text file containing the full weight information for the tubes. Contains the tube barcode (from bottom of matrix tubes), which will both be helpful in constructing a mapping file by tying this data back with the empty weights.
 
-For this example, lets assume we performed an experiment where we collected 135 samples, and performed a DNA extraction into 2 plates. We quantified these two plates using a fluorescent dye, and included a standard curve alongside our samples in the second plate (since it was not full). The data we just downloaded has the raw fluorescence data for each of our two plates, as well as a mapping file that helps us identify which wells have which samples, for each plate.
+For this example, 96 samples were processed with the DNase Inactivation Buffer extraction protocol in the Matrix tubes (1 mL). 200 uL of the cell lysate was used for the DNA isolation (200 of 700 uL total, so the scaling factor here is 3.5x). The samples were measured with both the Broad Range and High Sensitivity qubit dyes with 2 uL of sample in 198 uL of buffer, and standards were measured using 10 uL of standard in 190 uL of buffer.
 
-## Crunching the Raw Data
+## Prep - Calculating Sample Masses
 Now that we have data to work with, we can put this package to work.
 
+The first step in this analysis is to calculate sample masses from the weight data of our empty and full tubes. Additionally, we can optionally use the order of the tubes from the 96-well plate scanner to align the tubes in the order used in the extraction.
+
+The function `mass_and_order()` takes care of both of these functions:
+
+```{r mass_and_order, eval = T, fig.path = 'figure/', warning = FALSE, include = T, messages = F, results = 'hide'}
+
+sample_masses <- mass_and_order('Sample_Empty_Weights.txt', 'Sample_Full_Weights.txt', order = 'Sample_Tube_Order_Scanned.csv')
+
+```
+
+
+
+# Final Data Analysis
 The main function to perform analyses will be `DataAnalysis()`. It reads in your raw data and mapping file and produes a table that will contain a host of useful data for downstream applications. These include:
 
 * DNA concentration - we construct a standard curve based on the given standard samples and values, and use this to compute DNA concnetrations for each sample
-* Biomass - using the DNA concentration, our scaling factors and sample mass, we compute the sample biomass (ug DNA per mg sample). 
+* Microbial Density - using the DNA concentration, our scaling factors and sample mass, we compute the sample biomass (ug DNA per mg sample). 
 * 16S PCR prep - Identifies if there is enough DNA for performing 16S sequencing, and computes the DNA and water volumes necessary to acheive a dilution to 2 ng/uL (the working conentration of template for the PCR reaction).
-* Metagenomics prep - Identifies if there is enough DNA for performing metagenomic shotgun sequencing, and computes the DNA and water volumes necessary to acheive a dilution to 25 ng/uL (into 25 uL -- 20 uL is needed for the metagenomics library prep protocol).
+* Metagenomics prep - Identifies if there is enough DNA for performing metagenomic shotgun sequencing, and computes the DNA and water volumes necessary to acheive a dilution to 20 ng/uL (into 25 uL -- 20 uL is needed for the metagenomics library prep protocol).
 
-For this data, I used 5 uL of DNA for quantification, and took 50 uL of 700uL of the supernatants in the extraction. Therefore volume = 5 and scale_factor = 14. 
-
-```{r DataAnalysis, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F, results='hide'}
-
-## Plate 1 does not contain standards, it contains 96 samples (see mapping file)
-plate1 <- DataAnalysis(plate_reader_file = "SamplePlateReader_Plate1.xlsx" , mapping_csv_file = "SampleMapping_Plate1.csv", exp_id = "Sample_Experiment", volume = 5, scale_factor = 14, standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv")
-
-## Plate 2 contains the standards
-plate2 <- DataAnalysis(plate_reader_file = "SamplePlateReader_Plate2.csv" , mapping_csv_file = "SampleMapping_Plate2.csv", exp_id = "Sample_Experiment",  volume = 5, scale_factor = 14)
-
-```
-
-#### Quick note - Standard Curve
-
-You will notice that when you run these functions, you will receive information about the standard curve that will look like:
-
-
-```{r StandardsOutput, echo=FALSE}
-plate1 <- DataAnalysis(plate_reader_file = "SamplePlateReader_Plate1.xlsx" , mapping_csv_file = "SampleMapping_Plate1.csv", exp_id = "Sample_Experiment", volume = 5, scale_factor = 14, standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv")
-```
-
-To access more of the Standards data, you can call the `StandardAnalysis()` function, which will return a data table of the standards, and the information generated from a linear fit to the standard curve.
-
-```{r Standards, eval=T, fig.path='figure/', warning=FALSE, include=T, messages = F, results = 'hide'}
-standards <- StandardAnalysis(standards_plate_reader_file = "SamplePlateReader_Plate2.csv", standards_mapping_csv_file = "SampleMapping_Plate2.csv", exp_id = "Sample_Experiment")
-```
- 
-This feature also creates a plot of the standard curve, saved as a PDF file to your working directory.
-
-### Back to the data
-
-We can then combine these data frames to create one data frame for our experiment:
-
-```{r CombineData, eval=T, warning=FALSE, include=T}
-sample_experiment <- rbind(plate1$data, plate2$data)
-```
-
-If you want to save this data in an excel-readable file, simply call:
-
-```{r Save, eval=FALSE, message=FALSE, warning=FALSE, include=T}
-write.csv(x = sample_experiment, file = 'sample_experiment_data.csv', row.names = F)
-```
-
-Otherwise, to keep working in R, we can take a peek at the resulting table by calling `head(sample_experiment)`. We can see that this data contains all of our raw data and the helpful calculated values described above. 
-
-
-```{r PrintTable, echo=FALSE, results="asis"}
-pander::pandoc.table(head(sample_experiment))
-```
-
-## Preparing for Sequencing
-
-This package also contains a wrapper function that is meant to take data from one or more experiments and generate the files necessary to plan and create a 16S or shotgun metagenomic sequencing run (or runs).
-
-### 16S Sequencing Prep
-
-To prep samples for 16S sequencing, we can call upon the `sequencing_prep_16S()` function, which takes a list of data, and generates files in the working directory that correspond to entire sequencing runs. You need to provide the number of barcode plates available (e.g. if you have 192 sequencing barcodes, this would be 2 plates. if you have 480 barcodes, this would be 5, etc..). 
-
-```{r 16SPrep, eval=F, fig.path='figure/', warning=FALSE, include=T, messages = F}
-sequencing_runs_16S <- sequencing_prep_16S(experiment_data_list = list(sample_experiment), n_barcode_plates = 2)
-```
-
-This function call may throw a warning if you don't pre-filter your data to exclude samples that will have less than the necessary DNA in them to move forward with sequencing. You can change this default action by passing along `filter = FALSE` in the function call.
-
-This function will indicate which plates are needed (it is important to label your DNA plates with PlateIDs in your mapping file), how many samples will be included in the sequencing run(s), how many sequencing runs will be needed to sequence all samples, and the number of unused barcodes that will remain.
-
-The output will be organized into folders based on sequencing runs, which each will contain a file for using the Beckmann robot to performa a dilution of each plate in the sequencing run, and a QIIME-ready mapping file. By default, the sequencing mapping file is created using the Faith Lab 16S sequencing barcodes. If you have a different set of barcodes, you will need to pass in a .csv file that contains the correct. 
-
-You can indicate the directory in which to place these files by passing a directory as `output_directory = '/path/to/directory/'`. 
-
-Within R, the output of these functions will be a list of lists, containing all of the data that is written to the output directory.
-
-### Shotgun Metagenomics Sequencing Prep
-
-To prep samples for shotgun metagenomics sequencing, we can call upon the `sequencing_prep_metagenomics()` function, which takes a list of data, and generates files in the working directory that correspond to entire sequencing runs. You need to provide the number of barcode plates available (e.g. if you have 192 sequencing barcodes, this would be 2 plates. if you have 480 barcodes, this would be 5, etc..). 
-
-```{r MetagenomicsPrep, eval=F, fig.path='figure/', warning=FALSE, include=T, messages = F}
-sequencing_runs_metagenomics <- sequencing_prep_metagenomics(experiment_data_list = list(sample_experiment), n_barcode_plates = 2)
-```
-
-This function call may throw a warning if you don't pre-filter your data to exclude samples that will have less than the necessary DNA in them to move forward with sequencing. You can change this default action by passing along `filter = FALSE` in the function call.
-
-This function will indicate which plates are needed (it is important to label your DNA plates with PlateIDs in your mapping file), how many samples will be included in the sequencing run(s), how many sequencing runs will be needed to sequence all samples, and the number of unused barcodes that will remain.
-
-The output will be organized into folders based on sequencing runs, which each will contain a file for using the Beckmann robot to performa a dilution of each plate in the sequencing run, and a QIIME-ready mapping file. By default, the sequencing mapping file is created using empty sequencing barcodes. You can insert your set of barcodes by passing in a .csv file that contains the correct. 
-
-You can indicate the directory in which to place these files by passing a directory as `output_directory = '/path/to/directory/'`. 
-
-Within R, the output of these functions will be a list of lists, containing all of the data that is written to the output directory.
 

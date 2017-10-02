@@ -182,7 +182,7 @@ slides_theme <-
     ret <-
       ggplot2::theme(complete = TRUE,
                      validate = TRUE,
-                     rect = ggplot2::element_rect(fill = NA, linetype = 0, colour = NA, size = 0),
+                     rect = ggplot2::element_blank(),
                      text = ggplot2::element_text(size = 24, family = "ArialMT", color = "black", face = 'plain', hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1, margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"), debug = FALSE),
                      title = ggplot2::element_text(size = 28, hjust = 0.5, face = 'bold'),
                      axis.line = ggplot2::element_line(color = "black", size = 2),
