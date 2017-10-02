@@ -151,6 +151,8 @@ mass_and_order <-
         output %>% dplyr::mutate(SampleMass = `Full Mass` - `Empty Mass`)
     }
     
+    output <- output %>% dplyr::mutate(SampleWell = paste0(stringr::str_sub(SampleWell,1, 1), sprintf(as.integer(stringr::str_sub(SampleWell, 2, -1L)) , fmt = '%02.0f')))
+    
     
     return(output)
   }

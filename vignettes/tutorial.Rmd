@@ -102,11 +102,13 @@ head(sample_info)
 
 That looks like it'll help put together a good mapping file, so let's start building it:
 
-```{r mapping_file}
+```{r mapping_file, echo=TRUE, message=FALSE, warning=FALSE}
 
 mapping_file <- dplyr::left_join(sample_masses, sample_info) %>% 
   dplyr::mutate(Type = "Experiment", ReaderWell = SampleWell) %>% 
   dplyr::select(ReaderWell, Type, BarcodeID, SampleMass, everything())
+
+head(mapping_file)
 
 
 ```
