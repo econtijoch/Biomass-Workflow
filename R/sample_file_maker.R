@@ -29,7 +29,7 @@ sample_file_maker <- function(directory = getwd()) {
   # Make excel files
   writexl::write_xlsx(x = BR_samples_raw, path = paste(directory, "Sample_BR_raw.xlsx", sep = "/"))
   writexl::write_xlsx(x = HS_samples_raw, path = paste(directory, "Sample_HS_raw.xlsx", sep = "/"))
-  writexl::write_xlsx(x = Standards_raw, path = paste(directory, "Standards_raw.xlsx", sep = "/"))
+  writexl::write_xlsx(x = Standards_raw, path = paste(directory, "Sample_Standards_raw.xlsx", sep = "/"))
   
   # Make .csv files
   readr::write_csv(BR_standard_mapping, path = paste(directory, "Sample_BR_Standards_Mapping.csv", sep = "/"))

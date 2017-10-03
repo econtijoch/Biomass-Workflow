@@ -12,17 +12,17 @@ PlateParser <- function(plate_reader_file, shiny = FALSE, type = NULL, size = 96
     
 	if (shiny == TRUE) {
 		if (type == 'csv') {
-			file <- utils::read.csv(plate_reader_file)
+			file <- readr::read_csv(plate_reader_file)
 		} else if (type == 'excel') {
-			file <- XLConnect::readWorksheet(object = XLConnect::loadWorkbook(plate_reader_file), sheet = 1)
+			file <- readxl::read_excel(plate_reader_file)
 		}
 	} else {
 		# Import file, handle xls(x) vs csv files
 		if (utils::tail(unlist(strsplit(plate_reader_file, "\\.")), n = 1) == "csv") {
-        	file <- utils::read.csv(plate_reader_file)
+		  file <- readr::read_csv(plate_reader_file)
     	} else if (utils::tail(unlist(strsplit(plate_reader_file, "\\.")), n = 1) == "xls" | utils::tail(unlist(strsplit(plate_reader_file, 
         	"\\.")), n = 1) == "xlsx") {
-        	file <- XLConnect::readWorksheet(object = XLConnect::loadWorkbook(plate_reader_file), sheet = 1)
+    	  file <- readxl::read_excel(plate_reader_file)
     	}
     
 	}

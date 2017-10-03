@@ -16,11 +16,7 @@ plate_to_table <- function(plate_layout, size = 96) {
              utils::tail(unlist(strsplit(plate_layout,
                                          "\\.")), n = 1) == "xlsx") {
     plate_file <-
-      XLConnect::readWorksheet(
-        object = XLConnect::loadWorkbook(plate_layout),
-        sheet = 1,
-        header = F
-      )
+      readxl::read_excel(plate_layout, col_names = F)
   }
   table_output <-
     data.frame(

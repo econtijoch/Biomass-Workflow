@@ -19,11 +19,7 @@ matrix_plate_parser <- function(matrix_barcode_plate_scan) {
                                          "\\.")), n = 1) == "xlsx") {
     # Read in order file if .xls , .xlsx
     order_file <-
-      XLConnect::readWorksheet(
-        object = XLConnect::loadWorkbook(matrix_barcode_plate_scan),
-        sheet = 1,
-        header = F
-      )
+      readxl::read_excel(matrix_barcode_plate_scan, col_names = F)
     tube_order <-
       data.frame(
         SampleWell = NA,

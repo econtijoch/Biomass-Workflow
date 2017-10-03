@@ -22,7 +22,6 @@ Imports:
   biom,
   reshape2,
   magrittr,
-  XLConnect,
   tidyr,
   methods,
   pander,

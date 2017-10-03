@@ -77,7 +77,7 @@ sample_masses <- mass_and_order('Sample_Empty_Weights.txt', 'Sample_Full_Weights
 head(sample_masses)
 ```
 
-# Prep - Mapping file
+# Prep - Mapping File
 
 We can use this data to manually create a mapping file (by saving this output as a .csv file, and then manipulating it with excel - making sure to save the result as a .csv file!), or we can do much of that work in R, to leverage some of the data processing capabilities of R.
 
@@ -104,17 +104,27 @@ That looks like it'll help put together a good mapping file, so let's start buil
 
 ```{r mapping_file, echo=TRUE, message=FALSE, warning=FALSE}
 
-mapping_file <- dplyr::left_join(sample_masses, sample_info) %>% 
-  dplyr::mutate(Type = "Experiment", ReaderWell = SampleWell) %>% 
-  dplyr::select(ReaderWell, Type, BarcodeID, SampleMass, everything())
+mapping_file <- dplyr::left_join(sample_masses, sample_info) %>% # Merge sample info and masses
+  dplyr::mutate(Type = "Experiment", ReaderWell = SampleWell) %>% # Add our necessary missing components
+  dplyr::select(ReaderWell, Type, BarcodeID, SampleMass, everything()) %>%  # This last bit re-orders the mappign file
+  dplyr::filter(!is.na(BarcodeID)) # remove wells that didn't have samples (two in this case)
 
 head(mapping_file)
 
 
 ```
 
+We can save this as our mapping file and make additional changes manually (often times it is easier to do this).
 
-# Final Data Analysis
+```{r save_mapping}
+
+readr::write_csv(mapping_file, 'Sample_Mapping.csv')
+
+```
+
+In any case, we are now ready to proceed to reading in the data from the plate reader and computing microbial density.
+
+# Generating Microbial Density Data
 The main function to perform analyses will be `DataAnalysis()`. It reads in your raw data and mapping file and produes a table that will contain a host of useful data for downstream applications. These include:
 
 * DNA concentration - we construct a standard curve based on the given standard samples and values, and use this to compute DNA concnetrations for each sample
@@ -122,4 +132,28 @@ The main function to perform analyses will be `DataAnalysis()`. It reads in your
 * 16S PCR prep - Identifies if there is enough DNA for performing 16S sequencing, and computes the DNA and water volumes necessary to acheive a dilution to 2 ng/uL (the working conentration of template for the PCR reaction).
 * Metagenomics prep - Identifies if there is enough DNA for performing metagenomic shotgun sequencing, and computes the DNA and water volumes necessary to acheive a dilution to 20 ng/uL (into 25 uL -- 20 uL is needed for the metagenomics library prep protocol).
 
+The function has several arguments that will be used often:
+* *plate_reader_file* - this is a string of the file path of the output file from the plate reader for the plate containing your samples. This function accepts excel files or .csv files, but if using an excel file, it will only read the first sheet of the file, so it is best to separate out measurements of several plates across multiple files.
+* *mapping_csv_file* - this is a string of the file path of the mapping file for your samples (that conforms with the requirements outlined above).
+* *standards_plate_reader_file* - a string of the file path of the output file from the plate reader that contains the standard curve. This defaults to the same file as your samples, but often times, standards can be on a different plate, so here is were you can include that information.
+* *standards_mapping_csv_file* - as with the plate reader file, this is the path to a mapping file for the wells/plate containing the standard curve. It also defaults to the mapping file for your samples, but you an indicate a separate plate here.
+* *volume* - volume used in measuring DNA concentration by qubit (default = 2)
+* *scale* - scaling factor used to account for subsampling in DNA extraction protocol (default = 3.5)
+
+There are some other arguments, but they are less important, and you can see the man file for more details.
+
+In our case, we have our samples all on one plate, and our standards on another plate. We have also measured our samples with both the Broad-Range and High-Sensitivity dyes, (and measured the standards on the same plate). Let's make some data:
+
+```{r data_analysis}
+
+BR_data <- DataAnalysis(plate_reader_file = 'Sample_BR_raw.xlsx', mapping_csv_file = 'Sample_Mapping.csv', standards_plate_reader_file = 'Sample_Standards_raw.xlsx', standards_mapping_csv_file = 'Sample_BR_Standards_Mapping.csv', volume = 2, scale = 3.5, exp_id = "Sample Experiment - BR")
+
+HS_data <- DataAnalysis(plate_reader_file = 'Sample_HS_raw.xlsx', mapping_csv_file = 'Sample_Mapping.csv', standards_plate_reader_file = 'Sample_Standards_raw.xlsx', standards_mapping_csv_file = 'Sample_HS_Standards_Mapping.csv', volume = 2, scale = 3.5, exp_id = "Sample Experiment - HS")
+
+```
+
+
+The output of this function is a list object that contains two things:
+* The resulting data in a data frame
+* A plot of the standard curve used to make DNA concentration measurements
 

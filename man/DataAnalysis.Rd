@@ -4,9 +4,9 @@
 \alias{DataAnalysis}
 \title{Main function call to generate microbial density data from DNA extraction protocol}
 \usage{
-DataAnalysis(plate_reader_file, mapping_csv_file, exp_id,
+DataAnalysis(plate_reader_file, mapping_csv_file, exp_id = "EXP_ID",
   standards_plate_reader_file = plate_reader_file,
-  standards_mapping_csv_file = mapping_csv_file, volume = 2, scale = 7,
+  standards_mapping_csv_file = mapping_csv_file, volume = 2, scale = 3.5,
   shiny = FALSE, type_plate = NULL, type_standards_plate = NULL,
   print = FALSE, ...)
 }
@@ -23,7 +23,7 @@ DataAnalysis(plate_reader_file, mapping_csv_file, exp_id,
 
 \item{volume}{OPTIONAL: The volume (in uL) used to quantify DNA with Qubit (Default = 2)}
 
-\item{scale}{OPTIONAL: The scale factor used in the DNA isolation protocol (Defualt = 7, which corresponds to taking 100uL of supernatant from the 700uL of the DIB added). For phenol extraction, use scale = 1.}
+\item{scale}{OPTIONAL: The scale factor used in the DNA isolation protocol (Defualt = 3.5, which corresponds to taking 200uL of supernatant from the 700uL of the DIB added). For phenol extraction, use scale = 1.}
 
 \item{shiny}{OPTIONAL: necessary for running with shiny app interface since filenames are not the same.}
 
