@@ -13,9 +13,9 @@ vignette: >
 ---
 
 ```{r Dependencies, include=FALSE}
-library(pander)
-library(BiomassWorkflow)
-library(magrittr)
+require(pander)
+require(BiomassWorkflow)
+require(magrittr)
 ```
 ## Getting Set Up
 
@@ -51,9 +51,9 @@ This will create several files in your directory:
 
 * ***Sample_BR_Standards_Mapping.csv*** - A mapping file for the Broad-Range standards, which were included on the same plate as the High-Sensitivity standards, but a different plate than the samples.
 * ***Sample_HS_Standards_Mapping.csv*** - A mapping file for the High-Sensitivity standards, which were included on the same plate as the Broad-Range standards, but a different plate than the samples.
-* ***Sample_Mapping*** - A mapping file that can be used directly in the DataAnalysis function (see below)
+* ***Sample_Mapping.csv*** - A mapping file that can be used directly in the DataAnalysis function (see below)
 * ***Sample_SampleInfo.csv*** - A file containing information about the samples, that can be used to make a mapping file from scratch
-* ***Sample_Tube_Order_Scanned*** - A file of tube locations from the Cho Lab Matrix 96-barcode scanner
+* ***Sample_Tube_Order_Scanned.csv*** - A file of tube locations from the Cho Lab Matrix 96-barcode scanner
 * ***Sample_BR_raw.xls*** - An excel file from the plate-reader for the sample plate run with the Broad-Range Dye
 * ***Sample_HS_raw.xls*** - An excel file from the plate-reader for the sample plate run with the High-Sensitivity Dye
 * ***Sample_Standards_raw.xls*** - An excel file from the plate-reader for the standards plate (contains both BR and HS standards)
@@ -133,6 +133,7 @@ The main function to perform analyses will be `DataAnalysis()`. It reads in your
 * Metagenomics prep - Identifies if there is enough DNA for performing metagenomic shotgun sequencing, and computes the DNA and water volumes necessary to acheive a dilution to 20 ng/uL (into 25 uL -- 20 uL is needed for the metagenomics library prep protocol).
 
 The function has several arguments that will be used often:
+
 * *plate_reader_file* - this is a string of the file path of the output file from the plate reader for the plate containing your samples. This function accepts excel files or .csv files, but if using an excel file, it will only read the first sheet of the file, so it is best to separate out measurements of several plates across multiple files.
 * *mapping_csv_file* - this is a string of the file path of the mapping file for your samples (that conforms with the requirements outlined above).
 * *standards_plate_reader_file* - a string of the file path of the output file from the plate reader that contains the standard curve. This defaults to the same file as your samples, but often times, standards can be on a different plate, so here is were you can include that information.
@@ -144,7 +145,7 @@ There are some other arguments, but they are less important, and you can see the
 
 In our case, we have our samples all on one plate, and our standards on another plate. We have also measured our samples with both the Broad-Range and High-Sensitivity dyes, (and measured the standards on the same plate). Let's make some data:
 
-```{r data_analysis}
+```{r data_analysis, echo=TRUE, message=FALSE, warning=FALSE}
 
 BR_data <- DataAnalysis(plate_reader_file = 'Sample_BR_raw.xlsx', mapping_csv_file = 'Sample_Mapping.csv', standards_plate_reader_file = 'Sample_Standards_raw.xlsx', standards_mapping_csv_file = 'Sample_BR_Standards_Mapping.csv', volume = 2, scale = 3.5, exp_id = "Sample Experiment - BR")
 
@@ -154,6 +155,37 @@ HS_data <- DataAnalysis(plate_reader_file = 'Sample_HS_raw.xlsx', mapping_csv_fi
 
 
 The output of this function is a list object that contains two things:
-* The resulting data in a data frame
-* A plot of the standard curve used to make DNA concentration measurements
 
+* The resulting data in a data frame (accessed using `$data`)
+* A plot of the standard curve used to make DNA concentration measurements (accessed using `$standards_plot`)
+
+First, we can take a peek at both of our standard curves:
+
+```{r standard_curves, message=FALSE, warning=FALSE}
+
+cowplot::plot_grid(HS_data$standards_plot, BR_data$standards_plot, nrow = 1)
+
+
+```
+
+Not bad!
+
+Since we used both qubit dyes to measure the DNA concentration, we can get a 'consensus' measurement by combining the measurements (using the HS for low concentrations, BR for high concentrations, and the average of the two for values that lie in the range of both)
+
+```{r qubit_merge, message=FALSE, warning=FALSE}
+
+consensus_data <- qubit_merger(HS_data$data, BR_data$data)
+
+```
+
+
+Now, we can be pretty confident that we've measured our DNA as accurately as possible, so lets take a look at our data, and play around with it visually. The `plotter()` function launches a shiny app that allows you to toggle the x and y variables of a plot interactively, and is a good way of giving your data a first pass.
+
+```{r data_vis, eval=FALSE, warning=FALSE, include=TRUE}
+
+View(consensus_data)
+
+plotter(consensus_data)
+
+```
+That's it! Now you can go from raw data to microbial density data in no time. The next steps will be getting samples ready for sequencing (16S or metagenomics), which will be handled in another tutorial.
