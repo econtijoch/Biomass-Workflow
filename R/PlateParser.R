@@ -14,7 +14,7 @@ PlateParser <- function(plate_reader_file, shiny = FALSE, type = NULL, size = 96
 		if (type == 'csv') {
 			file <- readr::read_csv(plate_reader_file)
 		} else if (type == 'excel') {
-			file <- readxl::read_excel(plate_reader_file)
+			file <- readxl::read_excel(plate_reader_file, col_names = F)
 		}
 	} else {
 		# Import file, handle xls(x) vs csv files
@@ -22,15 +22,15 @@ PlateParser <- function(plate_reader_file, shiny = FALSE, type = NULL, size = 96
 		  file <- readr::read_csv(plate_reader_file)
     	} else if (utils::tail(unlist(strsplit(plate_reader_file, "\\.")), n = 1) == "xls" | utils::tail(unlist(strsplit(plate_reader_file, 
         	"\\.")), n = 1) == "xlsx") {
-    	  file <- readxl::read_excel(plate_reader_file)
+    	  file <- readxl::read_excel(plate_reader_file, col_names = F)
     	}
     
 	}
     
     # Find start point
-    for (i in 0:ncol(file)) {
-        if (length((grep("Results", file[, i]))) > 0) {
-            title_row <- grep("Results", file[, i])
+    for (i in 1:(ncol(file) - 1)) {
+        if (length(grep("Results", as.data.frame(file[,i])[[1]])) > 0) {
+            title_row <- grep("Results", as.data.frame(file[,i])[[1]])
             if (size == 96) {
               end_row <- title_row + 11
             } else {
