@@ -118,7 +118,7 @@ We can save this as our mapping file and make additional changes manually (often
 
 ```{r save_mapping}
 
-readr::write_csv(mapping_file, 'Sample_Mapping.csv')
+readr::write_csv(mapping_file, 'Sample_Mapping_made_in_R.csv')
 
 ```
 
