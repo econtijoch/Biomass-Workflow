@@ -12,7 +12,7 @@ sample_file_maker <- function(directory = getwd()) {
   utils::data('HS_standard_mapping')
   utils::data('Empty_weights')
   utils::data('Full_weights')
-  utils::data('mapping')
+  utils::data('mapping_file')
   utils::data('Sample_info')
   utils::data('Standards_raw')
   utils::data('Tube_order')
@@ -34,7 +34,7 @@ sample_file_maker <- function(directory = getwd()) {
   # Make .csv files
   readr::write_csv(BR_standard_mapping, path = paste(directory, "Sample_BR_Standards_Mapping.csv", sep = "/"))
   readr::write_csv(HS_standard_mapping, path = paste(directory, "Sample_HS_Standards_Mapping.csv", sep = "/"))
-  readr::write_csv(mapping, path = paste(directory, "Sample_Mapping.csv", sep = "/"))
+  readr::write_csv(mapping_file, path = paste(directory, "Sample_Mapping.csv", sep = "/"))
   readr::write_csv(Sample_info, path = paste(directory, "Sample_SampleInfo.csv", sep = "/"))
   readr::write_csv(Tube_order, path = paste(directory, "Sample_Tube_Order_Scanned.csv", sep = "/"))
   
