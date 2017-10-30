@@ -254,8 +254,12 @@ geom_mean_sem <- function(mapping = NULL,
       groupOnX = groupOnX,
       dodge.width = dodge.width
     )
+	
+	#if (is.null(point.shape)) {
+	#	point.shape.default = 20
+	#}
 
-  if (is.null(point.color)) {
+  if (is.null(point.color) & point.shape == 20) {
     point_layer <- ggplot2::layer(
       data = data,
       mapping = mapping,
@@ -265,7 +269,36 @@ geom_mean_sem <- function(mapping = NULL,
       show.legend = show.legend,
       inherit.aes = inherit.aes,
       params = list(size = point.size,
-                    shape = point.shape,
+                    stroke = point.stroke,
+                    na.rm = na.rm,
+                    ...)
+    )
+  } else if (point.shape == 20) {
+    point_layer <- ggplot2::layer(
+      data = data,
+      mapping = mapping,
+      stat = 'identity',
+      geom = ggplot2::GeomPoint,
+      position = quasi,
+      show.legend = show.legend,
+      inherit.aes = inherit.aes,
+      params = list(size = point.size,
+                    stroke = point.stroke,
+                    na.rm = na.rm,
+					color = point.color,
+                    ...)
+    )
+  } else if (is.null(point.color)) {
+    point_layer <- ggplot2::layer(
+      data = data,
+      mapping = mapping,
+      stat = 'identity',
+      geom = ggplot2::GeomPoint,
+      position = quasi,
+      show.legend = show.legend,
+      inherit.aes = inherit.aes,
+      params = list(size = point.size,
+		  			shape = point.shape,
                     stroke = point.stroke,
                     na.rm = na.rm,
                     ...)
