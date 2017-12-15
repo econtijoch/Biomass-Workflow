@@ -29,9 +29,9 @@ qubit_merger <- function(hs_data, br_data) {
     X16S_possible = (dna_concentration > 1.5 & dna_concentration > 0),
     vol_needed_for_PCR = 400/dna_concentration,
     water_volume_up_PCR = 200 - vol_needed_for_PCR,
-    metagenomics_possible =  dna_concentration > 25,
-    vol_needed_for_metagenomics = 625/dna_concentration,
-    water_volume_up_metagenomics = 25 - vol_needed_for_metagenomics
+    metagenomics_possible =  dna_concentration >= 20,
+    vol_needed_for_metagenomics = 600/dna_concentration,
+    water_volume_up_metagenomics = 30 - vol_needed_for_metagenomics
   )
   return(output_data)
 }
