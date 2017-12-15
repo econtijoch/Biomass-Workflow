@@ -1,0 +1,9 @@
+ReaderWell,Type,BarcodeID,SampleMass
+A01,Standard,Std1,0
+A02,Standard,Std2,5
+A03,Standard,Std3,10
+A04,Standard,Std4,20
+A05,Standard,Std5,40
+A06,Standard,Std6,60
+A07,Standard,Std7,80
+A08,Standard,Std8,100

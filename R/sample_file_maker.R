@@ -16,6 +16,7 @@ sample_file_maker <- function(directory = getwd()) {
   utils::data('Sample_info')
   utils::data('Standards_raw')
   utils::data('Tube_order')
+  utils::data('Other_Data')
   
   
   starting <- getwd()
@@ -37,6 +38,7 @@ sample_file_maker <- function(directory = getwd()) {
   readr::write_csv(mapping_file, path = paste(directory, "Sample_Mapping.csv", sep = "/"))
   readr::write_csv(Sample_info, path = paste(directory, "Sample_SampleInfo.csv", sep = "/"))
   readr::write_csv(Tube_order, path = paste(directory, "Sample_Tube_Order_Scanned.csv", sep = "/"))
+  readr::write_csv(Other_Data, path = paste(directory, "Sample_Other_Data.csv", sep = "/"))
   
   # Make .txt files
   readr::write_delim(Empty_weights, path = paste(directory, "Sample_Empty_Weights.txt", sep = "/"), delim = '\t', col_names = F)

@@ -59,18 +59,18 @@ robot_prep_metagenomics <- function(dataset, n_barcode_plates) {
     
     for (i in 1:nrow(robot_table)) {
         if (robot_table[i, "dna_concentration"] <= 20) {
-            robot_table[i, "vol_needed_for_metagenomics"] <- 25
+            robot_table[i, "vol_needed_for_metagenomics"] <- 30
             robot_table[i, "water_volume_up_metagenomics"] <- 0
-            robot_table[i, "Warning"] <- "[WARNING] DNA concentration <= 20 ng/uL. Transferred 25 uL of sample + 0 uL Water/EB"
+            robot_table[i, "Warning"] <- "[WARNING] DNA concentration <= 20 ng/uL. Transferred 30 uL of sample + 0 uL Water/EB"
             robot_table[i, "FinalConc"] <- robot_table[i, "StartingConc"]
-        } else if (robot_table[i, "dna_concentration"] >= 500) {
+        } else if (robot_table[i, "dna_concentration"] >= 600) {
             robot_table[i, "vol_needed_for_metagenomics"] <- 1
-            robot_table[i, "water_volume_up_metagenomics"] <- 24
-            robot_table[i, "Warning"] <- "[WARNING] DNA concentration >= 500 ng/uL. Transferred 1 uL of sample + 24 uL Water/EB"
-            robot_table[i, "FinalConc"] <- (robot_table[i, "StartingConc"])/25
+            robot_table[i, "water_volume_up_metagenomics"] <- 29
+            robot_table[i, "Warning"] <- "[WARNING] DNA concentration >= 500 ng/uL. Transferred 1 uL of sample + 29 uL Water/EB"
+            robot_table[i, "FinalConc"] <- (robot_table[i, "StartingConc"])/30
         } else {
             robot_table[i, "Warning"] <- "20 ng/uL < DNA concentration < 500 ng/uL. Diluted Sample to be at 20 ng/uL."
-            robot_table[i, "FinalConc"] <- (robot_table[i, "StartingConc"] * robot_table[i, "vol_needed_for_metagenomics"])/(25)
+            robot_table[i, "FinalConc"] <- (robot_table[i, "StartingConc"] * robot_table[i, "vol_needed_for_metagenomics"])/(30)
         }
         
         robot_table$DNASourceWell <- unlist(lapply(robot_table$SampleWell, well_parser))

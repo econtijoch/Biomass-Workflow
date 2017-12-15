@@ -103,3 +103,15 @@
 #' @source Generated in lab for the purposes of analyzing this type of data
 #' @name Tube_order
 "Tube_order"
+
+
+
+#' Fully processed other data (.csv)
+#'
+#' A dataset that contains processed data from othere experiments
+#'
+#' @docType data
+#' @format Table with many samples
+#' @source Generated in lab for the purposes of analyzing this type of data
+#' @name Other_Data
+"Other_Data"
