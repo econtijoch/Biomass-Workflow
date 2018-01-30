@@ -32,6 +32,7 @@ EJC_theme_tilted <-
         hjust = 1,
         color = "black"
       ),
+      axis.ticks.length = ggplot2::unit(2, "pt"),
       axis.text.y = ggplot2::element_text(size = 18, color = "black"),
       axis.title.y = ggplot2::element_text(size = 18, hjust = 0.5, angle = 90),
 
@@ -88,6 +89,7 @@ EJC_theme <-
       axis.text.x = ggplot2::element_text(size = 18, color = "black"),
       axis.text.y = ggplot2::element_text(size = 18, color = "black"),
       axis.title.y = ggplot2::element_text(size = 18, hjust = 0.5, angle = 90),
+      axis.ticks.length = ggplot2::unit(2, "pt"),
 
       panel.grid.major.y = ggplot2::element_blank(),
       panel.grid.minor.y = ggplot2::element_blank(),
