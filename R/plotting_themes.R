@@ -104,7 +104,9 @@ EJC_theme <-
       legend.title = ggplot2::element_text(size = 14, face = "bold"),
       strip.background = ggplot2::element_rect(colour = NA, fill = NA),
       strip.placement = 'outside',
-      strip.text = ggplot2::element_text(face = 'bold')
+      strip.text = ggplot2::element_text(face = 'bold'),
+					 strip.switch.pad.grid = unit(0.1, "cm"),
+				     strip.switch.pad.wrap = unit(0.1, "cm")
     )
     ret
   }
@@ -137,7 +139,9 @@ paper_theme <-
                      legend.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
                      strip.background = ggplot2::element_rect(colour = NA, fill = NA),
                      strip.placement = 'outside',
-                     strip.text = ggplot2::element_text(face = 'bold')
+                     strip.text = ggplot2::element_text(face = 'bold'),
+					 strip.switch.pad.grid = unit(0.1, "cm"),
+				     strip.switch.pad.wrap = unit(0.1, "cm")
       )
     return(ret)
   }
@@ -171,7 +175,9 @@ paper_theme_tilted <-
                      legend.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
                      strip.background = ggplot2::element_rect(colour = NA, fill = NA),
                      strip.placement = 'outside',
-                     strip.text = ggplot2::element_text(face = 'bold')
+                     strip.text = ggplot2::element_text(face = 'bold'),
+					 strip.switch.pad.grid = unit(0.1, "cm"),
+				     strip.switch.pad.wrap = unit(0.1, "cm")
       )
     return(ret)
   }
@@ -205,7 +211,9 @@ slides_theme <-
                      legend.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
                      strip.background = ggplot2::element_rect(colour = NA, fill = NA),
                      strip.placement = 'outside',
-                     strip.text = ggplot2::element_text(face = 'bold')
+                     strip.text = ggplot2::element_text(face = 'bold'),
+					 strip.switch.pad.grid = unit(0.1, "cm"),
+				     strip.switch.pad.wrap = unit(0.1, "cm")
       )
     return(ret)
   }
@@ -239,7 +247,9 @@ slides_theme_tilted <-
                      legend.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
                      strip.background = ggplot2::element_rect(colour = NA, fill = NA),
                      strip.placement = 'outside',
-                     strip.text = ggplot2::element_text(face = 'bold')
+                     strip.text = ggplot2::element_text(face = 'bold'),
+					 strip.switch.pad.grid = unit(0.1, "cm"),
+				     strip.switch.pad.wrap = unit(0.1, "cm")
       )
     return(ret)
   }
