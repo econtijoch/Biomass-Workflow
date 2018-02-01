@@ -5,56 +5,75 @@
 #' @export
 #'
 
-EJC_theme_tilted <-
-  function(base_size = 12,
-           base_family = "sans",
-           bgcolor = "default") {
-    bgcol <- NULL
-    ret <- ggplot2::theme(
-      rect = ggplot2::element_rect(
-        fill = bgcol,
-        linetype = 0,
-        colour = NA
-      ),
-      text = ggplot2::element_text(
-        size = base_size,
-        family = base_family,
-        color = "black"
-      ),
-
-      title = ggplot2::element_text(size = 24, hjust = 0.5),
-
-      axis.title.x = ggplot2::element_text(size = 18, hjust = 0.5),
-      axis.line = ggplot2::element_line(color = "black"),
-      axis.text.x = ggplot2::element_text(
-        size = 18,
-        angle = 45,
-        hjust = 1,
-        color = "black"
-      ),
-      axis.text.y = ggplot2::element_text(size = 18, color = "black"),
-      axis.title.y = ggplot2::element_text(size = 18, hjust = 0.5),
-
-      panel.grid.major.y = ggplot2::element_blank(),
-      panel.grid.minor.y = ggplot2::element_blank(),
-      panel.grid.major.x = ggplot2::element_blank(),
-      panel.grid.minor.x = ggplot2::element_blank(),
-      panel.border = ggplot2::element_blank(),
-      panel.background = ggplot2::element_rect(fill = NA),
-	  panel.spacing =ggplot2::unit(6, "pt"),
-
-      legend.position = "bottom",
-      legend.background = ggplot2::element_rect(fill = "gray95", colour = "black"),
-      legend.key = ggplot2::element_rect(fill = NA),
-      legend.key.size = ggplot2::unit(0.5, "cm"),
-      legend.title.align = 0.5,
-      legend.title = ggplot2::element_text(size = 14, face = "bold"),
-      strip.background = ggplot2::element_rect(colour = NA, fill = NA),
-      strip.placement = 'outside',
-      strip.text = ggplot2::element_text(face = 'bold')
-    )
-    ret
-  }
+EJC_theme_tilted <-function(base_size =  12,
+                         base_family = 'sans',
+                         base_line_size = 1,
+                         base_rect_size = 0) {
+  half_line <- base_size / 2
+  ggplot2::theme(
+    line = ggplot2::element_line(colour = "black", size = base_line_size, linetype = 1, lineend = "butt"),
+    rect = ggplot2::element_rect(fill = NA, colour = NA, size = base_rect_size, linetype = 0),
+    text = ggplot2::element_text(family = base_family, face = "plain", colour = "black", size = base_size, lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0, unit = 'pt'), debug = FALSE),
+    axis.line = ggplot2::element_line(color = 'black'),
+    axis.line.x = NULL,
+    axis.line.y = NULL,
+    axis.text = ggplot2::element_text(size = rel(0.8), colour = "black"),
+    axis.text.x = ggplot2::element_text(margin = ggplot2::margin(t = 0.8 * half_line / 2), vjust = 1, hjust = 1, angle = 45),
+    axis.text.x.top = ggplot2::element_text(margin = ggplot2::margin(b = 0.8 * half_line / 2), vjust = 0),
+    axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = 0.8 * half_line / 2), hjust = 1),
+    axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = 0.8 * half_line / 2), hjust = 0),
+    axis.ticks = ggplot2::element_line(colour = "black"),
+    axis.ticks.length = unit(half_line / 2, "pt"),
+    axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = half_line), vjust = 1),
+    axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(b = half_line), vjust = 0),
+    axis.title.y = ggplot2::element_text(angle = 90, margin = ggplot2::margin(r = half_line), vjust = 1),
+    axis.title.y.right = ggplot2::element_text(angle = -90, margin = ggplot2::margin(l = half_line), vjust = 0),
+    legend.background = ggplot2::element_rect(colour = 'black', linetype = 'solid', size = 0.5),
+    legend.spacing = ggplot2::unit(0.4, "cm"),
+    legend.spacing.x = NULL,
+    legend.spacing.y = NULL,
+    legend.margin = ggplot2::margin(0.2, 0.2, 0.2, 0.2, "cm"),
+    legend.key = ggplot2::element_rect(fill = NA, colour = NA),
+    legend.key.size = ggplot2::unit(0.25, "cm"),
+    legend.key.height = NULL,
+    legend.key.width = NULL,
+    legend.text = ggplot2::element_text(size = rel(0.8)),
+    legend.text.align = NULL,
+    legend.title = ggplot2::element_text(hjust = 0),
+    legend.title.align = 0.5,
+    legend.position = "right",
+    legend.direction = NULL,
+    legend.justification = "center",
+    legend.box = NULL,
+    legend.box.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
+    legend.box.background = ggplot2::element_blank(),
+    legend.box.spacing = ggplot2::unit(0.4, "cm"),
+    panel.background = ggplot2::element_rect(fill = NA, colour = NA),
+    panel.border = ggplot2::element_blank(),
+    panel.grid = ggplot2::element_blank(),
+    panel.grid.minor = ggplot2::element_blank(),
+    panel.spacing = ggplot2::unit(half_line, "pt"),
+    panel.spacing.x = NULL,
+    panel.spacing.y = NULL,
+    panel.ontop = FALSE,
+    strip.background = ggplot2::element_rect(colour = NA, fill = NA),
+    strip.text = ggplot2::element_text(face = 'bold', colour = "black", size = ggplot2::rel(0.8), margin = ggplot2::margin(half_line, half_line, half_line, half_line)),
+    strip.text.x = NULL,
+    strip.text.y = ggplot2::element_text(angle = -90),
+    strip.placement = "outside",
+    strip.placement.x = NULL,
+    strip.placement.y = NULL,
+    strip.switch.pad.grid = ggplot2::unit(0.1, "cm"),
+    strip.switch.pad.wrap = ggplot2::unit(0.1, "cm"),
+    plot.background = ggplot2::element_blank(), #element_rect(colour = "white")
+    plot.title = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 1, margin = ggplot2::margin(b = half_line * 1.2)),
+    plot.subtitle = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 0, vjust = 1, margin = ggplot2::margin(b = half_line * 0.9)),
+    plot.caption = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 1, vjust = 1, margin = ggplot2::margin(t = half_line * 0.9)),
+    plot.tag = ggplot2::element_text(size = ggplot2::rel(1.3), hjust = 0.5, vjust = 0.5),
+    plot.tag.position = "topleft",
+    plot.margin = ggplot2::margin(half_line, half_line, half_line, half_line),
+    complete = TRUE)
+}
 
 #' Theme function for plotting
 #' @param base_size  base text size
@@ -63,193 +82,236 @@ EJC_theme_tilted <-
 #' @export
 #'
 
-EJC_theme <-
-  function(base_size = 12,
-           base_family = "sans",
-           bgcolor = "default") {
-    bgcol <- NULL
-    ret <- ggplot2::theme(
-      rect = ggplot2::element_rect(
-        fill = bgcol,
-        linetype = 0,
-        colour = NA
-      ),
-      text = ggplot2::element_text(
-        size = base_size,
-        family = base_family,
-        color = "black"
-      ),
-
-      title = ggplot2::element_text(size = 24, hjust = 0.5),
-
-      axis.title.x = ggplot2::element_text(size = 18, hjust = 0.5),
-      axis.line = ggplot2::element_line(color = "black"),
-      axis.text.x = ggplot2::element_text(size = 18, color = "black"),
-      axis.text.y = ggplot2::element_text(size = 18, color = "black"),
-      axis.title.y = ggplot2::element_text(size = 18, hjust = 0.5),
-
-      panel.grid.major.y = ggplot2::element_blank(),
-      panel.grid.minor.y = ggplot2::element_blank(),
-      panel.grid.major.x = ggplot2::element_blank(),
-      panel.grid.minor.x = ggplot2::element_blank(),
-      panel.border = ggplot2::element_blank(),
-      panel.background = ggplot2::element_rect(fill = NA),
-	  panel.spacing =ggplot2::unit(6, "pt"),
-
-      legend.position = "bottom",
-      legend.background = ggplot2::element_rect(fill = "gray95", colour = "black"),
-      legend.key = ggplot2::element_rect(fill = NA),
-      legend.key.size = ggplot2::unit(0.5, "cm"),
-      legend.title.align = 0.5,
-      legend.title = ggplot2::element_text(size = 14, face = "bold"),
-      strip.background = ggplot2::element_rect(colour = NA, fill = NA),
-      strip.placement = 'outside',
-      strip.text = ggplot2::element_text(face = 'bold'),
-					 strip.switch.pad.grid = unit(0.1, "cm"),
-				     strip.switch.pad.wrap = unit(0.1, "cm")
-    )
-    ret
-  }
+EJC_theme <- function(base_size =  12,
+                         base_family = 'sans',
+                         base_line_size = 1,
+                         base_rect_size = 0) {
+  half_line <- base_size / 2
+  ggplot2::theme(
+    line = ggplot2::element_line(colour = "black", size = base_line_size, linetype = 1, lineend = "butt"),
+    rect = ggplot2::element_rect(fill = NA, colour = NA, size = base_rect_size, linetype = 0),
+    text = ggplot2::element_text(family = base_family, face = "plain", colour = "black", size = base_size, lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0, unit = 'pt'), debug = FALSE),
+    axis.line = ggplot2::element_line(color = 'black'),
+    axis.line.x = NULL,
+    axis.line.y = NULL,
+    axis.text = ggplot2::element_text(size = rel(0.8), colour = "black"),
+    axis.text.x = ggplot2::element_text(margin = ggplot2::margin(t = 0.8 * half_line / 2), vjust = 1),
+    axis.text.x.top = ggplot2::element_text(margin = ggplot2::margin(b = 0.8 * half_line / 2), vjust = 0),
+    axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = 0.8 * half_line / 2), hjust = 1),
+    axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = 0.8 * half_line / 2), hjust = 0),
+    axis.ticks = ggplot2::element_line(colour = "black"),
+    axis.ticks.length = unit(half_line / 2, "pt"),
+    axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = half_line), vjust = 1),
+    axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(b = half_line), vjust = 0),
+    axis.title.y = ggplot2::element_text(angle = 90, margin = ggplot2::margin(r = half_line), vjust = 1),
+    axis.title.y.right = ggplot2::element_text(angle = -90, margin = ggplot2::margin(l = half_line), vjust = 0),
+    legend.background = ggplot2::element_rect(colour = 'black', linetype = 'solid', size = 0.5),
+    legend.spacing = ggplot2::unit(0.4, "cm"),
+    legend.spacing.x = NULL,
+    legend.spacing.y = NULL,
+    legend.margin = ggplot2::margin(0.2, 0.2, 0.2, 0.2, "cm"),
+    legend.key = ggplot2::element_rect(fill = NA, colour = NA),
+    legend.key.size = ggplot2::unit(0.25, "cm"),
+    legend.key.height = NULL,
+    legend.key.width = NULL,
+    legend.text = ggplot2::element_text(size = rel(0.8)),
+    legend.text.align = NULL,
+    legend.title = ggplot2::element_text(hjust = 0),
+    legend.title.align = 0.5,
+    legend.position = "right",
+    legend.direction = NULL,
+    legend.justification = "center",
+    legend.box = NULL,
+    legend.box.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
+    legend.box.background = ggplot2::element_blank(),
+    legend.box.spacing = ggplot2::unit(0.4, "cm"),
+    panel.background = ggplot2::element_rect(fill = NA, colour = NA),
+    panel.border = ggplot2::element_blank(),
+    panel.grid = ggplot2::element_blank(),
+    panel.grid.minor = ggplot2::element_blank(),
+    panel.spacing = ggplot2::unit(half_line, "pt"),
+    panel.spacing.x = NULL,
+    panel.spacing.y = NULL,
+    panel.ontop = FALSE,
+    strip.background = ggplot2::element_rect(colour = NA, fill = NA),
+    strip.text = ggplot2::element_text(face = 'bold', colour = "black", size = ggplot2::rel(0.8), margin = ggplot2::margin(half_line, half_line, half_line, half_line)),
+    strip.text.x = NULL,
+    strip.text.y = ggplot2::element_text(angle = -90),
+    strip.placement = "outside",
+    strip.placement.x = NULL,
+    strip.placement.y = NULL,
+    strip.switch.pad.grid = ggplot2::unit(0.1, "cm"),
+    strip.switch.pad.wrap = ggplot2::unit(0.1, "cm"),
+    plot.background = ggplot2::element_blank(), #element_rect(colour = "white")
+    plot.title = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 1, margin = ggplot2::margin(b = half_line * 1.2)),
+    plot.subtitle = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 0, vjust = 1, margin = ggplot2::margin(b = half_line * 0.9)),
+    plot.caption = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 1, vjust = 1, margin = ggplot2::margin(t = half_line * 0.9)),
+    plot.tag = ggplot2::element_text(size = ggplot2::rel(1.3), hjust = 0.5, vjust = 0.5),
+    plot.tag.position = "topleft",
+    plot.margin = ggplot2::margin(half_line, half_line, half_line, half_line),
+    complete = TRUE)
+}
 
 #' Theme function for plotting paper-ready figures
 #' @export
 #'
 
-paper_theme <-
-  function() {
-    ret <-
-      ggplot2::theme(complete = TRUE,
-                     validate = TRUE,
-                     rect = ggplot2::element_rect(fill = NA, linetype = 0, colour = NA, size = 0),
-                     text = ggplot2::element_text(size = 6, family = "ArialMT", color = "black", face = 'plain', hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1, margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"), debug = FALSE),
-                     title = ggplot2::element_text(size = 7, hjust = 0.5, face = 'bold'),
-                     axis.line = ggplot2::element_line(color = "black"),
-                     axis.ticks = ggplot2::element_line(color = "black"),
-                     axis.text = ggplot2::element_text(size = 6),
-                     panel.grid.major.y = ggplot2::element_blank(),
-                     panel.grid.minor.y = ggplot2::element_blank(),
-                     panel.grid.major.x = ggplot2::element_blank(),
-                     panel.grid.minor.x = ggplot2::element_blank(),
-                     panel.border = ggplot2::element_blank(),
-					 panel.spacing =ggplot2::unit(6, "pt"),
-                     legend.position = "right",
-                     legend.background = ggplot2::element_rect(colour = "black", linetype = 'solid', size = 0.5),
-                     legend.key.size = ggplot2::unit(0.25, "cm"),
-                     legend.title.align = 0.5,
-                     legend.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
-                     strip.background = ggplot2::element_rect(colour = NA, fill = NA),
-                     strip.placement = 'outside',
-                     strip.text = ggplot2::element_text(face = 'bold'),
-					 strip.switch.pad.grid = unit(0.1, "cm"),
-				     strip.switch.pad.wrap = unit(0.1, "cm")
-      )
-    return(ret)
-  }
+paper_theme <- function(base_size =  6,
+                         base_family = 'ArialMT',
+                         base_line_size = 0.5,
+                         base_rect_size = 0) {
+  half_line <- base_size / 2
+  ggplot2::theme(
+    line = ggplot2::element_line(colour = "black", size = base_line_size, linetype = 1, lineend = "butt"),
+    rect = ggplot2::element_rect(fill = NA, colour = NA, size = base_rect_size, linetype = 0),
+    text = ggplot2::element_text(family = base_family, face = "plain", colour = "black", size = base_size, lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0, unit = 'pt'), debug = FALSE),
+    axis.line = ggplot2::element_line(color = 'black'),
+    axis.line.x = NULL,
+    axis.line.y = NULL,
+    axis.text = ggplot2::element_text(size = rel(0.8), colour = "black"),
+    axis.text.x = ggplot2::element_text(margin = ggplot2::margin(t = 0.8 * half_line / 2), vjust = 1),
+    axis.text.x.top = ggplot2::element_text(margin = ggplot2::margin(b = 0.8 * half_line / 2), vjust = 0),
+    axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = 0.8 * half_line / 2), hjust = 1),
+    axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = 0.8 * half_line / 2), hjust = 0),
+    axis.ticks = ggplot2::element_line(colour = "black"),
+    axis.ticks.length = unit(half_line / 2, "pt"),
+    axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = half_line), vjust = 1),
+    axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(b = half_line), vjust = 0),
+    axis.title.y = ggplot2::element_text(angle = 90, margin = ggplot2::margin(r = half_line), vjust = 1),
+    axis.title.y.right = ggplot2::element_text(angle = -90, margin = ggplot2::margin(l = half_line), vjust = 0),
+    legend.background = ggplot2::element_rect(colour = 'black', linetype = 'solid', size = 0.5),
+    legend.spacing = ggplot2::unit(0.4, "cm"),
+    legend.spacing.x = NULL,
+    legend.spacing.y = NULL,
+    legend.margin = ggplot2::margin(0.2, 0.2, 0.2, 0.2, "cm"),
+    legend.key = ggplot2::element_rect(fill = NA, colour = NA),
+    legend.key.size = ggplot2::unit(0.25, "cm"),
+    legend.key.height = NULL,
+    legend.key.width = NULL,
+    legend.text = ggplot2::element_text(size = rel(0.8)),
+    legend.text.align = NULL,
+    legend.title = ggplot2::element_text(hjust = 0),
+    legend.title.align = 0.5,
+    legend.position = "right",
+    legend.direction = NULL,
+    legend.justification = "center",
+    legend.box = NULL,
+    legend.box.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
+    legend.box.background = ggplot2::element_blank(),
+    legend.box.spacing = ggplot2::unit(0.4, "cm"),
+    panel.background = ggplot2::element_rect(fill = NA, colour = NA),
+    panel.border = ggplot2::element_blank(),
+    panel.grid = ggplot2::element_blank(),
+    panel.grid.minor = ggplot2::element_blank(),
+    panel.spacing = ggplot2::unit(half_line, "pt"),
+    panel.spacing.x = NULL,
+    panel.spacing.y = NULL,
+    panel.ontop = FALSE,
+    strip.background = ggplot2::element_rect(colour = NA, fill = NA),
+    strip.text = ggplot2::element_text(face = 'bold', colour = "black", size = ggplot2::rel(0.8), margin = ggplot2::margin(half_line, half_line, half_line, half_line)),
+    strip.text.x = NULL,
+    strip.text.y = ggplot2::element_text(angle = -90),
+    strip.placement = "outside",
+    strip.placement.x = NULL,
+    strip.placement.y = NULL,
+    strip.switch.pad.grid = ggplot2::unit(0.1, "cm"),
+    strip.switch.pad.wrap = ggplot2::unit(0.1, "cm"),
+    plot.background = ggplot2::element_blank(), #element_rect(colour = "white")
+    plot.title = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 1, margin = ggplot2::margin(b = half_line * 1.2)),
+    plot.subtitle = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 0, vjust = 1, margin = ggplot2::margin(b = half_line * 0.9)),
+    plot.caption = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 1, vjust = 1, margin = ggplot2::margin(t = half_line * 0.9)),
+    plot.tag = ggplot2::element_text(size = ggplot2::rel(1.3), hjust = 0.5, vjust = 0.5),
+    plot.tag.position = "topleft",
+    plot.margin = ggplot2::margin(half_line, half_line, half_line, half_line),
+    complete = TRUE)
+}
+
 
 #' Theme function for plotting paper-ready figures with tilted axes
 #' @export
 #'
 
-paper_theme_tilted <-
-  function() {
-    ret <-
-      ggplot2::theme(complete = TRUE,
-                     validate = TRUE,
-                     rect = ggplot2::element_blank(),
-                     text = ggplot2::element_text(size = 6, family = "ArialMT", color = "black", face = 'plain', hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1, margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"), debug = FALSE),
-                     title = ggplot2::element_text(size = 7, hjust = 0.5, face = 'bold'),
-                     axis.line = ggplot2::element_line(color = "black"),
-                     axis.ticks = ggplot2::element_line(color = "black"),
-                     axis.text = ggplot2::element_text(size = 6),
-                     axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, vjust = 1),
-                     panel.grid.major.y = ggplot2::element_blank(),
-                     panel.grid.minor.y = ggplot2::element_blank(),
-                     panel.grid.major.x = ggplot2::element_blank(),
-                     panel.grid.minor.x = ggplot2::element_blank(),
-                     panel.border = ggplot2::element_blank(),
-					 panel.spacing =ggplot2::unit(6, "pt"),
-                     legend.position = "right",
-                     legend.background = ggplot2::element_rect(colour = "black", linetype = 'solid', size = 0.5),
-                     legend.key.size = ggplot2::unit(0.25, "cm"),
-                     legend.title.align = 0.5,
-                     legend.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
-                     strip.background = ggplot2::element_rect(colour = NA, fill = NA),
-                     strip.placement = 'outside',
-                     strip.text = ggplot2::element_text(face = 'bold'),
-					 strip.switch.pad.grid = unit(0.1, "cm"),
-				     strip.switch.pad.wrap = unit(0.1, "cm")
-      )
-    return(ret)
-  }
-
+paper_theme_tilted <-function(base_size =  6,
+                         base_family = 'ArialMT',
+                         base_line_size = 1,
+                         base_rect_size = 0) {
+  half_line <- base_size / 2
+  ggplot2::theme(
+    line = ggplot2::element_line(colour = "black", size = 0.5, linetype = 1, lineend = "butt"),
+    rect = ggplot2::element_rect(fill = NA, colour = NA, size = base_rect_size, linetype = 0),
+    text = ggplot2::element_text(family = base_family, face = "plain", colour = "black", size = base_size, lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0, unit = 'pt'), debug = FALSE),
+    axis.line = ggplot2::element_line(color = 'black'),
+    axis.line.x = NULL,
+    axis.line.y = NULL,
+    axis.text = ggplot2::element_text(size = rel(0.8), colour = "black"),
+    axis.text.x = ggplot2::element_text(margin = ggplot2::margin(t = 0.8 * half_line / 2), vjust = 1, angle = 45, hjust = 1),
+    axis.text.x.top = ggplot2::element_text(margin = ggplot2::margin(b = 0.8 * half_line / 2), vjust = 0),
+    axis.text.y = ggplot2::element_text(margin = ggplot2::margin(r = 0.8 * half_line / 2), hjust = 1),
+    axis.text.y.right = ggplot2::element_text(margin = ggplot2::margin(l = 0.8 * half_line / 2), hjust = 0),
+    axis.ticks = ggplot2::element_line(colour = "black"),
+    axis.ticks.length = unit(half_line / 2, "pt"),
+    axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = half_line), vjust = 1),
+    axis.title.x.top = ggplot2::element_text(margin = ggplot2::margin(b = half_line), vjust = 0),
+    axis.title.y = ggplot2::element_text(angle = 90, margin = ggplot2::margin(r = half_line), vjust = 1),
+    axis.title.y.right = ggplot2::element_text(angle = -90, margin = ggplot2::margin(l = half_line), vjust = 0),
+    legend.background = ggplot2::element_rect(colour = 'black', linetype = 'solid', size = 0.5),
+    legend.spacing = ggplot2::unit(0.4, "cm"),
+    legend.spacing.x = NULL,
+    legend.spacing.y = NULL,
+    legend.margin = ggplot2::margin(0.2, 0.2, 0.2, 0.2, "cm"),
+    legend.key = ggplot2::element_rect(fill = "grey95", colour = "white"),
+    legend.key.size = ggplot2::unit(0.25, "cm"),
+    legend.key.height = NULL,
+    legend.key.width = NULL,
+    legend.text = ggplot2::element_text(size = rel(0.8)),
+    legend.text.align = NULL,
+    legend.title = ggplot2::element_text(hjust = 0),
+    legend.title.align = 0.5,
+    legend.position = "right",
+    legend.direction = NULL,
+    legend.justification = "center",
+    legend.box = NULL,
+    legend.box.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
+    legend.box.background = ggplot2::element_blank(),
+    legend.box.spacing = ggplot2::unit(0.4, "cm"),
+    panel.background = ggplot2::element_rect(fill = NA, colour = NA),
+    panel.border = ggplot2::element_blank(),
+    panel.grid = ggplot2::element_blank(),
+    panel.grid.minor = ggplot2::element_blank(),
+    panel.spacing = ggplot2::unit(half_line, "pt"),
+    panel.spacing.x = NULL,
+    panel.spacing.y = NULL,
+    panel.ontop = FALSE,
+    strip.background = ggplot2::element_rect(colour = NA, fill = NA),
+    strip.text = ggplot2::element_text(face = 'bold', colour = "black", size = ggplot2::rel(0.8), margin = ggplot2::margin(half_line, half_line, half_line, half_line)),
+    strip.text.x = NULL,
+    strip.text.y = ggplot2::element_text(angle = -90),
+    strip.placement = "outside",
+    strip.placement.x = NULL,
+    strip.placement.y = NULL,
+    strip.switch.pad.grid = ggplot2::unit(0.1, "cm"),
+    strip.switch.pad.wrap = ggplot2::unit(0.1, "cm"),
+    plot.background = ggplot2::element_blank(), #element_rect(colour = "white")
+    plot.title = ggplot2::element_text(size = ggplot2::rel(1.2), hjust = 0, vjust = 1, margin = ggplot2::margin(b = half_line * 1.2)),
+    plot.subtitle = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 0, vjust = 1, margin = ggplot2::margin(b = half_line * 0.9)),
+    plot.caption = ggplot2::element_text(size = ggplot2::rel(0.9), hjust = 1, vjust = 1, margin = ggplot2::margin(t = half_line * 0.9)),
+    plot.tag = ggplot2::element_text(size = ggplot2::rel(1.3), hjust = 0.5, vjust = 0.5),
+    plot.tag.position = "topleft",
+    plot.margin = ggplot2::margin(half_line, half_line, half_line, half_line),
+    complete = TRUE)
+}
 
 #' Theme function for plotting presentation-ready figures
 #' @export
 #'
 
-slides_theme <-
-  function() {
-    ret <-
-      ggplot2::theme(complete = TRUE,
-                     validate = TRUE,
-                     rect = ggplot2::element_blank(),
-                     text = ggplot2::element_text(size = 24, family = "ArialMT", color = "black", face = 'plain', hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1, margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"), debug = FALSE),
-                     title = ggplot2::element_text(size = 28, hjust = 0.5, face = 'bold'),
-                     axis.line = ggplot2::element_line(color = "black", size = 2),
-                     axis.ticks = ggplot2::element_line(color = "black", size = 2),
-                     axis.text = ggplot2::element_text(size = 24),
-                     panel.grid.major.y = ggplot2::element_blank(),
-                     panel.grid.minor.y = ggplot2::element_blank(),
-                     panel.grid.major.x = ggplot2::element_blank(),
-                     panel.grid.minor.x = ggplot2::element_blank(),
-                     panel.border = ggplot2::element_blank(),
-					 panel.spacing =ggplot2::unit(6, "pt"),
-                     legend.position = "right",
-                     legend.background = ggplot2::element_rect(colour = "black", linetype = 'solid', size = 0.5),
-                     legend.key.size = ggplot2::unit(0.25, "cm"),
-                     legend.title.align = 0.5,
-                     legend.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
-                     strip.background = ggplot2::element_rect(colour = NA, fill = NA),
-                     strip.placement = 'outside',
-                     strip.text = ggplot2::element_text(face = 'bold'),
-					 strip.switch.pad.grid = unit(0.1, "cm"),
-				     strip.switch.pad.wrap = unit(0.1, "cm")
-      )
-    return(ret)
-  }
-
+slides_theme <- function() {
+	paper_theme(base_size = 24, base_line_size = 1.5)
+}
 #' Theme function for plotting presentation-ready figures with tilted axes
 #' @export
 #'
 
-slides_theme_tilted <-
-  function() {
-    ret <-
-      ggplot2::theme(complete = TRUE,
-                     validate = TRUE,
-                     rect = ggplot2::element_blank(),
-                     text = ggplot2::element_text(size = 24, family = "ArialMT", color = "black", face = 'plain', hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1, margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"), debug = FALSE),
-                     title = ggplot2::element_text(size = 28, hjust = 0.5, face = 'bold'),
-                     axis.line = ggplot2::element_line(color = "black", size = 2),
-                     axis.ticks = ggplot2::element_line(color = "black", size = 2),
-                     axis.text = ggplot2::element_text(size = 24),
-                     axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, vjust = 1),
-                     panel.grid.major.y = ggplot2::element_blank(),
-                     panel.grid.minor.y = ggplot2::element_blank(),
-                     panel.grid.major.x = ggplot2::element_blank(),
-                     panel.grid.minor.x = ggplot2::element_blank(),
-                     panel.border = ggplot2::element_blank(),
-					 panel.spacing =ggplot2::unit(6, "pt"),
-                     legend.position = "right",
-                     legend.background = ggplot2::element_rect(colour = "black", linetype = 'solid', size = 1),
-                     legend.key.size = ggplot2::unit(0.5, "cm"),
-                     legend.title.align = 0.5,
-                     legend.margin = ggplot2::margin(1.5, 1.5, 1.5, 1.5),
-                     strip.background = ggplot2::element_rect(colour = NA, fill = NA),
-                     strip.placement = 'outside',
-                     strip.text = ggplot2::element_text(face = 'bold'),
-					 strip.switch.pad.grid = unit(0.1, "cm"),
-				     strip.switch.pad.wrap = unit(0.1, "cm")
-      )
-    return(ret)
-  }
+slides_theme_tilted <- function() {
+	paper_theme_tilted(base_size = 24, base_line_size = 1.5)
+}
