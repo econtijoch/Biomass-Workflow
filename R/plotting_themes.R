@@ -226,7 +226,6 @@ paper_theme <- function(base_size =  6,
     complete = TRUE)
 }
 
-
 #' Theme function for plotting paper-ready figures with tilted axes
 #' @export
 #'
@@ -308,6 +307,7 @@ paper_theme_tilted <-function(base_size =  6,
 slides_theme <- function() {
 	paper_theme(base_size = 24, base_line_size = 1.5)
 }
+
 #' Theme function for plotting presentation-ready figures with tilted axes
 #' @export
 #'
